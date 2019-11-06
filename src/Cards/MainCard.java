@@ -1,5 +1,6 @@
 package Cards;
 
+import Errors.CardError;
 import Errors.RentError;
 import Errors.SubCardError;
 import KAL2000.Rent;
@@ -8,8 +9,16 @@ import util.Category;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Main Card,
+ * Class that allow to create one type of subCard.
+ * THis Sub Card are the master. She's allowed to create SlaveCard
+ */
 public class MainCard extends SubCard implements SlaveCardManager{
 
+    /**
+     * Slave Cards managed by MainCard
+     */
     private ArrayList<SlaveCard> slaveCards;
 
 
@@ -18,6 +27,10 @@ public class MainCard extends SubCard implements SlaveCardManager{
         this.slaveCards = new ArrayList<>();
     }
 
+    /**
+     * Create a SlaveCard and add it into slaveCards
+     * @return the created slaveCard
+     */
     @Override
     public SlaveCard createSlaveCard(){
         SlaveCard slaveCard = new SlaveCard(this.slaveCards.size(), this.creditCard);
@@ -25,6 +38,14 @@ public class MainCard extends SubCard implements SlaveCardManager{
         return slaveCard;
     }
 
+    /**
+     * Remove a SlaveCard
+     * Ensure :
+     *  - Can not delete sub Card with on going rent
+     *  - Pay negative credit
+     * @param slaveCard The SlaveCard to remove
+     * @throws SubCardError Can not delete sub Card with on going rent
+     */
     @Override
     public void deleteSlaveCard(SlaveCard slaveCard) throws SubCardError {
 
@@ -44,6 +65,15 @@ public class MainCard extends SubCard implements SlaveCardManager{
         this.slaveCards.remove(slaveCard);
     }
 
+
+    /**
+     * Remove the MainCard
+     * Ensure :
+     *  - Can not delete sub Card with on going rent
+     *  - Pay negative credit
+     *  - remove all SlaveCard by calling deleteSlaveCard()
+     * @throws SubCardError Can not delete sub card with on going rent
+     */
     public void destroyMe() throws SubCardError {
         if(this.onGoingRent.size() > 0) throw new SubCardError(
                 "Can not delete sub card with on going rent");
@@ -54,8 +84,15 @@ public class MainCard extends SubCard implements SlaveCardManager{
 
     }
 
+    /**
+     * Allow MainCard to return a dvd
+     *
+     * @param rent the rent to return
+     * @throws RentError Error when return
+     * @throws CardError Can't add on going rent in history
+     */
     @Override
-    protected void returnDvd(Rent rent) throws RentError {
+    protected void returnDvd(Rent rent) throws RentError, CardError {
        /*if(rent.isRentFinish()) throw new RentError(
                 "Error when return the " + rent.getDvd().getFilm().getTitre() +
                             "ask to the boss");*/
