@@ -1,6 +1,5 @@
 package KAL2000;
 
-import Cards.Card;
 import Errors.RentError;
 
 import java.util.Date;
@@ -32,5 +31,9 @@ public class Rent {
 
     public Date getDateRent() {
         return dateRent;
+    }
+
+    public DvD getDvd() {
+        return dvd;
     }
 }
