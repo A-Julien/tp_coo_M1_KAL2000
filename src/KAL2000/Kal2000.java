@@ -1,6 +1,7 @@
 package KAL2000;
 
 import Cards.*;
+import Errors.CardError;
 import Errors.PasswordError;
 
 import java.io.*;
@@ -34,25 +35,26 @@ public class Kal2000 {
         throw new PasswordError("Incorrect Password");
     }
 
-    public Card getCard(Client client, int idCard){
-        /*if(card instanceof CreditCard){
-            for(Client client:clients){
-                if(client.getCreditCard().getNumCreditCard() == ((CreditCard)card).getNumCreditCard())
-                    return client;
+    public Card getCard(Client client, int idCard) throws CardError {
+
+        for (CreditCard credicard : client.getCreditCards()) {
+            if(idCard == credicard.getNumCreditCard())
+                return credicard;
+        }
+
+        for (MainCard mainCard : client.getMainCards()) {
+            if(idCard == mainCard.getId())
+                return mainCard;
+        }
+
+        for (MainCard mainCard : client.getMainCards()) {
+            for (SlaveCard slaveCard : mainCard.getSlaveCards()) {
+                if(idCard == slaveCard.getId())
+                    return slaveCard;
             }
         }
 
-        if(card instanceof SubCard){
-            if(card instanceof SlaveCard){
-                for(Client client:clients){
-                    for(SubCard mainCard:client.getSubCard()){
-                        if(mainCard.getId() == ((SlaveCard)card).getIdMainCard()) return client;
-                    }
-                }
-            }
-        }
-        throw new Exception("404 not fount");*/
-        return null;
+        throw new CardError("card not found");
     }
 
     public void boot() throws InterruptedException, ClassNotFoundException, IOException {

@@ -1,5 +1,6 @@
 package KAL2000;
 import Cards.CreditCard;
+import Cards.MainCard;
 import Cards.SubCard;
 import Util.Human;
 
@@ -9,7 +10,7 @@ public class Client {
 	private Human person;
 	private boolean sub;
 	private String password;
-	private ArrayList<SubCard> subCards;
+	private ArrayList<MainCard> mainCards;
 	private ArrayList<CreditCard> creditCards;
 	
 	
@@ -19,7 +20,7 @@ public class Client {
 		this.password = password;
 		this.creditCards = new ArrayList<>();
 		this.creditCards.add(creditCard);
-		this.subCards = new ArrayList<>();
+		this.mainCards = new ArrayList<>();
 	}
 	
 	public boolean isSub() {
@@ -42,7 +43,7 @@ public class Client {
 		return this.creditCards;
 	}
 	
-	public ArrayList<SubCard> getSubCards() {
-		return this.subCards;
+	public ArrayList<MainCard> getMainCards() {
+		return this.mainCards;
 	}
 }

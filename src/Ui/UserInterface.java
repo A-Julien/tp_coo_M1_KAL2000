@@ -2,6 +2,7 @@ package Ui;
 
 import Cards.Card;
 import Cards.CreditCard;
+import Errors.CardError;
 import Errors.PasswordError;
 import KAL2000.Client;
 import KAL2000.Kal2000;
@@ -32,13 +33,13 @@ public class UserInterface implements Logging{
     }
 
     @Override
-    public boolean connect(int id, String password, Kal2000 kal2000){
+    public boolean connect(int idCard, String password, Kal2000 kal2000){
         try {
             this.connectedClient = kal2000.getClient(password);
-        } catch (PasswordError e) {
+            this.connectedCard = kal2000.getCard(this.connectedClient, idCard);
+        } catch (PasswordError | CardError e) {
             return false;
         }
-        
         return true;
     }
 
@@ -49,5 +50,8 @@ public class UserInterface implements Logging{
     }
 
     @Override
-    public void disconnect(){}
+    public void disconnect(){
+        this.connectedClient = null;
+        this.connectedCard = null;
+    }
 }
