@@ -25,7 +25,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     /**
      * Maximum rent that can do a SubCard in same time
      */
-    protected final static int nbMaxRent = 3;
+    protected int nbMaxRent;
 
     /**
      * minimum amount fot refuel credit
@@ -58,6 +58,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
         this.credit = 0;
         this.creditCard = creditCard;
         this.id = id;
+        this.nbMaxRent = 3;
     }
 
     public int getId() {
@@ -173,5 +174,10 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     @Override
     public void pay(float money){
         this.credit -=money;
+    }
+
+    @Override
+    public void setMaximumRent(int maxRent){
+        this.nbMaxRent = maxRent;
     }
 }

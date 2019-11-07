@@ -8,21 +8,23 @@ import Util.Category;
 import Util.Human;
 
 public class Film implements Serializable {
-	private String titre;
+    private int id;
+	private String title;
 	private String synopsis;
 	private ArrayList<Human> actors;
 	private Human realisator;
 	private Category category;
 
-	public Film(String s, ArrayList<Human> h, Human r, Category c) {
-		this.synopsis = s;
-		this.actors = h;
-		this.realisator = r;
-		this.category = c;
+	public Film(int filmId, String synopsis, ArrayList<Human> actors, Human realisator, Category category) {
+		this.synopsis = synopsis;
+		this.actors = actors;
+		this.realisator = realisator;
+		this.category = category;
+		this.id = filmId;
 	}
 
-	public String getTitre() {
-		return this.titre;
+	public String getTitle() {
+		return this.title;
 	}
 
 	public String getSynopsis() {
@@ -40,5 +42,9 @@ public class Film implements Serializable {
 	public Category getCategory() {
 		return this.category;
 	}
+
+    public int getId() {
+        return id;
+    }
 }
 

@@ -15,4 +15,5 @@ public interface RentManager {
     void checkRentDate() throws RentException;
     void returnDvd(Rent rent) throws RentException, CardException, SubCardException;
     ArrayList<Rent> getOnGoingRent();
+    void setMaximumRent(int maximumRent);
 }

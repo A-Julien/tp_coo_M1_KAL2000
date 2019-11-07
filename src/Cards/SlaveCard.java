@@ -81,7 +81,7 @@ public class SlaveCard extends SubCard implements Serializable {
     @Override
     public void returnDvd(Rent rent) throws CardException, SubCardException, RentException {
         /*if(rent.isRentFinish()) throw new RentException(
-                "Error when return the " + rent.getDvd().getFilm().getTitre() +
+                "Error when return the " + rent.getDvd().getFilm().getTitle() +
                             "ask to the boss");*/
         rent.setDateReturn();
         this.onGoingRent.remove(rent);

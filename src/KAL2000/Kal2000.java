@@ -3,23 +3,27 @@ package KAL2000;
 import Cards.*;
 import Exception.CardException;
 import Exception.PasswordException;
+import Exception.FilmException;
+import Exception.RentException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class Kal2000 {
-
+    private final int maxDvd = 100;
 
     private ArrayList<Film> films6beerVideo;
     private ArrayList<Client> clients;
-    private ArrayList<DvD> dvds;
+    private HashMap<DvD, Integer> dvds;
 
 
     public Kal2000() {
         this.films6beerVideo = new ArrayList<>();
         this.clients = new ArrayList<>();
-        this.dvds = new ArrayList<>();
+        this.dvds = new HashMap<>();
     }
 
     public void addCLient(Client client){
@@ -60,7 +64,7 @@ public class Kal2000 {
     public void boot() throws InterruptedException, ClassNotFoundException, IOException {
         System.out.print("Booting ");
 
-		ObjectInputStream inputStream = null;
+		ObjectInputStream inputStream;
 		try {
 			inputStream = new ObjectInputStream(new FileInputStream(
 					"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveVideos"));
@@ -74,7 +78,7 @@ public class Kal2000 {
 
 			inputStream = new ObjectInputStream(new FileInputStream(
 					"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveDvDs"));
-			this.dvds = (ArrayList<DvD>) inputStream.readObject();
+			this.dvds = (HashMap<DvD, Integer>) inputStream.readObject();
 			inputStream.close();
 		} catch (IOException e) {
 			System.out.println("no save files found");
@@ -116,4 +120,55 @@ public class Kal2000 {
         System.out.println("GoodBye");
     }
 
+    public void giveDvd(DvD dvd) throws RentException {
+        if(this.dvds.get(dvd) == 0) throw new RentException("Dvd not available");
+        this.dvds.replace(dvd, this.dvds.get(dvd) - 1);
+    }
+
+    public HashMap<DvD, Integer> getDvds() {
+        return this.dvds;
+    }
+
+    public void addDvd(DvD dvd, int nbDvd) {
+        this.ensureDvdCapacity();
+        this.dvds.put(dvd,nbDvd);
+    }
+
+    public void addDvd(DvD dvd){
+        this.ensureDvdCapacity();
+        for (DvD d : this.dvds.keySet()){
+            if(d.getId() == dvd.getId()){
+                this.dvds.replace(dvd,this.dvds.get(dvd)+1);
+                return;
+            }
+        }
+        throw new NoSuchElementException("dvd not found in kal2000");
+    }
+
+    public void removeDvd(DvD dvd){
+         this.dvds.remove(dvd);
+    }
+
+    public boolean removeFilm(Film film){
+        return this.films6beerVideo.remove(film);
+    }
+
+    public ArrayList<Film> getFilms6beerVideo() {
+        return films6beerVideo;
+    }
+
+    public void addFilm(Film film) throws FilmException {
+        for(Film f : this.films6beerVideo) if(f.getId() == film.getId()) this.films6beerVideo.add(film);
+        throw new FilmException("film with id " + film.getId() + " already exist");
+    }
+
+    private void ensureDvdCapacity(){
+        if(this.getNbDvd() >= 100) throw new RuntimeException("Can not add dvd, capacity exceed");
+    }
+
+    private int getNbDvd(){
+        int nbdvd = 0;
+        for(int nb : this.dvds.values()) nbdvd +=nb;
+        return nbdvd;
+    }
 }

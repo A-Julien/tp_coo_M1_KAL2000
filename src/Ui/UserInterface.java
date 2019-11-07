@@ -11,6 +11,10 @@ public class UserInterface implements Loggable {
     private Card connectedCard;
     private Client connectedClient;
 
+    public UserInterface() {
+        this.connectedCard = null;
+        this.connectedClient = null;
+    }
 
     public Card getConnectedCard() {
         return connectedCard;
@@ -30,6 +34,10 @@ public class UserInterface implements Loggable {
         Client client = new Client(firstName, lastName, password,creditCard);
         kal2000.addCLient(client);
         this.connect(client, creditCard);
+    }
+
+    public boolean isClientConnected(){
+        return this.connectedClient != null;
     }
 
     @Override
@@ -54,4 +62,6 @@ public class UserInterface implements Loggable {
         this.connectedClient = null;
         this.connectedCard = null;
     }
+
+
 }

@@ -35,7 +35,7 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
     @Override
     public Rent getRent(DvD dvd) throws RentException {
         for(Rent rent : this.onGoingRent) if(rent.getDvd() == dvd) return rent;
-        throw new RentException("No rent found for the dvd : " + dvd.getFilm().getTitre());
+        throw new RentException("No rent found for the dvd : " + dvd.getFilm().getTitle());
     }
 
     /**
@@ -77,10 +77,7 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      * @throws RentException
      */
     protected float calcPrice(Rent rent, int priceRent) throws RentException {
-        long dayOfRent = 0;
-        dayOfRent = Card.getDateDiff(rent.getDateRent(), rent.getDateReturn(), TimeUnit.DAYS);
-
-        return dayOfRent * priceRent;
+        return  Card.getDateDiff(rent.getDateRent(), rent.getDateReturn(), TimeUnit.DAYS) * priceRent;
     }
 
     /**
@@ -119,5 +116,7 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
 
+    @Override
+    public abstract void setMaximumRent(int maximumRent);
 
 }

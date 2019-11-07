@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * Credit Card, allow to generate anonymous rent
  */
 public class CreditCard extends Card implements Serializable {
-    private final static int nbMaxRent = 1;
+    private int nbMaxRent;
     private final static int priceRent = 5;
     private final static int maxRentDay = 30;
     private final static int timeRentOver = 30;
@@ -22,6 +22,7 @@ public class CreditCard extends Card implements Serializable {
 
     public CreditCard(int numCreditCard) {
         this.numCreditCard = numCreditCard;
+        this.nbMaxRent = 1;
     }
 
     public int getNumCreditCard() {
@@ -62,11 +63,16 @@ public class CreditCard extends Card implements Serializable {
     @Override
     public void returnDvd(Rent rent) throws RentException, CardException {
         /*if(rent.isRentFinish()) throw new RentException(
-                "Error when return the " + rent.getDvd().getFilm().getTitre() +
+                "Error when return the " + rent.getDvd().getFilm().getTitle() +
                             "ask to the boss");*/
         this.onGoingRent.remove(rent);
         this.addHistory(rent);
         this.pay(this.calcPrice(rent, priceRent));
+    }
+
+    @Override
+    public void setMaximumRent(int maximumRent) {
+        this.nbMaxRent = maximumRent;
     }
 
     /**
