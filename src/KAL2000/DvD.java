@@ -13,8 +13,11 @@ public class DvD implements Serializable {
 		this.state = state;
 		this.id = idDvd;
 	}
-	
-	public Film getFilm() {
+
+    public void setState(State state) {
+        this.state = state;
+    }
+    public Film getFilm() {
 		return this.film;
 	}
 	

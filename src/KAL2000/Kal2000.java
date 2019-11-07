@@ -58,7 +58,7 @@ public class Kal2000 {
             }
         }
 
-        throw new CardException("card not found");
+        throw new NoSuchElementException("card not found");
     }
 
     public void boot() throws InterruptedException, ClassNotFoundException, IOException {
