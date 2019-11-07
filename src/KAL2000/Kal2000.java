@@ -1,10 +1,12 @@
 package KAL2000;
 
 import Cards.*;
+import Errors.ClientError;
 import sun.rmi.rmic.Main;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Kal2000 {
 
@@ -24,12 +26,17 @@ public class Kal2000 {
         this.clients.add(client);
     }
 
-    public rentDvd(){
 
+    public Client getClient(String password) throws Exception {
+
+        for(Client client : this.clients)
+            if(Objects.equals(client.getPassword(), password)) return client;
+
+        throw new ClientError("Incorrect Password");
     }
 
-    public Client getClient(Card card) throws Exception {
-        if(card instanceof CreditCard){
+    public Card getCard(Client client, int idCard){
+        /*if(card instanceof CreditCard){
             for(Client client:clients){
                 if(client.getCreditCard().getNumCreditCard() == ((CreditCard)card).getNumCreditCard())
                     return client;
@@ -45,7 +52,8 @@ public class Kal2000 {
                 }
             }
         }
-        throw new Exception("404 not fount");
+        throw new Exception("404 not fount");*/
+        return null;
     }
 
     public void boot() throws InterruptedException, ClassNotFoundException, IOException {

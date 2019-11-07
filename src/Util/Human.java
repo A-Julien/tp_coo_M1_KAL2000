@@ -5,9 +5,9 @@ public class Human {
 	private String lastName;
 	
 	
-	public Human(String fn,String ln) {
-		this.firstName=fn;
-		this.lastName=ln;
+	public Human(String firstName,String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 	
 	public String getFirstName() {

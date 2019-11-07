@@ -1,4 +1,8 @@
 package KAL2000;
+import Cards.CreditCard;
+import Cards.SubCard;
+import Util.Human;
+
 import java.util.ArrayList;
 
 public class Client {
@@ -9,13 +13,13 @@ public class Client {
 	private ArrayList<CreditCard> creditCards;
 	
 	
-	public Client(String fn, String ln,String p,CreditCard c) {
-		this.person=new Human(fn,ln);
-		this.sub=false;
+	public Client(String fristName, String lastName,String p,CreditCard c) {
+		this.person = new Human(fristName,lastName);
+		this.sub = false;
 		this.password = p;
-		this.creditCards= new ArrayList();
+		this.creditCards = new ArrayList<>();
 		this.creditCards.add(c);
-		this.subCards=new ArrayList();
+		this.subCards = new ArrayList<>();
 	}
 	
 	public boolean isSub() {
@@ -38,7 +42,7 @@ public class Client {
 		return this.creditCards;
 	}
 	
-	public ArrayList<SubCards> getSubCards() {
+	public ArrayList<SubCard> getSubCards() {
 		return this.subCards;
 	}
 }

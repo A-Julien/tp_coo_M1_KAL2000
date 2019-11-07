@@ -1,18 +1,12 @@
 package Ui;
 
-import Cards.Card;
-import KAL2000.Client;
+import KAL2000.Kal2000;
 
-public class Logging {
-    private Card connectedCard;
-    private Client connectedClient;
+public interface Logging {
 
+    void connect(int id, Kal2000 kal2000);
 
-    public Card getConnectedCard() {
-        return connectedCard;
-    }
+    void connect(int id, String password, Kal2000 kal2000);
 
-    public Client getConnectedClient() {
-        return connectedClient;
-    }
+    void disconnect();
 }
