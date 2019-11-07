@@ -13,12 +13,12 @@ public class Client {
 	private ArrayList<CreditCard> creditCards;
 	
 	
-	public Client(String fristName, String lastName,String p,CreditCard c) {
+	public Client(String fristName, String lastName,String password,CreditCard creditCard) {
 		this.person = new Human(fristName,lastName);
 		this.sub = false;
-		this.password = p;
+		this.password = password;
 		this.creditCards = new ArrayList<>();
-		this.creditCards.add(c);
+		this.creditCards.add(creditCard);
 		this.subCards = new ArrayList<>();
 	}
 	

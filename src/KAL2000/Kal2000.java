@@ -1,8 +1,7 @@
 package KAL2000;
 
 import Cards.*;
-import Errors.ClientError;
-import sun.rmi.rmic.Main;
+import Errors.PasswordError;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,12 +26,12 @@ public class Kal2000 {
     }
 
 
-    public Client getClient(String password) throws Exception {
+    public Client getClient(String password) throws PasswordError {
 
         for(Client client : this.clients)
             if(Objects.equals(client.getPassword(), password)) return client;
 
-        throw new ClientError("Incorrect Password");
+        throw new PasswordError("Incorrect Password");
     }
 
     public Card getCard(Client client, int idCard){
