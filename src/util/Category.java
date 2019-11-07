@@ -1,4 +1,4 @@
-package util;
+package Util;
 
 public enum Category {
 	Action,

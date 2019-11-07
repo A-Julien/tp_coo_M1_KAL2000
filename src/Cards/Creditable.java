@@ -29,4 +29,14 @@ public interface Creditable {
      */
     void addCredit(float credit);
 
+    /**
+     * Set credit to 0
+     */
+    void initCredit();
+
+    /**
+     *
+     * @param money
+     */
+    void pay(float money);
 }

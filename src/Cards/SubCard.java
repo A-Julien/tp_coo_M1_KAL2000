@@ -6,18 +6,21 @@ import KAL2000.DvD;
 import KAL2000.Rent;
 import KAL2000.RentDiscountable;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Define SubCard
  */
-public abstract class SubCard extends Card implements Creditable{
+public abstract class SubCard extends Card implements Creditable, Serializable {
     private float credit;
     protected CreditCard creditCard;
-    private final static int priceRent = 4;
+    protected final static int priceRent = 4;
 
-    /**
-     * if -1 no regularization are in course
-     */
-    private int periodRegularization;
+    private int id;
+
+
 
     /**
      * Maximum rent that can do a SubCard in same time
@@ -44,28 +47,30 @@ public abstract class SubCard extends Card implements Creditable{
      */
     private final static int discountCount = 20;
 
+    private final static int maxRentDay = 30;
 
-    public SubCard(CreditCard creditCard) {
+    private final static int timeRentOver = 30;
+
+
+
+    public SubCard(CreditCard creditCard, int id) {
         super();
         this.credit = 0;
         this.creditCard = creditCard;
-        this.periodRegularization = -1;
+        this.id = id;
     }
 
-    /**
-     * @return periodRegularization
-     */
-    public int getPeriodRegularization() {
-        return periodRegularization;
+    public int getId() {
+        return id;
     }
 
-
-    /**
-     *
-     * @param periodRegularization
-     */
-    public void setPeriodRegularization(int periodRegularization) {
-        this.periodRegularization = periodRegularization;
+    public void checkRentDate() throws RentError {
+        for (Rent rent: this.onGoingRent) {
+            if(getDateDiff(new Date(), rent.getDateRent(), TimeUnit.DAYS) > maxRentDay){
+                this.payRent(rent);
+                this.pay(timeRentOver);
+            }
+        }
     }
 
     /**
@@ -158,5 +163,15 @@ public abstract class SubCard extends Card implements Creditable{
     @Override
     public void addCredit(float credit){
         this.credit += credit;
+    }
+
+    @Override
+    public void initCredit(){
+        this.credit = 0;
+    }
+
+    @Override
+    public void pay(float money){
+        this.credit -=money;
     }
 }

@@ -2,7 +2,7 @@ package Cards;
 
 import Errors.SubCardError;
 import KAL2000.Rent;
-import util.Category;
+import Util.Category;
 
 import java.util.ArrayList;
 import java.util.HashMap;

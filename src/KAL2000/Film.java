@@ -1,4 +1,5 @@
 
+<<<<<<< Updated upstream
 package KAL2000;
 import java.util.ArrayList;
 import util.Human;
@@ -36,3 +37,9 @@ public class Film {
 		return this.category;
 	}
 }
+=======
+import java.io.Serializable;
+
+public class Film implements Serializable {
+}
+>>>>>>> Stashed changes

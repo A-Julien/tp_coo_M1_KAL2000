@@ -2,9 +2,11 @@ package Cards;
 
 import Errors.CardError;
 import Errors.RentError;
+import Errors.SubCardError;
 import KAL2000.DvD;
 import KAL2000.Rent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Class Card which implement basic function of card in KALL2000
  */
-public abstract class Card {
+public abstract class Card implements Serializable {
     /**
      * history of old rent
      */
@@ -22,6 +24,7 @@ public abstract class Card {
      * rent on going
      */
     protected ArrayList<Rent> onGoingRent;
+
 
     public Card() {
         this.history = new ArrayList<>();
@@ -79,11 +82,17 @@ public abstract class Card {
     protected abstract Rent rentDvd(DvD dvd) throws RentError;
 
     /**
+     *
+     * @throws RentError
+     */
+    public abstract void checkRentDate() throws RentError;
+
+    /**
      * Allow to return a dvd in KAL2000
      * @param rent the rent to return
      * @throws RentError
      */
-    protected abstract void returnDvd(Rent rent) throws RentError, CardError;
+    protected abstract void returnDvd(Rent rent) throws RentError, CardError, SubCardError;
 
     /**
      * Get a diff between two dates
