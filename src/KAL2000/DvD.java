@@ -1,9 +1,9 @@
 package KAL2000;
-import java.util.ArrayList;
-import util.State;
+import Util.State;
 
-<<<<<<< Updated upstream
-public class DvD {
+import java.io.Serializable;
+
+public class DvD implements Serializable {
 	private Film film;
 	private State state;
 	
@@ -21,10 +21,4 @@ public class DvD {
 		return this.state;
 	}
 }
-=======
-import java.io.Serializable;
 
-public class DvD implements Serializable {
-
-}
->>>>>>> Stashed changes

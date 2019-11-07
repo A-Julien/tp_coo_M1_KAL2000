@@ -5,14 +5,28 @@ import Errors.RentError;
 import KAL2000.DvD;
 import KAL2000.Rent;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Credit Card, allow to generate anonymous rent
  */
-public class CreditCard extends Card {
+public class CreditCard extends Card implements Serializable {
     private final static int nbMaxRent = 1;
     private final static int priceRent = 5;
+    private final static int maxRentDay = 30;
+    private final static int timeRentOver = 30;
+
+    private int numCreditCard;
+
+    public CreditCard(int numCreditCard) {
+        this.numCreditCard = numCreditCard;
+    }
+
+    public int getNumCreditCard() {
+        return numCreditCard;
+    }
 
     /**
      * Anonymous rent a dvd
@@ -28,6 +42,15 @@ public class CreditCard extends Card {
         Rent rent = new Rent(dvd);
         this.onGoingRent.add(rent);
         return rent;
+    }
+
+    @Override
+    public void checkRentDate() throws RentError {
+        for (Rent rent: this.onGoingRent) {
+            if(getDateDiff(new Date(), rent.getDateRent(), TimeUnit.DAYS) > maxRentDay){
+                this.pay(this.calcPrice(rent, priceRent) + timeRentOver);
+            }
+        }
     }
 
     /**
