@@ -1,7 +1,7 @@
 package Cards;
 
-import Errors.CardError;
-import Errors.RentError;
+import Exception.CardException;
+import Exception.RentException;
 import KAL2000.DvD;
 import KAL2000.Rent;
 
@@ -32,11 +32,11 @@ public class CreditCard extends Card implements Serializable {
      * Anonymous rent a dvd
      * @param dvd the dvd to rent
      * @return the generate rent
-     * @throws RentError
+     * @throws RentException
      */
     @Override
-    protected Rent rentDvd(DvD dvd) throws RentError {
-        if(this.onGoingRent.size() > nbMaxRent) throw new RentError(
+    public Rent rentDvd(DvD dvd) throws RentException {
+        if(this.onGoingRent.size() > nbMaxRent) throw new RentException(
                 "Can't rent more than "+ nbMaxRent +" dvd in same time");
 
         Rent rent = new Rent(dvd);
@@ -45,7 +45,7 @@ public class CreditCard extends Card implements Serializable {
     }
 
     @Override
-    public void checkRentDate() throws RentError {
+    public void checkRentDate() throws RentException {
         for (Rent rent: this.onGoingRent) {
             if(getDateDiff(new Date(), rent.getDateRent(), TimeUnit.DAYS) > maxRentDay){
                 this.pay(this.calcPrice(rent, priceRent) + timeRentOver);
@@ -56,12 +56,12 @@ public class CreditCard extends Card implements Serializable {
     /**
      * Return the dvd, and pay
      * @param rent the rent to return
-     * @throws RentError
-     * @throws CardError
+     * @throws RentException
+     * @throws CardException
      */
     @Override
-    protected void returnDvd(Rent rent) throws RentError, CardError {
-        /*if(rent.isRentFinish()) throw new RentError(
+    public void returnDvd(Rent rent) throws RentException, CardException {
+        /*if(rent.isRentFinish()) throw new RentException(
                 "Error when return the " + rent.getDvd().getFilm().getTitre() +
                             "ask to the boss");*/
         this.onGoingRent.remove(rent);

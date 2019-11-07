@@ -1,8 +1,8 @@
 package Cards;
 
-import Errors.CardError;
-import Errors.RentError;
-import Errors.SubCardError;
+import Exception.CardException;
+import Exception.RentException;
+import Exception.SubCardException;
 import KAL2000.DvD;
 import KAL2000.Rent;
 import Util.Category;
@@ -53,11 +53,11 @@ public class SlaveCard extends SubCard implements Serializable {
     /**
      * Set a maximum rent that a SlaveCard can do.
      * @param maxRent the number of rent
-     * @throws SubCardError the number of rent can be higher than nbMaxRent
+     * @throws SubCardException the number of rent can be higher than nbMaxRent
      */
-    public void setMaxRent(int maxRent) throws SubCardError {
+    public void setMaxRent(int maxRent) throws SubCardException {
         if (maxRent < 0) throw new NumberFormatException("Error number of rent can not be negative");
-        if (maxRent > nbMaxRent) throw new SubCardError(
+        if (maxRent > nbMaxRent) throw new SubCardException(
                 "can't rent more than " + nbMaxRent + " dvd in same time");
 
         this.maxRent = maxRent;
@@ -76,11 +76,11 @@ public class SlaveCard extends SubCard implements Serializable {
      * A SlaveCard can not have a negative credit.
      * If credit are not enough, the creditCard are use to regularized.
      * @param rent the rent to return
-     * @throws CardError Error when return
+     * @throws CardException Error when return
      */
     @Override
-    protected void returnDvd(Rent rent) throws CardError, SubCardError, RentError {
-        /*if(rent.isRentFinish()) throw new RentError(
+    public void returnDvd(Rent rent) throws CardException, SubCardException, RentException {
+        /*if(rent.isRentFinish()) throw new RentException(
                 "Error when return the " + rent.getDvd().getFilm().getTitre() +
                             "ask to the boss");*/
         rent.setDateReturn();

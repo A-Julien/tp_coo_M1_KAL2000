@@ -425,3 +425,8 @@ local.properties
 .settings/
 .classpath
 .project
+
+# KAL2000
+save*
+
+tp_coo_M1_KAL2000.iml

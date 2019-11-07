@@ -1,7 +1,7 @@
 package Cards;
 
-import Errors.SubCardError;
-import Errors.RentError;
+import Exception.RentException;
+import Exception.SubCardException;
 import KAL2000.DvD;
 import KAL2000.Rent;
 import KAL2000.RentDiscountable;
@@ -64,7 +64,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
         return id;
     }
 
-    public void checkRentDate() throws RentError {
+    public void checkRentDate() throws RentException {
         for (Rent rent: this.onGoingRent) {
             if(getDateDiff(new Date(), rent.getDateRent(), TimeUnit.DAYS) > maxRentDay){
                 this.payRent(rent);
@@ -77,11 +77,11 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      * Add money on credit.
      * The minimu amount to add money are {@link SubCard#refuelPriceLimit}
      * @param money the money to add
-     * @throws SubCardError Can't add less than {@link SubCard#refuelPriceLimit}
+     * @throws SubCardException Can't add less than {@link SubCard#refuelPriceLimit}
      */
     @Override
-    public void refuelMoney(float money) throws SubCardError {
-        if(money < refuelPriceLimit) throw new SubCardError(
+    public void refuelMoney(float money) throws SubCardException {
+        if(money < refuelPriceLimit) throw new SubCardException(
                 "Can't add less than "+ refuelPriceLimit  +
                             " euros, you add " + money + " euros");
 
@@ -91,10 +91,10 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     /**
      * pay amount fo a rent
      * @param rent the rent to pay
-     * @throws RentError
+     * @throws RentException
      */
     @Override
-    public void payRent(Rent rent) throws RentError {
+    public void payRent(Rent rent) throws RentException {
         this.credit += this.calcPrice(rent, priceRent);
     }
 
@@ -105,25 +105,25 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      *  - Can't rent a dvd with less than {@link SubCard#rentPriceLimit}
      * @param dvd the dvd to rent
      * @return the rent
-     * @throws RentError
+     * @throws RentException
      */
     @Override
-    protected Rent rentDvd(DvD dvd) throws RentError {
-        if(this.onGoingRent.size() > nbMaxRent) throw new RentError(
+    public Rent rentDvd(DvD dvd) throws RentException {
+        if(this.onGoingRent.size() > nbMaxRent) throw new RentException(
                 "Can't rent more than "+ nbMaxRent +" dvd in same time");
 
-        if(this.credit < rentPriceLimit) throw new RentError(
+        if(this.credit < rentPriceLimit) throw new RentException(
                 "Can't rent a dvd with less than "+ rentPriceLimit +
                         "credits, please refuel before " +
                         "credit : " + this.credit + " euros");
 
         if( this instanceof SlaveCard &&
             !((SlaveCard)this).categories.isEmpty() &&
-            !((SlaveCard)this).canIwatch(dvd)) throw new RentError(
+            !((SlaveCard)this).canIwatch(dvd)) throw new RentException(
                     "Category not allowed for this sub Card");
 
         if( this instanceof SlaveCard &&
-                this.onGoingRent.size() >= ((SlaveCard)this).getMaxRent() ) throw new RentError(
+                this.onGoingRent.size() >= ((SlaveCard)this).getMaxRent() ) throw new RentException(
                 "Can not rent more than "  + ((SlaveCard)this).getMaxRent());
 
         Rent rent = new RentDiscountable(dvd);
@@ -151,13 +151,13 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     /**
      * return the amount of credit
      * @return credit
-     * @throws SubCardError
+     * @throws SubCardException
      */
-    protected float getCredit() throws SubCardError {
+    protected float getCredit() throws SubCardException {
         return this.credit;
         //if( this instanceof SlaveCard)return this.credit;
 
-        //throw new SubCardError("Can not access to credit of MainCard");
+        //throw new SubCardException("Can not access to credit of MainCard");
     }
 
     @Override

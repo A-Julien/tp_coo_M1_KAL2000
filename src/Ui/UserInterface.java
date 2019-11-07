@@ -2,12 +2,12 @@ package Ui;
 
 import Cards.Card;
 import Cards.CreditCard;
-import Errors.CardError;
-import Errors.PasswordError;
+import Exception.CardException;
+import Exception.PasswordException;
 import KAL2000.Client;
 import KAL2000.Kal2000;
 
-public class UserInterface implements Logging{
+public class UserInterface implements Loggable {
     private Card connectedCard;
     private Client connectedClient;
 
@@ -37,7 +37,7 @@ public class UserInterface implements Logging{
         try {
             this.connectedClient = kal2000.getClient(password);
             this.connectedCard = kal2000.getCard(this.connectedClient, idCard);
-        } catch (PasswordError | CardError e) {
+        } catch (PasswordException | CardException e) {
             return false;
         }
         return true;

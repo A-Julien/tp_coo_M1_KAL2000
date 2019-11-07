@@ -1,6 +1,6 @@
 package KAL2000;
 
-import Errors.RentError;
+import Exception.RentException;
 
 import java.util.Date;
 
@@ -41,10 +41,10 @@ public class Rent {
     /**
      * Return the end date of the rent
      * @return
-     * @throws RentError if dvd not returned yet
+     * @throws RentException if dvd not returned yet
      */
-    public Date getDateReturn() throws RentError {
-        if(this.dateReturn == null) throw new RentError("Dvd not returned yet");
+    public Date getDateReturn() throws RentException {
+        if(this.dateReturn == null) throw new RentException("Dvd not returned yet");
         return dateReturn;
     }
 

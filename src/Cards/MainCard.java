@@ -1,8 +1,8 @@
 package Cards;
 
-import Errors.CardError;
-import Errors.RentError;
-import Errors.SubCardError;
+import Exception.CardException;
+import Exception.RentException;
+import Exception.SubCardException;
 import KAL2000.Rent;
 import Util.Category;
 
@@ -53,18 +53,18 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      *  - Can not delete sub Card with on going rent
      *  - Pay negative credit
      * @param slaveCard The SlaveCard to remove
-     * @throws SubCardError Can not delete sub Card with on going rent
+     * @throws SubCardException Can not delete sub Card with on going rent
      */
     @Override
-    public void deleteSlaveCard(SlaveCard slaveCard) throws SubCardError {
+    public void deleteSlaveCard(SlaveCard slaveCard) throws SubCardException {
 
-        if(slaveCard.onGoingRent.size() > 0) throw new SubCardError(
+        if(slaveCard.onGoingRent.size() > 0) throw new SubCardException(
                 "Can not delete sub Card with on going rent");
 
         float slaveCredit;
         try {
             slaveCredit = slaveCard.getCredit();
-        } catch (SubCardError subCardError) {
+        } catch (SubCardException subCardException) {
             return;
         }
 
@@ -81,10 +81,10 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      *  - Can not delete sub Card with on going rent
      *  - Pay negative credit
      *  - remove all SlaveCard by calling deleteSlaveCard()
-     * @throws SubCardError Can not delete sub card with on going rent
+     * @throws SubCardException Can not delete sub card with on going rent
      */
-    public void destroyMe() throws SubCardError {
-        if(this.onGoingRent.size() > 0) throw new SubCardError(
+    public void destroyMe() throws SubCardException {
+        if(this.onGoingRent.size() > 0) throw new SubCardException(
                 "Can not delete sub card with on going rent");
 
         for(SlaveCard slaveCard: this.slaveCards) this.deleteSlaveCard(slaveCard);
@@ -97,12 +97,12 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      * Allow MainCard to return a dvd
      *
      * @param rent the rent to return
-     * @throws RentError Error when return
-     * @throws CardError Can't add on going rent in history
+     * @throws RentException Error when return
+     * @throws CardException Can't add on going rent in history
      */
     @Override
-    protected void returnDvd(Rent rent) throws RentError, CardError, SubCardError {
-       /*if(rent.isRentFinish()) throw new RentError(
+    public void returnDvd(Rent rent) throws RentException, CardException, SubCardException {
+       /*if(rent.isRentFinish()) throw new RentException(
                 "Error when return the " + rent.getDvd().getFilm().getTitre() +
                             "ask to the boss");*/
        rent.setDateReturn();
@@ -115,11 +115,11 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
        }
     }
 
-    private boolean haveToBeRegularized() throws SubCardError {
+    private boolean haveToBeRegularized() throws SubCardException {
         return this.getCredit() < 0 && this.periodRegularization != -1;
     }
 
-    public void regularize() throws SubCardError {
+    public void regularize() throws SubCardException {
         if(this.haveToBeRegularized()){
             this.periodRegularization -= 1;
             if(this.periodRegularization == 0){
@@ -144,7 +144,7 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
     }
 
     @Override
-    public void setMaxRentToSlaveCard(SlaveCard slaveCard, int maxRentToSlaveCard) throws SubCardError {
+    public void setMaxRentToSlaveCard(SlaveCard slaveCard, int maxRentToSlaveCard) throws SubCardException {
         slaveCard.setMaxRent(maxRentToSlaveCard);
     }
 

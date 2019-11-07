@@ -1,7 +1,7 @@
 package Cards;
 
-import Errors.RentError;
-import Errors.SubCardError;
+import Exception.RentException;
+import Exception.SubCardException;
 import KAL2000.Rent;
 
 /**
@@ -12,16 +12,16 @@ public interface Creditable {
     /**
      * Add money
      * @param money the money to add
-     * @throws SubCardError
+     * @throws SubCardException
      */
-    void refuelMoney(float money) throws SubCardError;
+    void refuelMoney(float money) throws SubCardException;
 
     /**
      * Pay a rent
      * @param rent the rent to pay
-     * @throws RentError
+     * @throws RentException
      */
-    void payRent(Rent rent) throws RentError;
+    void payRent(Rent rent) throws RentException;
 
     /**
      * This method are used for add negative credit

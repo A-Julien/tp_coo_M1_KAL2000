@@ -1,8 +1,8 @@
 package KAL2000;
 
 import Cards.*;
-import Errors.CardError;
-import Errors.PasswordError;
+import Exception.CardException;
+import Exception.PasswordException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,15 +27,15 @@ public class Kal2000 {
     }
 
 
-    public Client getClient(String password) throws PasswordError {
+    public Client getClient(String password) throws PasswordException {
 
         for(Client client : this.clients)
             if(Objects.equals(client.getPassword(), password)) return client;
 
-        throw new PasswordError("Incorrect Password");
+        throw new PasswordException("Incorrect Password");
     }
 
-    public Card getCard(Client client, int idCard) throws CardError {
+    public Card getCard(Client client, int idCard) throws CardException {
 
         for (CreditCard credicard : client.getCreditCards()) {
             if(idCard == credicard.getNumCreditCard())
@@ -54,7 +54,7 @@ public class Kal2000 {
             }
         }
 
-        throw new CardError("card not found");
+        throw new CardException("card not found");
     }
 
     public void boot() throws InterruptedException, ClassNotFoundException, IOException {

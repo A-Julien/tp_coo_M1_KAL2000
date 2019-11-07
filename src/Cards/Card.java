@@ -1,8 +1,8 @@
 package Cards;
 
-import Errors.CardError;
-import Errors.RentError;
-import Errors.SubCardError;
+import Exception.CardException;
+import Exception.RentException;
+import Exception.SubCardException;
 import KAL2000.DvD;
 import KAL2000.Rent;
 
@@ -12,9 +12,10 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Class Card which implement basic function of card in KALL2000
+ * Class Card which implement basic function of card in KAL2000
  */
-public abstract class Card implements Serializable {
+
+public abstract class Card implements Serializable, RentManager, RentHistorysable {
     /**
      * history of old rent
      */
@@ -31,11 +32,18 @@ public abstract class Card implements Serializable {
         this.onGoingRent = new ArrayList<>();
     }
 
+    @Override
+    public Rent getRent(DvD dvd) throws RentException {
+        for(Rent rent : this.onGoingRent) if(rent.getDvd() == dvd) return rent;
+        throw new RentException("No rent found for the dvd : " + dvd.getFilm().getTitre());
+    }
+
     /**
      * getHistory
      * @return the history
      */
-    protected ArrayList<Rent> getHistory(){
+    @Override
+    public ArrayList<Rent> getHistory(){
         return this.history;
     }
 
@@ -43,10 +51,11 @@ public abstract class Card implements Serializable {
      * Add a rent to the history
      * the rent must be finsh
      * @param rent the rent to add
-     * @throws CardError can't add on going rent in history
+     * @throws CardException can't add on going rent in history
      */
-    public void addHistory(Rent rent) throws CardError {
-        if(!rent.isRentFinish()) throw new CardError("can't add on going rent in history");
+    @Override
+    public void addHistory(Rent rent) throws CardException {
+        if(!rent.isRentFinish()) throw new CardException("can't add on going rent in history");
         this.history.add(rent);
     }
 
@@ -54,6 +63,7 @@ public abstract class Card implements Serializable {
      * return all on going rent
      * @return ArrayList<Rent>
      */
+    @Override
     public ArrayList<Rent> getOnGoingRent() {
         return onGoingRent;
     }
@@ -64,9 +74,9 @@ public abstract class Card implements Serializable {
      * @param rent the rent
      * @param priceRent the price of the rent/by day
      * @return the price
-     * @throws RentError
+     * @throws RentException
      */
-    protected float calcPrice(Rent rent, int priceRent) throws RentError{
+    protected float calcPrice(Rent rent, int priceRent) throws RentException {
         long dayOfRent = 0;
         dayOfRent = Card.getDateDiff(rent.getDateRent(), rent.getDateReturn(), TimeUnit.DAYS);
 
@@ -77,22 +87,25 @@ public abstract class Card implements Serializable {
      * Allows to rent a dvd
      * @param dvd the dvd to rent
      * @return the generate rent
-     * @throws RentError
+     * @throws RentException
      */
-    protected abstract Rent rentDvd(DvD dvd) throws RentError;
+    @Override
+    public abstract Rent rentDvd(DvD dvd) throws RentException;
 
     /**
-     *
-     * @throws RentError
+     * Check if the time rent is over.
+     * @throws RentException
      */
-    public abstract void checkRentDate() throws RentError;
+    @Override
+    public abstract void checkRentDate() throws RentException;
 
     /**
      * Allow to return a dvd in KAL2000
      * @param rent the rent to return
-     * @throws RentError
+     * @throws RentException
      */
-    protected abstract void returnDvd(Rent rent) throws RentError, CardError, SubCardError;
+    @Override
+    public abstract void returnDvd(Rent rent) throws RentException, CardException, SubCardException;
 
     /**
      * Get a diff between two dates

@@ -1,6 +1,6 @@
 package Cards;
 
-import Errors.SubCardError;
+import Exception.SubCardException;
 import KAL2000.Rent;
 import Util.Category;
 
@@ -34,9 +34,9 @@ public interface SlaveCardManager {
      * Allow to manage number of maximal rent that can do a slave card
      * @param slaveCard  the slave card
      * @param maxRentToSlaveCard max rent that can do a slave card
-     * @throws SubCardError
+     * @throws SubCardException
      */
-    void setMaxRentToSlaveCard(SlaveCard slaveCard, int maxRentToSlaveCard) throws SubCardError;
+    void setMaxRentToSlaveCard(SlaveCard slaveCard, int maxRentToSlaveCard) throws SubCardException;
 
     /**
      * Create a Slave Card
@@ -47,9 +47,9 @@ public interface SlaveCardManager {
     /**
      * Remove a SlaveCard
      * @param slaveCard The SlaveCard to remove
-     * @throws SubCardError
+     * @throws SubCardException
      */
-    void deleteSlaveCard(SlaveCard slaveCard) throws SubCardError;
+    void deleteSlaveCard(SlaveCard slaveCard) throws SubCardException;
 
     /**
      * Get the history of specific SlaveCard
