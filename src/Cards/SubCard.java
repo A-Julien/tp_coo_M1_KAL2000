@@ -2,9 +2,12 @@ package Cards;
 
 import Exception.RentException;
 import Exception.SubCardException;
+import Exception.StatusDvdException;
+
 import KAL2000.DvD;
 import KAL2000.Rent;
 import KAL2000.RentDiscountable;
+import Util.State;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -109,7 +112,9 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      * @throws RentException
      */
     @Override
-    public Rent rentDvd(DvD dvd) throws RentException {
+    public Rent rentDvd(DvD dvd) throws RentException, StatusDvdException {
+        if(dvd.getState() != State.Good) throw new StatusDvdException("Dvd are broken or missing");
+
         if(this.onGoingRent.size() > nbMaxRent) throw new RentException(
                 "Can't rent more than "+ nbMaxRent +" dvd in same time");
 

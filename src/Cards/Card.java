@@ -3,6 +3,8 @@ package Cards;
 import Exception.CardException;
 import Exception.RentException;
 import Exception.SubCardException;
+import Exception.StatusDvdException;
+
 import KAL2000.DvD;
 import KAL2000.Rent;
 
@@ -87,7 +89,7 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      * @throws RentException
      */
     @Override
-    public abstract Rent rentDvd(DvD dvd) throws RentException;
+    public abstract Rent rentDvd(DvD dvd) throws RentException, StatusDvdException;
 
     /**
      * Check if the time rent is over.
