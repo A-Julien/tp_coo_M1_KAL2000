@@ -14,5 +14,5 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with javac
-      run: javac -Xlint:unchecked *.java
+      run: cd src && javac -Xlint:unchecked *.java
 
