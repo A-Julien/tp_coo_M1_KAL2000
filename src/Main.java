@@ -1,4 +1,6 @@
 import Cards.Card;
+import Exception.CardException;
+import Exception.PasswordException;
 import Exception.RentException;
 import KAL2000.DvD;
 import KAL2000.Film;
@@ -38,7 +40,12 @@ public class Main {
     			id = Integer.parseInt(sc.nextLine());
     			System.out.println("Entrez votre mot de passe :");
     			pw = sc.nextLine();
-    			ui.connect(id,pw,systeme);
+    			try {
+    				ui.connect(id,pw,systeme);
+    			}catch(PasswordException|CardException e) {
+    				e.printStackTrace();
+    			}
+    			
     			if(ui.isAdmin()) {
     				admin = true;
     			}
@@ -55,8 +62,12 @@ public class Main {
     			System.out.println("Entrez le numéro de votre carte :");
     			id = Integer.parseInt(sc.nextLine());
     			ui.createClient(firstName,name,pw,id,systeme);
+    			try {
+    				ui.connect(id,pw,systeme);
+    			}catch(PasswordException|CardException e) {
+    				e.printStackTrace();
+    			}
     			
-    			ui.connect(id,pw,systeme);
     			session= true;
     			
     		break;
