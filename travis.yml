@@ -1,4 +1,0 @@
-jdk: oraclejdk11
-script:
-  - cd src
-  - javac -Xlint:unchecked *.java
