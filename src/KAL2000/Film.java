@@ -14,6 +14,7 @@ public class Film implements Serializable {
 	private ArrayList<Human> actors;
 	private Human realisator;
 	private Category category;
+	private int nbRented;
 
 	public Film(int filmId, String synopsis, ArrayList<Human> actors, Human realisator, Category category) {
 		this.synopsis = synopsis;
@@ -21,6 +22,7 @@ public class Film implements Serializable {
 		this.realisator = realisator;
 		this.category = category;
 		this.id = filmId;
+		this.nbRented = 0;
 	}
 
 	public String getTitle() {
@@ -46,5 +48,13 @@ public class Film implements Serializable {
     public int getId() {
         return id;
     }
+
+    public void rented(){
+		this.nbRented++;
+	}
+
+	public int getNbRented() {
+		return nbRented;
+	}
 }
 

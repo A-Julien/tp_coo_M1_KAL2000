@@ -18,15 +18,9 @@ public class CreditCard extends Card implements Serializable {
     private final static int maxRentDay = 30;
     private final static int timeRentOver = 30;
 
-    private int numCreditCard;
-
     public CreditCard(int numCreditCard) {
-        this.numCreditCard = numCreditCard;
+        super(numCreditCard);
         this.nbMaxRent = 1;
-    }
-
-    public int getNumCreditCard() {
-        return numCreditCard;
     }
 
     /**
@@ -42,6 +36,7 @@ public class CreditCard extends Card implements Serializable {
 
         Rent rent = new Rent(dvd);
         this.onGoingRent.add(rent);
+        dvd.getFilm().rented();
         return rent;
     }
 
@@ -62,10 +57,11 @@ public class CreditCard extends Card implements Serializable {
      */
     @Override
     public void returnDvd(Rent rent) throws RentException, CardException {
-        /*if(rent.isRentFinish()) throw new RentException(
+        if(rent.isRentFinish()) throw new RentException(
                 "Error when return the " + rent.getDvd().getFilm().getTitle() +
-                            "ask to the boss");*/
+                            "ask to the boss");
         this.onGoingRent.remove(rent);
+        rent.setPrice(this.calcPrice(rent, priceRent));
         this.addHistory(rent);
         this.pay(this.calcPrice(rent, priceRent));
     }

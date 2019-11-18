@@ -47,4 +47,9 @@ public class Client implements Serializable {
 	public ArrayList<MainCard> getMainCards() {
 		return this.mainCards;
 	}
+
+	@Override
+	public String toString() {
+		return this.person.toString();
+	}
 }

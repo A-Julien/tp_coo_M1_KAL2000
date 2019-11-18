@@ -19,4 +19,12 @@ public class Human implements Serializable {
 	public String getLastName() {
 		return this.lastName;
 	}
+
+	@Override
+	public String toString() {
+		return "Human{" +
+				"firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				'}';
+	}
 }

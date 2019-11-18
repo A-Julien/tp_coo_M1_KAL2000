@@ -5,12 +5,10 @@ import Exception.CardException;
 import Exception.PasswordException;
 import Exception.FilmException;
 import Exception.RentException;
+import Util.MetaData;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class Kal2000 {
     private final int maxDvd = 100;
@@ -42,7 +40,7 @@ public class Kal2000 {
     public Card getCard(Client client, int idCard) throws CardException {
 
         for (CreditCard credicard : client.getCreditCards()) {
-            if(idCard == credicard.getNumCreditCard())
+            if(idCard == credicard.getNumCard())
                 return credicard;
         }
 
@@ -163,12 +161,35 @@ public class Kal2000 {
     }
 
     private void ensureDvdCapacity(){
-        if(this.getNbDvd() >= 100) throw new RuntimeException("Can not add dvd, capacity exceed");
+        if(this.getNbDvd() >= maxDvd) throw new RuntimeException("Can not add dvd, capacity exceed");
     }
 
     private int getNbDvd(){
         int nbdvd = 0;
         for(int nb : this.dvds.values()) nbdvd +=nb;
         return nbdvd;
+    }
+
+
+
+    public HashMap<Film, Integer> getFilmStat(){
+        HashMap<Film, Integer> statsFilm = new HashMap<>();
+        ArrayList<MetaData> metaDatas = this.getClientMetaData();
+        for (MetaData metaData : metaDatas){
+            for (Map.Entry<Film, Integer> cardArrayListEntry : metaData.getFilmStat().entrySet()) {
+                Map.Entry elem = cardArrayListEntry;
+                Integer nbRented = (Integer) elem.getValue();
+                statsFilm.put((Film) elem.getKey(), nbRented);
+            }
+        }
+        return statsFilm;
+    }
+
+    public ArrayList<MetaData> getClientMetaData(){
+        ArrayList<MetaData> metaData = new ArrayList<>();
+        for(Client client : this.clients){
+            metaData.add(new MetaData(client));
+        }
+        return metaData;
     }
 }

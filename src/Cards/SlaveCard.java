@@ -85,6 +85,7 @@ public class SlaveCard extends SubCard implements Serializable {
                             "ask to the boss");*/
         rent.setDateReturn();
         this.onGoingRent.remove(rent);
+        rent.setPrice(this.calcPrice(rent, priceRent));
         this.addHistory(rent);
         this.updateDiscount();
         this.payRent(rent);

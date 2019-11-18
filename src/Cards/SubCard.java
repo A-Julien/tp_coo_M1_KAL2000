@@ -21,10 +21,6 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     protected CreditCard creditCard;
     protected final static int priceRent = 4;
 
-    private int id;
-
-
-
     /**
      * Maximum rent that can do a SubCard in same time
      */
@@ -56,16 +52,15 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
 
 
 
-    public SubCard(CreditCard creditCard, int id) {
-        super();
+    public SubCard(CreditCard creditCard, int numCard) {
+        super(numCard);
         this.credit = 0;
         this.creditCard = creditCard;
-        this.id = id;
         this.nbMaxRent = 3;
     }
 
     public int getId() {
-        return id;
+        return this.numCard;
     }
 
     public void checkRentDate() throws RentException {
@@ -134,6 +129,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
 
         Rent rent = new RentDiscountable(dvd);
         this.onGoingRent.add(rent);
+        dvd.getFilm().rented();
         return rent;
     }
 

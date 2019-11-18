@@ -28,10 +28,16 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      */
     protected ArrayList<Rent> onGoingRent;
 
+    protected int numCard;
 
-    public Card() {
+    public Card(int numCard) {
         this.history = new ArrayList<>();
         this.onGoingRent = new ArrayList<>();
+        this.numCard = numCard;
+    }
+
+    public int getNumCard() {
+        return numCard;
     }
 
     @Override
@@ -104,6 +110,7 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      * @throws RentException
      */
     @Override
+    //TODO add status
     public abstract void returnDvd(Rent rent) throws RentException, CardException, SubCardException;
 
     /**
