@@ -1,32 +1,71 @@
 import Cards.Card;
 import Exception.RentException;
 import KAL2000.DvD;
-import KAL2000.Film;
 import KAL2000.Kal2000;
 import KAL2000.Rent;
-import Util.Category;
-import Util.Human;
-import Util.State;
+import Ui.UserInterface;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
 
 public class Main {
 
     public static void main(String[] args) throws RentException, InterruptedException, IOException, ClassNotFoundException {
-        DvD dvD = new DvD(new Film(1,"",new ArrayList<Human>(),new Human("",""), Category.Action), State.Broken,1);
-        Rent rent = new Rent(dvD);
-        Thread.sleep(400);
-        rent.setDateReturn();
+    	boolean session  = false;
+    
 
-        int i =  -2;
-
-        System.out.println(Card.getDateDiff(rent.getDateRent(), rent.getDateReturn(), TimeUnit.DAYS));
-        System.out.println(-i);
-
-        Kal2000 kal2000 = new Kal2000();
-        kal2000.boot();
-        kal2000.powerOff();
+    	Kal2000 systeme = new Kal2000();
+    	systeme.boot();
+    	UserInterface ui = new UserInterface();
+    	System.out.println("Êtes vous déja client ?\n Se logger : l \n Créer un compte : c\n Quitter : q");
+    	
+    	Scanner sc = new Scanner(System.in);
+    	String command = sc.nextLine();
+    	int id;
+    	String pw,firstName,name;
+    	switch(command) {
+    		case "l":
+    			System.out.println("Entrez votre identifiant :");
+    			id = Integer.parseInt(sc.nextLine());
+    			System.out.println("Entrez votre mot de passe :");
+    			pw = sc.nextLine();
+    			ui.connect(id,pw,systeme);
+    			session= true;
+    		break;
+    		
+    		case "c":
+    			System.out.println("Entrez votre prénom :");
+    			firstName = sc.nextLine();
+    			System.out.println("Entrez votre nom :");
+    			name = sc.nextLine();
+    			System.out.println("Entrez votre mot de passe :");
+    			pw = sc.nextLine();
+    			System.out.println("Entrez le numéro de votre carte :");
+    			id = Integer.parseInt(sc.nextLine());
+    			ui.createClient(firstName,name,pw,id,systeme);
+    			
+    			ui.connect(id,pw,systeme);
+    			session= true;
+    			
+    		break;
+    		
+    		case "q":
+    			System.out.println("Déconnexion...");
+    			System.exit(0);
+    		break;
+    	}
+    	
+    	while(session) {
+    		
+    		
+    		command = sc.nextLine();
+    		switch(command) {
+    		
+    		}
+    	}
+    	
+    	
     }
 }
