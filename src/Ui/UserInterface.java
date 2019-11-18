@@ -44,16 +44,14 @@ public class UserInterface implements Loggable {
     }
 
     @Override
-    public boolean connect(int idCard, String password, Kal2000 kal2000){
-        if (idCard == adminId) return this.isAdmin = true;
-
-        try {
-            this.connectedClient = kal2000.getClient(password);
-            this.connectedCard = kal2000.getCard(this.connectedClient, idCard);
-        } catch (PasswordException | CardException e) {
-            return false;
+    public void connect(int idCard, String password, Kal2000 kal2000) throws PasswordException, CardException {
+        if (idCard == adminId) {
+            this.isAdmin = true;
+            return;
         }
-        return true;
+
+        this.connectedClient = kal2000.getClient(password);
+        this.connectedCard = kal2000.getCard(this.connectedClient, idCard);
     }
 
     public boolean isAdmin() {

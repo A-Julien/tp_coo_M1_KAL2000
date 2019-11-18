@@ -2,3 +2,6 @@ jdk: oraclejdk11
 script:
   - cd src
   - javac -Xlint:unchecked *.java
+  - java Main < ../Scenari/new_account_scenario.txt
+  - java Main < ../Scenari/log_scenario.txt
+

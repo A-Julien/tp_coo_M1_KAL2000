@@ -108,7 +108,7 @@ public class Kal2000 {
 
 		outputStream = new ObjectOutputStream(new FileOutputStream(
 				"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveDvDs"));
-		outputStream.writeObject(this.clients);
+		outputStream.writeObject(this.dvds);
 		outputStream.close();
 
 
