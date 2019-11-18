@@ -45,7 +45,7 @@ public class UserInterface implements Loggable {
 
     @Override
     public void connect(int idCard, String password, Kal2000 kal2000) throws PasswordException, CardException {
-        if (idCard == adminId) {
+        if (idCard == adminId && password.equals(String.valueOf(adminId))) {
             this.isAdmin = true;
             return;
         }
