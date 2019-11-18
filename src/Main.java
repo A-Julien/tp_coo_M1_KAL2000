@@ -57,14 +57,14 @@ public class Main {
     		break;
     	}
     	
-    	while(session) {
+    	/*while(session) {
     		
     		
     		command = sc.nextLine();
     		switch(command) {
     		
     		}
-    	}
+    	}*/
     	
     	
     }
