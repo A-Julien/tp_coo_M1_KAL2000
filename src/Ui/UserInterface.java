@@ -8,12 +8,15 @@ import KAL2000.Client;
 import KAL2000.Kal2000;
 
 public class UserInterface implements Loggable {
+    private static int adminId = 12345;
     private Card connectedCard;
     private Client connectedClient;
+    private boolean isAdmin;
 
     public UserInterface() {
         this.connectedCard = null;
         this.connectedClient = null;
+        this.isAdmin = false;
     }
 
     public Card getConnectedCard() {
@@ -42,6 +45,8 @@ public class UserInterface implements Loggable {
 
     @Override
     public boolean connect(int idCard, String password, Kal2000 kal2000){
+        if (idCard == adminId) return this.isAdmin = true;
+
         try {
             this.connectedClient = kal2000.getClient(password);
             this.connectedCard = kal2000.getCard(this.connectedClient, idCard);
@@ -49,6 +54,10 @@ public class UserInterface implements Loggable {
             return false;
         }
         return true;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
     @Override

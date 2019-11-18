@@ -122,7 +122,7 @@ public class Kal2000 {
 
     public void giveDvd(DvD dvd) throws RentException {
         if(this.dvds.get(dvd) == 0) throw new RentException("Dvd not available");
-        this.dvds.replace(dvd, this.dvds.get(dvd) - 1);
+        this.dvds.put(dvd, this.dvds.get(dvd) - 1);
     }
 
     public HashMap<DvD, Integer> getDvds() {
@@ -138,7 +138,7 @@ public class Kal2000 {
         this.ensureDvdCapacity();
         for (DvD d : this.dvds.keySet()){
             if(d.getId() == dvd.getId()){
-                this.dvds.replace(dvd,this.dvds.get(dvd)+1);
+                this.dvds.put(dvd, this.dvds.get(dvd)+1);
                 return;
             }
         }
