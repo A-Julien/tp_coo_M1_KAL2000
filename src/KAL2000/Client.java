@@ -4,9 +4,10 @@ import Cards.MainCard;
 import Cards.SubCard;
 import Util.Human;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Client {
+public class Client implements Serializable {
 	private Human person;
 	private boolean sub;
 	private String password;

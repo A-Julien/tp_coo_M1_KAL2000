@@ -1,6 +1,8 @@
 package Util;
 
-public class Human {
+import java.io.Serializable;
+
+public class Human implements Serializable {
 	private String firstName;
 	private String lastName;
 	
