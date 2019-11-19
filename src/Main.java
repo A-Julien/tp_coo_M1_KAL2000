@@ -1,5 +1,6 @@
 import Cards.Card;
 import Exception.CardException;
+import Exception.FilmException;
 import Exception.PasswordException;
 import Exception.RentException;
 import KAL2000.DvD;
@@ -9,11 +10,15 @@ import KAL2000.Rent;
 import Ui.UserInterface;
 import Util.Category;
 import Util.Human;
+import Util.State;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+
 
 
 public class Main {
@@ -86,8 +91,9 @@ public class Main {
         		System.out.println("Actions disponibles : \n Ajouter un film : af \n Retirer un film : rf \n Ajouter un dvd : ad \n Retirer un dvd : rd  \n Quitter : q ");
         		command = sc.nextLine();
         		switch(command) {
+        			//Ajout d'un film
 	        		case "af":
-	        				
+	        			//Choix des attributs du film	
 	        			System.out.println("Entrez l'id du film :");
 	        			int idFilm = Integer.parseInt(sc.nextLine());
 	        			
@@ -116,7 +122,8 @@ public class Main {
 	        			
 	        			System.out.println("Entrez la catégorie principale du film : action,x,sf,fantasy,comedy,tragedy,romance");
 	        			String category = sc.nextLine();
-	        			Film film;
+	        			Film film = null;
+	        			//Création du film
 	        			switch(category) {
 	        				case "action":
 	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.Action);
@@ -140,14 +147,86 @@ public class Main {
 	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.Romance);
 		        			break;
 	        			}
+	        			//Ajout a la base
+	        			try {
+		        			systeme.addFilm(film);
+		        			System.out.println("Film ajouté");
+	        			}catch(FilmException e) {
+	        				e.printStackTrace();
+	        			}
+	        			
 	        		break;
+	        		//Supprimer un film
 	        		case "rf":
+	        			//Affichage de la liste des films pour la sélection de l'id
+	        			System.out.println("Liste des films :");
+	        			for(int i=0;i<systeme.getFilms6beerVideo().size();i++) {
+	        				System.out.println(systeme.getFilms6beerVideo().get(i).getTitle() + " : "+systeme.getFilms6beerVideo().get(i).getId());
+	        			}
 
+	        			System.out.println("Entrez l'identifiant du film à supprimer :");
+	        			int idRemoveFilm = Integer.parseInt(sc.nextLine());
+	        			int indexFilm = -1;
+	        			//Recherche de l'index du film a supprimer
+	        			for(int i=0;i<systeme.getFilms6beerVideo().size();i++) {
+	        				if(systeme.getFilms6beerVideo().get(i).getId()==idRemoveFilm) {
+	        					indexFilm=i;
+	        				}
+	        			}
+	        			//Suppression du film
+	        			if(indexFilm != -1) {
+		        			systeme.removeFilm(systeme.getFilms6beerVideo().get(indexFilm));
+		        			System.out.println("Film supprimé");
+	        			}else {
+	        				System.out.println("Film non trouvé !");
+	        			}
+	        			
 	        		break;
+	        		//Ajout d'un DVD
 	        		case "ad":
+	        			System.out.println("Entrez l'id du film présent sur le DVD");
+	        			int idFilmDvd = Integer.parseInt(sc.nextLine());
+	        			int indexFilmDvd = -1;
+	        			for(int i=0;i<systeme.getFilms6beerVideo().size();i++) {
+	        				if(systeme.getFilms6beerVideo().get(i).getId()==idFilmDvd) {
+	        					indexFilmDvd=i;
+	        				}
+	        			}
+	        			Film filmDvd=null;
+	        			if(indexFilmDvd != -1) {
+	        				filmDvd = systeme.getFilms6beerVideo().get(indexFilmDvd);	
+	        			}else {
+	        				System.out.println("Film non trouvé !");
+	        				break;
+	        			}
+	        			System.out.println("Entrez l'id du DVD");
+	        			int idDvd = Integer.parseInt(sc.nextLine());
+	        			
+		        		systeme.addDvd(new DvD(filmDvd,State.Good,idDvd));
+		        		System.out.println("Dvd ajouté");
+
 
 	        		break;
+	        		//Suppression d'un DVD
 	        		case "rd":
+	        			System.out.println("Entrez l'id du DVD à supprimer");
+	        			int idDvdRemove = Integer.parseInt(sc.nextLine());
+	        			
+	        			Iterator<DvD> it = systeme.getDvds().keySet().iterator();
+	        			DvD toRemove= null;
+	        			while(it.hasNext()) {
+	        				DvD current= it.next();
+	        				if(current.getId()==idDvdRemove) {
+	        					toRemove= current;
+	        				}
+	        			}
+	        			if(toRemove!=null) {
+		        			systeme.removeDvd(toRemove);
+		        			System.out.println("Dvd supprimé !");
+	        			}else {
+	        				System.out.println("Dvd non trouvé !");
+	        			}
+
 
 	        		break;
 	        		case "q":
