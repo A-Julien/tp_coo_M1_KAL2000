@@ -5,6 +5,7 @@ import Exception.RentException;
 import Exception.SubCardException;
 import KAL2000.Rent;
 import Util.Category;
+import Util.State;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
     private final static int periodMaxDays = 30;
 
 
-    public MainCard(CreditCard creditCard, int id) {
-        super(creditCard, id);
+    public MainCard(CreditCard creditCard) {
+        super(creditCard);
         this.slaveCards = new ArrayList<>();
         this.periodRegularization = -1;
     }

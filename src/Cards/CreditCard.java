@@ -4,6 +4,7 @@ import Exception.CardException;
 import Exception.RentException;
 import KAL2000.DvD;
 import KAL2000.Rent;
+import Util.State;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,12 +15,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class CreditCard extends Card implements Serializable {
     private int nbMaxRent;
+    private int numCArd;
     private final static int priceRent = 5;
     private final static int maxRentDay = 30;
     private final static int timeRentOver = 30;
 
-    public CreditCard(int numCreditCard) {
-        super(numCreditCard);
+    public CreditCard(int numCArd) {
+        super();
+        this.numCArd = numCard;
         this.nbMaxRent = 1;
     }
 
@@ -63,7 +66,9 @@ public class CreditCard extends Card implements Serializable {
         this.onGoingRent.remove(rent);
         rent.setPrice(this.calcPrice(rent, priceRent));
         this.addHistory(rent);
-        this.pay(this.calcPrice(rent, priceRent));
+        this.pay(
+                this.calcPrice(rent, priceRent) +
+                        (rent.getDvd().getState() != State.Good ? rent.getDvd().getDvdPrice():0));
     }
 
     @Override

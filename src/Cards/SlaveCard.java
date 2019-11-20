@@ -6,6 +6,7 @@ import Exception.SubCardException;
 import KAL2000.DvD;
 import KAL2000.Rent;
 import Util.Category;
+import Util.State;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class SlaveCard extends SubCard implements Serializable {
     private int idMainCard;
 
     public SlaveCard(int id, CreditCard creditCard, int idMainCard) {
-        super(creditCard, id);
+        super(creditCard);
         this.categories = new ArrayList<>();
         this.maxRent = nbMaxRent;
         this.idMainCard = idMainCard;

@@ -5,7 +5,9 @@ import Exception.CardException;
 import Exception.PasswordException;
 import Exception.FilmException;
 import Exception.RentException;
-import Util.MetaData;
+import Exception.SystemException;
+import Util.MetaDataFormatter;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.io.*;
 import java.util.*;
@@ -28,7 +30,10 @@ public class Kal2000 {
         this.clients.add(client);
     }
 
-
+    public void addCLients(ArrayList<Client> clients){
+        this.clients.addAll(clients);
+    }
+    //TODO add dvds && add Films
     public Client getClient(String password) throws PasswordException {
 
         for(Client client : this.clients)
@@ -64,22 +69,19 @@ public class Kal2000 {
 
 		ObjectInputStream inputStream;
 		try {
-			inputStream = new ObjectInputStream(new FileInputStream(
-					"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveVideos"));
+			inputStream = new ObjectInputStream(new FileInputStream("../saveVideos"));
 			this.films6beerVideo = (ArrayList<Film>) inputStream.readObject();
 			inputStream.close();
 
-			inputStream = new ObjectInputStream(new FileInputStream(
-					"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveClients"));
+			inputStream = new ObjectInputStream(new FileInputStream("../saveClients"));
 			this.clients = (ArrayList<Client>) inputStream.readObject();
 			inputStream.close();
 
-			inputStream = new ObjectInputStream(new FileInputStream(
-					"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveDvDs"));
+			inputStream = new ObjectInputStream(new FileInputStream("../saveDvDs"));
 			this.dvds = (HashMap<DvD, Integer>) inputStream.readObject();
 			inputStream.close();
 		} catch (IOException e) {
-			System.out.println("no save files found");
+			System.out.println("/!\\ save files found");
 		}
 
         for(int i = 0; i < 10; i++){
@@ -94,18 +96,15 @@ public class Kal2000 {
     public void powerOff() throws InterruptedException, IOException {
 		System.out.print("PowerOff ");
 
-		ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(
-				"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveVideos"));
+		ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("../saveVideos"));
 		outputStream.writeObject(this.films6beerVideo);
 		outputStream.close();
 
-		outputStream = new ObjectOutputStream(new FileOutputStream(
-				"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveClients"));
+		outputStream = new ObjectOutputStream(new FileOutputStream("../saveClients"));
 		outputStream.writeObject(this.clients);
 		outputStream.close();
 
-		outputStream = new ObjectOutputStream(new FileOutputStream(
-				"/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/saveDvDs"));
+		outputStream = new ObjectOutputStream(new FileOutputStream("../saveDvDs"));
 		outputStream.writeObject(this.dvds);
 		outputStream.close();
 
@@ -165,18 +164,31 @@ public class Kal2000 {
     }
 
     private int getNbDvd(){
-        int nbdvd = 0;
-        for(int nb : this.dvds.values()) nbdvd +=nb;
-        return nbdvd;
+        int nbDvd = 0;
+        for(int nb : this.dvds.values()) nbDvd +=nb;
+        return nbDvd;
     }
 
+    public Film getFilmdById(int id) throws SystemException {
+        for (Film film : films6beerVideo){
+            if(film.getId() == id) return film;
+        }
+        throw new SystemException("Dvd Film " + id + "not found");
+    }
 
+    public DvD getDvdById(int id) throws SystemException {
+        for (Map.Entry<DvD, Integer> dvdList : this.dvds.entrySet()) {
+            if(dvdList.getKey().getId() == id) return dvdList.getKey();
+        }
+
+        throw new SystemException("Dvd with " + id + "not found");
+    }
 
     public HashMap<Film, Integer> getFilmStat(){
         HashMap<Film, Integer> statsFilm = new HashMap<>();
-        ArrayList<MetaData> metaDatas = this.getClientMetaData();
-        for (MetaData metaData : metaDatas){
-            for (Map.Entry<Film, Integer> cardArrayListEntry : metaData.getFilmStat().entrySet()) {
+        ArrayList<MetaDataFormatter> metaDataFormatters = this.getClientMetaData();
+        for (MetaDataFormatter metaDataFormatter : metaDataFormatters){
+            for (Map.Entry<Film, Integer> cardArrayListEntry : metaDataFormatter.getFilmStat().entrySet()) {
                 Map.Entry elem = cardArrayListEntry;
                 Integer nbRented = (Integer) elem.getValue();
                 statsFilm.put((Film) elem.getKey(), nbRented);
@@ -185,11 +197,11 @@ public class Kal2000 {
         return statsFilm;
     }
 
-    public ArrayList<MetaData> getClientMetaData(){
-        ArrayList<MetaData> metaData = new ArrayList<>();
+    public ArrayList<MetaDataFormatter> getClientMetaData(){
+        ArrayList<MetaDataFormatter> metaDatumFormatters = new ArrayList<>();
         for(Client client : this.clients){
-            metaData.add(new MetaData(client));
+            metaDatumFormatters.add(new MetaDataFormatter(client));
         }
-        return metaData;
+        return metaDatumFormatters;
     }
 }

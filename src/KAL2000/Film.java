@@ -8,6 +8,7 @@ import Util.Category;
 import Util.Human;
 
 public class Film implements Serializable {
+	private static int autoId;
     private int id;
 	private String title;
 	private String synopsis;
@@ -16,12 +17,14 @@ public class Film implements Serializable {
 	private Category category;
 	private int nbRented;
 
-	public Film(int filmId, String synopsis, ArrayList<Human> actors, Human realisator, Category category) {
+	public Film(String title, String synopsis, ArrayList<Human> actors, Human realisator, Category category) {
+		this.title = title;
 		this.synopsis = synopsis;
 		this.actors = actors;
 		this.realisator = realisator;
 		this.category = category;
-		this.id = filmId;
+		autoId++;
+		this.id = autoId;
 		this.nbRented = 0;
 	}
 

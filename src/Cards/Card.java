@@ -7,6 +7,7 @@ import Exception.StatusDvdException;
 
 import KAL2000.DvD;
 import KAL2000.Rent;
+import Util.State;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,10 +31,13 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
 
     protected int numCard;
 
-    public Card(int numCard) {
+    private static int id;
+
+    public Card() {
         this.history = new ArrayList<>();
         this.onGoingRent = new ArrayList<>();
-        this.numCard = numCard;
+        id++;
+        this.numCard = id;
     }
 
     public int getNumCard() {

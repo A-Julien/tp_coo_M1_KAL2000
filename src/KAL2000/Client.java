@@ -1,4 +1,5 @@
 package KAL2000;
+import Cards.Card;
 import Cards.CreditCard;
 import Cards.MainCard;
 import Cards.SubCard;
@@ -46,6 +47,11 @@ public class Client implements Serializable {
 	
 	public ArrayList<MainCard> getMainCards() {
 		return this.mainCards;
+	}
+
+	public MainCard createMainCard(CreditCard creditCard){
+		this.mainCards.add(new MainCard(creditCard));
+		return this.mainCards.get(this.mainCards.size() - 1);
 	}
 
 	@Override

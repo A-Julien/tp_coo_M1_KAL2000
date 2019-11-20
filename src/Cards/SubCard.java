@@ -52,8 +52,8 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
 
 
 
-    public SubCard(CreditCard creditCard, int numCard) {
-        super(numCard);
+    public SubCard(CreditCard creditCard) {
+        super();
         this.credit = 0;
         this.creditCard = creditCard;
         this.nbMaxRent = 3;
@@ -94,7 +94,8 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      */
     @Override
     public void payRent(Rent rent) throws RentException {
-        this.credit += this.calcPrice(rent, priceRent);
+        this.credit -= this.calcPrice(rent, priceRent);
+        if(rent.getDvd().getState() != State.Good) this.credit -= rent.getDvd().getDvdPrice();
     }
 
     /**

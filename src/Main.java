@@ -105,10 +105,10 @@ public class Main {
 	        		break;
 	        			//Ajout d'un film
 	        		case "af":
-	        			//Choix des attributs du film	
-	        			System.out.println("Entrez l'id du film :");
-	        			int idFilm = Integer.parseInt(sc.nextLine());
-	        			
+	        			//Choix des attributs du film
+	        			System.out.println("Entrez le titre du film :");
+	        			String titre = sc.nextLine();
+
 	        			System.out.println("Entrez le synopsis du film :");
 	        			String synopsis = sc.nextLine();
 	        			
@@ -132,36 +132,12 @@ public class Main {
 						Human realisateur= new Human(nom[0],nom[1]);
 						
 	        			
-	        			System.out.println("Entrez la catégorie principale du film : action,x,sf,fantasy,comedy,tragedy,romance");
+	        			System.out.println("Entrez la catégorie principale du film : Action,XxX,SF,Fantasy,Comedy,Tragedy,Romance");
 	        			String category = sc.nextLine();
-	        			Film film = null;
-	        			//Création du film
-	        			switch(category) {
-	        				case "action":
-	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.Action);
-	        				break;
-	        				case "x":
-	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.XxX);
-		        			break;
-	        				case "sf":
-	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.SF);
-		        			break;
-	        				case "fantasy":
-	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.Fantasy);
-		        			break;
-	        				case "comedy":
-	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.Comedy);
-		        			break;
-	        				case "tragedy":
-	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.Tragedy);
-		        			break;
-	        				case "romance":
-	        					film = new Film(idFilm,synopsis,actorsFilms,realisateur,Category.Romance);
-		        			break;
-	        			}
+
 	        			//Ajout a la base
 	        			try {
-		        			systeme.addFilm(film);
+		        			systeme.addFilm( new Film(titre,synopsis,actorsFilms,realisateur,Category.valueOf(category)));
 		        			System.out.println("Film ajouté");
 	        			}catch(FilmException e) {
 	        				e.printStackTrace();
@@ -173,26 +149,25 @@ public class Main {
 	        			//Affichage de la liste des films pour la sélection de l'id
 	        			System.out.println("Liste des films :");
 	        			for(int i=0;i<systeme.getFilms6beerVideo().size();i++) {
-	        				System.out.println(systeme.getFilms6beerVideo().get(i).getTitle() + " : "+systeme.getFilms6beerVideo().get(i).getId());
+	        				//TODO tostring film
+	        				System.out.println(systeme.getFilms6beerVideo().get(i).getTitle() + " : " + systeme.getFilms6beerVideo().get(i).getId());
 	        			}
 	
 	        			System.out.println("Entrez l'identifiant du film à supprimer :");
 	        			int idRemoveFilm = Integer.parseInt(sc.nextLine());
-	        			int indexFilm = -1;
+
 	        			//Recherche de l'index du film a supprimer
 	        			for(int i=0;i<systeme.getFilms6beerVideo().size();i++) {
 	        				if(systeme.getFilms6beerVideo().get(i).getId()==idRemoveFilm) {
-	        					indexFilm=i;
+	        					if(systeme.removeFilm(systeme.getFilms6beerVideo().get(i)))
+									System.out.println("Film supprimé");
+	        					else
+									System.out.println("Film non trouvé !");
+	        					break;
 	        				}
 	        			}
-	        			//Suppression du film
-	        			if(indexFilm != -1) {
-		        			systeme.removeFilm(systeme.getFilms6beerVideo().get(indexFilm));
-		        			System.out.println("Film supprimé");
-	        			}else {
-	        				System.out.println("Film non trouvé !");
-	        			}
-	        			
+
+
 	        		break;
 	        		//Ajout d'un DVD
 	        		case "ad":
@@ -295,7 +270,7 @@ public class Main {
 	            			ui.getConnectedClient().setSub(true);
 	            			System.out.println("Choisissez un identifiant de carte : ");
 	            			int idCard = Integer.parseInt(sc.nextLine());
-	            			ui.getConnectedClient().getMainCards().add(new MainCard((CreditCard)ui.getConnectedCard(),idCard));
+	            			ui.getConnectedClient().getMainCards().add(new MainCard((CreditCard)ui.getConnectedCard()));
 	            			System.out.println("Vous êtes désormais abonné ! ");
 	            		break;
 	            		//Louer un dvd
@@ -336,14 +311,24 @@ public class Main {
 	        				for(int i=0; i<rents.size();i++) {
 	        					System.out.println(rents.get(i).getDvd().getFilm().getTitle()+" : "+rents.get(i).getDvd().getId());
 	        				}
+
 	        				System.out.println("Entrez l'id du dvd que vous rendez : ");
 	        				int idReturn = Integer.parseInt(sc.nextLine());
 	        				Rent rent= null;
-	        				for(int i=0; i<rents.size();i++) {
-	        					if(rents.get(i).getDvd().getId()==idReturn) {
-	        						rent= rents.get(i);
-	        					}
-	        				}
+
+							int i=0;
+	        				while (i < rents.size() && rents.get(i).getDvd().getId() != idReturn){ i++; }
+
+							try {
+								rent = rents.get(i);
+							}catch (IndexOutOfBoundsException e){
+								System.out.println("System error dvd not found");
+								break;
+							}
+
+							System.out.println("Entrez l'etat du dvd que vous rendez : Broken|Good|Missing ");
+							State state = State.valueOf(sc.nextLine());
+							rent.getDvd().setState(state);
 	        				try {
 	            				ui.getConnectedCard().returnDvd(rent);
 	        				}catch(RentException|CardException|SubCardException e) {

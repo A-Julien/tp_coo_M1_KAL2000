@@ -14,11 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 import Exception.RentException;
 
-public class MetaData {
+public class MetaDataFormatter {
     private Client client;
     private HashMap<Card, ArrayList<Rent>> history;
 
-    public MetaData(Client client) {
+    public MetaDataFormatter(Client client) {
         this.client = client;
         this.buildHistory(client);
     }
