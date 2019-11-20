@@ -156,7 +156,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      * @return credit
      * @throws SubCardException
      */
-    protected float getCredit() throws SubCardException {
+    public float getCredit() throws SubCardException {
         return this.credit;
         //if( this instanceof SlaveCard)return this.credit;
 

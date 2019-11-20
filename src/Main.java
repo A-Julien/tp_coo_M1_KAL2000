@@ -1,12 +1,14 @@
 import Cards.Card;
 import Cards.CreditCard;
 import Cards.MainCard;
+import Cards.SubCard;
 import Exception.CardException;
 import Exception.FilmException;
 import Exception.PasswordException;
 import Exception.RentException;
 import Exception.StatusDvdException;
 import Exception.SubCardException;
+import Exception.SystemException;
 import KAL2000.DvD;
 import KAL2000.Film;
 import KAL2000.Kal2000;
@@ -225,7 +227,8 @@ public class Main {
 	        	}
 	        //Interface Client
 	    	}else {
-	        	while(session) {
+	    		boolean sessionClient1=true;
+	        	while(sessionClient1) {
 	        		System.out.println("Bienvenue "+ui.getConnectedClient().getPerson().getFirstName()+ " "+ ui.getConnectedClient().getPerson().getLastName());
 	        		//Interface Sub
 	        		if(ui.getConnectedClient().isSub()) {
@@ -234,22 +237,119 @@ public class Main {
 	        					+ " Gérer la carte sub : g \n Se déconnecter : d\n Quitter : q");
 	            		command = sc.nextLine();
 	            		switch(command) {
+	            		
+	            		//Louer un dvd
+	            		case "l" :
+	            			System.out.println("Choisissez un id de dvd parmis les suivants : ");
+	        				Iterator<DvD> it = systeme.getDvds().keySet().iterator();
+		        			while(it.hasNext()) {
+		        				DvD current= it.next();
+		        				System.out.println(current.getFilm().getTitle()+" : "+current.getFilm().getId());
+		        			}
+		        			int idChosen= Integer.parseInt(sc.nextLine());
+		        			
+		        			it = systeme.getDvds().keySet().iterator();
+		        			
+		        			try {
+		        				DvD toRent= systeme.getDvdById(idChosen);
+		        				ui.getConnectedCard().rentDvd(toRent);
+		        			}catch(RentException|StatusDvdException|SystemException e) {
+		        				e.printStackTrace();
+		        			}
+		        			System.out.println("Dvd loué");
+	            		break;
+	            		//Rendre un dvd
+	            		case "r" :
+	            			System.out.println("Vos locations en cours : ");
+	            			ArrayList<Rent> rents = ui.getConnectedCard().getOnGoingRent();
+	            			if(rents==null) {
+	            				System.out.println("Vous n'avez pas de dvd à rendre");
+	            				break;
+	            			}
+	            			//Affichage des locations en cours
+	        				for(int i=0; i<rents.size();i++) {
+	        					System.out.println(rents.get(i).getDvd().getFilm().getTitle()+" : "+rents.get(i).getDvd().getId());
+	        				}
+
+	        				System.out.println("Entrez l'id du dvd que vous rendez : ");
+	        				int idReturn = Integer.parseInt(sc.nextLine());
+	        				Rent rent= null;
+
+							int i=0;
+	        				while (i < rents.size() && rents.get(i).getDvd().getId() != idReturn){ i++; }
+
+							try {
+								rent = rents.get(i);
+							}catch (IndexOutOfBoundsException e){
+								System.out.println("System error dvd not found");
+								break;
+							}
+
+							System.out.println("Entrez l'etat du dvd que vous rendez : Broken|Good|Missing ");
+							State state = State.valueOf(sc.nextLine());
+							rent.getDvd().setState(state);
+	        				try {
+	            				ui.getConnectedCard().returnDvd(rent);
+	        				}catch(RentException|CardException|SubCardException e) {
+	        					e.printStackTrace();
+	        				}
+	        				System.out.println("Dvd rendu");
+	            		break;
+	            		//Gestion de la carte sub
+	            		case "g" :
+	            			boolean gestionEnCours=true;
+	            			while(gestionEnCours) {
+	            				System.out.println("Actions disponibles : \n Voir le solde : v \n Recharger la carte : r \n Créer une carte fille : c "
+	            						+ "\n Gérer cartes filles : g \n Retour : b");
+	    	            		command = sc.nextLine();
+	    	            		switch(command) {
+	    	            		
+	    	            		
+	    	            		
+	    	            		//Afficher le solde de la carte
+	    	            		case "v" :
+	    	            			try {
+	    	            				System.out.println("Solde actuel : "+((SubCard)ui.getConnectedCard()).getCredit()+" euros");
+	    	            			}catch(SubCardException e) {
+		    	            			e.printStackTrace();
+	    	            			}
+	    	            		break;	    	       
+
+	    	            		//Rechargement du solde
+	    	            		case "r" :
+	    	            			System.out.println("Entrez le montant que vous voulez recharger (minimum 10 euros)");
+	    	            			float montant=Float.parseFloat(sc.nextLine());
+	    	            			if(montant>=10.0) {
+	    	            				((SubCard)ui.getConnectedCard()).addCredit(montant);
+	    	            				System.out.println("Rechargement réussi");
+	    	            			}else {
+	    	            				System.out.println("Montant insuffisant ! ");
+	    	            			}
+	    	            		break;
+	    	            		//Retour au menu principal
+	    	            		case "b" :
+	    	            			gestionEnCours=false;
+	    	            		break;
+	    	            		}
+	            			}
+	            		break;
+	            		//Déconnexion
 	            		case "d":
-		        			session = false;
+		        			sessionClient1 = false;
 		        			System.out.println("Déconnexion ...");
 		        			ui.disconnect();
 		        		break;
 	            		//Voir la liste des films 
 	        			case "v":
 	        				System.out.println("Liste des DvDs : ");
-	        				Iterator<DvD> it = systeme.getDvds().keySet().iterator();
-		        			while(it.hasNext()) {
-		        				DvD current= it.next();
+	        				Iterator<DvD> itV = systeme.getDvds().keySet().iterator();
+		        			while(itV.hasNext()) {
+		        				DvD current= itV.next();
 		        				System.out.println(current.getFilm().getTitle());
 		        			}
 	        			break;
 		        		case "q":
-		        			session=false;
+		        			sessionClient1=false;
 		        			systeme.powerOff();
 		        			System.exit(0);
 		        		break;
@@ -275,7 +375,7 @@ public class Main {
 	            		break;
 	            		//Louer un dvd
 	            		case "l":
-	        				System.out.println("Choisissez un id de dvd parmis les suivants : ");
+	            			System.out.println("Choisissez un id de dvd parmis les suivants : ");
 	        				Iterator<DvD> it = systeme.getDvds().keySet().iterator();
 		        			while(it.hasNext()) {
 		        				DvD current= it.next();
@@ -284,16 +384,11 @@ public class Main {
 		        			int idChosen= Integer.parseInt(sc.nextLine());
 		        			
 		        			it = systeme.getDvds().keySet().iterator();
-		        			DvD toRent= null;
-		        			while(it.hasNext()) {
-		        				DvD current= it.next();
-		        				if(current.getId()==idChosen) {
-		        					toRent= current;
-		        				}
-		        			}
+		        			
 		        			try {
+		        				DvD toRent= systeme.getDvdById(idChosen);
 		        				ui.getConnectedCard().rentDvd(toRent);
-		        			}catch(RentException|StatusDvdException e) {
+		        			}catch(RentException|StatusDvdException|SystemException e) {
 		        				e.printStackTrace();
 		        			}
 		        			System.out.println("Dvd loué");
