@@ -36,7 +36,6 @@ public class UserInterface implements Loggable {
         CreditCard creditCard = new CreditCard(idCreditCard);
         Client client = new Client(firstName, lastName, password,creditCard);
         kal2000.addCLient(client);
-        this.connect(client, creditCard);
     }
 
     public boolean isClientConnected(){
@@ -68,6 +67,7 @@ public class UserInterface implements Loggable {
     public void disconnect(){
         this.connectedClient = null;
         this.connectedCard = null;
+        this.isAdmin=false;
     }
 
 

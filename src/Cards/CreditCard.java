@@ -15,14 +15,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class CreditCard extends Card implements Serializable {
     private int nbMaxRent;
-    private int numCArd;
+    private int numCard;
     private final static int priceRent = 5;
     private final static int maxRentDay = 30;
     private final static int timeRentOver = 30;
 
-    public CreditCard(int numCArd) {
+    public CreditCard(int numCard) {
         super();
-        this.numCArd = numCard;
+        this.numCard = numCard;
         this.nbMaxRent = 1;
     }
 
@@ -50,6 +50,10 @@ public class CreditCard extends Card implements Serializable {
                 this.pay(this.calcPrice(rent, priceRent) + timeRentOver);
             }
         }
+    }
+
+    public int getNumCard() {
+        return numCard;
     }
 
     /**

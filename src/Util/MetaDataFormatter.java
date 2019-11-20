@@ -94,7 +94,7 @@ public class MetaDataFormatter {
             Map.Entry elem = (Map.Entry) cardArrayListEntry;
             ArrayList<Rent> h = (ArrayList<Rent>) elem.getValue();
             Card card = (Card) elem.getKey();
-            cards.append("\t").append(String.valueOf(card.getNumCard())).append("\n");
+            cards.append("\t").append(String.valueOf(card.getId())).append("\n");
             for (Rent rent : h) {
                 cards.append("\t\t").append(rent.toString()).append("\n");
             }

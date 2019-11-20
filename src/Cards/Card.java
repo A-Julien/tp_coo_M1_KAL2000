@@ -29,20 +29,21 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      */
     protected ArrayList<Rent> onGoingRent;
 
-    protected int numCard;
+    protected int id;
 
-    private static int id;
+    private static int idAuto;
 
     public Card() {
         this.history = new ArrayList<>();
         this.onGoingRent = new ArrayList<>();
-        id++;
-        this.numCard = id;
+        idAuto++;
+        this.id = idAuto;
     }
 
-    public int getNumCard() {
-        return numCard;
+    public int getId() {
+        return this.id;
     }
+
 
     @Override
     public Rent getRent(DvD dvd) throws RentException {

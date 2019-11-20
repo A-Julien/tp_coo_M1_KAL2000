@@ -7,7 +7,6 @@ import Exception.FilmException;
 import Exception.RentException;
 import Exception.SystemException;
 import Util.MetaDataFormatter;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.io.*;
 import java.util.*;
@@ -33,6 +32,16 @@ public class Kal2000 {
     public void addCLients(ArrayList<Client> clients){
         this.clients.addAll(clients);
     }
+
+    public void addFilms(ArrayList<Film> films){
+        this.films6beerVideo.addAll(films);
+    }
+
+    public void addDvds(HashMap<DvD, Integer> dvds){
+        this.ensureDvdCapacity(dvds.size());
+        this.dvds.putAll(dvds);
+    }
+
     //TODO add dvds && add Films
     public Client getClient(String password) throws PasswordException {
 
@@ -155,12 +164,18 @@ public class Kal2000 {
     }
 
     public void addFilm(Film film) throws FilmException {
-        for(Film f : this.films6beerVideo) if(f.getId() == film.getId()) this.films6beerVideo.add(film);
-        throw new FilmException("film with id " + film.getId() + " already exist");
+        for(Film f : this.films6beerVideo){
+            if(f.getId() == film.getId()) throw new FilmException("film with id " + film.getId() + " already exist");
+        }
+        this.films6beerVideo.add(film);
     }
 
     private void ensureDvdCapacity(){
         if(this.getNbDvd() >= maxDvd) throw new RuntimeException("Can not add dvd, capacity exceed");
+    }
+
+    private void ensureDvdCapacity(int nbDvd){
+        if(this.getNbDvd() + nbDvd >= maxDvd) throw new RuntimeException("Can not add dvd, capacity exceed");
     }
 
     private int getNbDvd(){

@@ -41,18 +41,21 @@ public class Main {
     	Scanner sc = new Scanner(System.in);
     	
     	while(true) {
+    		admin=false;
+			System.out.println("-------------------------------------------------");
 	    	System.out.println("Êtes vous déja client ?\n Se logger : l \n Créer un compte : c\n Quitter : q");
-	    	String command = sc.nextLine();
+			System.out.println("-------------------------------------------------");
+			String command = sc.nextLine();
 	    	int id;
 	    	String pw,firstName,name;
 	    	
 	    	//Traitement de la commande
 	    	switch(command) {
 	    		case "l":
-	    			System.out.println("Entrez votre identifiant :");
+					System.out.println("Entrez votre identifiant :");
 	    			id = Integer.parseInt(sc.nextLine());
 	    			System.out.println("Entrez votre mot de passe :");
-	    			pw = sc.nextLine();
+					pw = sc.nextLine();
 	    			try {
 	    				ui.connect(id,pw,systeme);
 	    			}catch(PasswordException|CardException e) {
@@ -90,15 +93,16 @@ public class Main {
 	    			System.exit(0);
 	    		break;
 	    	}
-	    	
-	
-	    	//Interface administrateur
+
+			//Interface administrateur
 	    	if(admin) {
 	        	while(session) {
-	        		System.out.println("Vous êtes administrateur");
+					System.out.println("-------------------------------------------------");
+					System.out.println("Vous êtes administrateur");
 	        		System.out.println("Actions disponibles : \n Ajouter un film : af \n Retirer un film : rf \n"
 	        				+ " Ajouter un dvd : ad \n Retirer un dvd : rd  \n Se déconnecter : d\n Quitter : q ");
-	        		command = sc.nextLine();
+					System.out.println("-------------------------------------------------");
+					command = sc.nextLine();
 	        		switch(command) {
 	        		case "d":
 	        			session = false;
@@ -229,15 +233,17 @@ public class Main {
 	    	}else {
 	    		boolean sessionClient1=true;
 	        	while(sessionClient1) {
-	        		System.out.println("Bienvenue "+ui.getConnectedClient().getPerson().getFirstName()+ " "+ ui.getConnectedClient().getPerson().getLastName());
+					System.out.println("-------------------------------------------------");
+					System.out.println("Bienvenue "+ui.getConnectedClient().getPerson().getFirstName()+ " "+ ui.getConnectedClient().getPerson().getLastName());
 	        		//Interface Sub
 	        		if(ui.getConnectedClient().isSub()) {
 	        			System.out.println("Vous êtes abonné.");
 	        			System.out.println("Actions disponibles : \n Louer un dvd : l \n Rendre un dvd : r \n Voir la liste des dvds : v \n"
 	        					+ " Gérer la carte sub : g \n Se déconnecter : d\n Quitter : q");
-	            		command = sc.nextLine();
+						System.out.println("-------------------------------------------------");
+						command = sc.nextLine();
 	            		switch(command) {
-	            		
+
 	            		//Louer un dvd
 	            		case "l" :
 	            			System.out.println("Choisissez un id de dvd parmis les suivants : ");
@@ -247,9 +253,9 @@ public class Main {
 		        				System.out.println(current.getFilm().getTitle()+" : "+current.getFilm().getId());
 		        			}
 		        			int idChosen= Integer.parseInt(sc.nextLine());
-		        			
+
 		        			it = systeme.getDvds().keySet().iterator();
-		        			
+
 		        			try {
 		        				DvD toRent= systeme.getDvdById(idChosen);
 		        				ui.getConnectedCard().rentDvd(toRent);
@@ -303,9 +309,9 @@ public class Main {
 	            						+ "\n Gérer cartes filles : g \n Retour : b");
 	    	            		command = sc.nextLine();
 	    	            		switch(command) {
-	    	            		
-	    	            		
-	    	            		
+
+
+
 	    	            		//Afficher le solde de la carte
 	    	            		case "v" :
 	    	            			try {
@@ -313,7 +319,7 @@ public class Main {
 	    	            			}catch(SubCardException e) {
 		    	            			e.printStackTrace();
 	    	            			}
-	    	            		break;	    	       
+	    	            		break;
 
 	    	            		//Rechargement du solde
 	    	            		case "r" :
@@ -358,7 +364,8 @@ public class Main {
 	        		}else {
 	        			System.out.println("Actions disponibles : \n S'abonner : a \n Louer un dvd : l \n Rendre un dvd : r \n "
 	        					+ "Voir la liste des dvds : v \n Se déconnecter : d\n Quitter : q");
-	            		command = sc.nextLine();
+						System.out.println("-------------------------------------------------");
+						command = sc.nextLine();
 	            		switch(command) {
 	            		case "d":
 		        			session = false;
@@ -384,7 +391,7 @@ public class Main {
 		        			int idChosen= Integer.parseInt(sc.nextLine());
 		        			
 		        			it = systeme.getDvds().keySet().iterator();
-		        			
+
 		        			try {
 		        				DvD toRent= systeme.getDvdById(idChosen);
 		        				ui.getConnectedCard().rentDvd(toRent);

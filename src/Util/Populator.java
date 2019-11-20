@@ -5,9 +5,7 @@ import KAL2000.Client;
 import KAL2000.DvD;
 import KAL2000.Film;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public abstract class Populator {
 
@@ -39,13 +37,13 @@ public abstract class Populator {
         return humans;
     }
 
-    public static ArrayList<DvD> populateDvd(int nbDvd) {
-        ArrayList<DvD> dvds = new ArrayList<>();
+    public static HashMap<DvD, Integer> populateDvd(int nbDvd) {
+        HashMap<DvD, Integer> dvds = new HashMap<>();
         Random r = new Random();
-        int idFilm = 0;
-        int idDvd = 10;
-        for (int i = 0; i < nbDvd; i++) {
-            dvds.add(
+        int dvdCount = 0;
+        for (int i = 0; i < nbDvd; i += dvdCount) {
+            dvdCount =  r.nextInt(5);
+            dvds.put(
                     new DvD(
                         new Film(
                                 generateRandomWord(8),
@@ -56,18 +54,18 @@ public abstract class Populator {
                         ),
                         State.Good,
                r.nextInt((30 - 10) + 1) + 10
-                    )
+                    ),
+                    dvdCount
             );
-            idDvd++;
-            idFilm++;
         }
         return dvds;
     }
 
-    public static ArrayList<Film> extractFilms(ArrayList<DvD> dvds){
+    public static ArrayList<Film> extractFilms(HashMap<DvD, Integer>dvds){
         ArrayList<Film> films = new ArrayList<>();
-        for(DvD dvd : dvds){
-            films.add(dvd.getFilm());
+        for (Map.Entry<DvD, Integer> dvd : dvds.entrySet()) {
+            Map.Entry elem = dvd;
+            films.add(((DvD)elem.getKey()).getFilm());
         }
         return films;
     }

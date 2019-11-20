@@ -59,10 +59,6 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
         this.nbMaxRent = 3;
     }
 
-    public int getId() {
-        return this.numCard;
-    }
-
     public void checkRentDate() throws RentException {
         for (Rent rent: this.onGoingRent) {
             if(getDateDiff(new Date(), rent.getDateRent(), TimeUnit.DAYS) > maxRentDay){
