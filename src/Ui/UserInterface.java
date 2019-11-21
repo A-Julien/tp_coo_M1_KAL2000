@@ -51,7 +51,7 @@ public class UserInterface implements Loggable {
             return;
         }
 
-        this.connectedClient = kal2000.getClient(password);
+        this.connectedClient = kal2000.getClient(password, idCard);
         this.connectedCard = kal2000.getCard(this.connectedClient, idCard);
     }
 
