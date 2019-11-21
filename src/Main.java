@@ -251,6 +251,7 @@ public class Main {
                                 try {
                                     DvD toRent = systeme.getDvdById(idChosen);
                                     ui.getConnectedCard().rentDvd(toRent);
+                                    systeme.giveDvd(toRent);
                                 } catch (RentException | StatusDvdException | SystemException e) {
                                     e.printStackTrace();
                                 }
@@ -290,11 +291,13 @@ public class Main {
                                 rent.getDvd().setState(state);
                                 try {
                                     ui.getConnectedCard().returnDvd(rent);
+                                    systeme.returnDvd(rent.getDvd());
                                 } catch (RentException | CardException | SubCardException e) {
                                     e.printStackTrace();
                                 }
                                 System.out.println("Dvd rendu");
                                 break;
+
                             //Gestion de la carte sub
                             case "g":
                                 boolean gestionEnCours = true;

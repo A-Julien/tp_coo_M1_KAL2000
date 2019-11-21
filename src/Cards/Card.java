@@ -7,7 +7,6 @@ import Exception.StatusDvdException;
 
 import KAL2000.DvD;
 import KAL2000.Rent;
-import Util.State;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Class Card which implement basic function of card in KAL2000
  */
-
 public abstract class Card implements Serializable, RentManager, RentHistorysable {
     /**
      * history of old rent
@@ -29,17 +27,28 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      */
     protected ArrayList<Rent> onGoingRent;
 
+    /**
+     * id of a card.
+     * This id is auto incremented by the idAuto static attribute
+     */
     protected int id;
 
+    /**
+     * used for auto increment the id
+     */
     private static int idAuto;
 
     public Card() {
         this.history = new ArrayList<>();
         this.onGoingRent = new ArrayList<>();
-        idAuto++;
-        this.id = idAuto;
+        idAuto++; //increment id
+        this.id = idAuto;//give te new auto incremented id to the card
     }
 
+    /**
+     * get Id
+     * @return the card id
+     */
     public int getId() {
         return this.id;
     }
@@ -115,7 +124,6 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      * @throws RentException
      */
     @Override
-    //TODO add status
     public abstract void returnDvd(Rent rent) throws RentException, CardException, SubCardException;
 
     /**

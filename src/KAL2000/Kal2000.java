@@ -1,7 +1,7 @@
 package KAL2000;
 
 import Cards.*;
-import Exception.CardException;
+
 import Exception.PasswordException;
 import Exception.FilmException;
 import Exception.RentException;
@@ -27,7 +27,7 @@ public class Kal2000 {
     }
 
     public void addCLient(Client client) throws SystemException {
-        if(this.cointainClient(client)) throw new SystemException("client already exist");;
+        if(this.containsclient(client)) throw new SystemException("client already exist");;
         this.clients.add(client);
     }
 
@@ -44,7 +44,6 @@ public class Kal2000 {
         this.dvds.putAll(dvds);
     }
 
-    //TODO add dvds && add Films
     public Client getClient(String password, int idCard) throws PasswordException {
         for(Client client : this.clients){
             if(Objects.equals(client.getPassword(), password)){
@@ -139,6 +138,10 @@ public class Kal2000 {
         this.dvds.put(dvd, this.dvds.get(dvd) - 1);
     }
 
+    public void returnDvd(DvD dvd){
+        this.dvds.put(dvd, this.dvds.get(dvd)+1);
+    }
+
     public HashMap<DvD, Integer> getDvds() {
         return this.dvds;
     }
@@ -228,7 +231,7 @@ public class Kal2000 {
         return metaDatumFormatters;
     }
 
-    public boolean cointainClient(Client client){
+    public boolean containsclient(Client client){
         for (Client client1 : clients){
             if(client1.equals(client)) return true;
         }
