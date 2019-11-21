@@ -2,6 +2,7 @@ package Ui;
 
 import Cards.Card;
 import Cards.CreditCard;
+import Cards.SlaveCard;
 import Exception.CardException;
 import Exception.PasswordException;
 import Exception.SystemException;
@@ -58,6 +59,10 @@ public class UserInterface implements Loggable {
 
     public boolean isAdmin() {
         return isAdmin;
+    }
+
+    public boolean isSlave(){
+        return this.connectedCard instanceof SlaveCard;
     }
 
     @Override

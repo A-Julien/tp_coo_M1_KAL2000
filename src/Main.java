@@ -27,6 +27,9 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
+        /********************************************************/
+        //            INTERFACE CONNECTION
+        /********************************************************/
         while (true) {
             admin = false;
             System.out.println("-------------------------------------------------");
@@ -82,7 +85,9 @@ public class Main {
                     continue;
             }
 
-            //Interface administrateur
+            /********************************************************/
+            //            INTERFACE ADMIN
+            /********************************************************/
             if (admin) {
                 while (session) {
                     System.out.println("-------------------------------------------------");
@@ -216,10 +221,11 @@ public class Main {
                             break;
                     }
                 }
-            /********************************************************/
-            //            INTERFACE ABONNE - CARTE MAITRE
-            /********************************************************/
+
             } else {
+                /********************************************************/
+                //            INTERFACE ABONNE - CARTE MAITRE
+                /********************************************************/
                 boolean sessionClient1 = true;
                 while (sessionClient1) {
                     System.out.println("-------------------------------------------------");
@@ -227,8 +233,13 @@ public class Main {
                     //Interface Sub
                     if (ui.getConnectedClient().isSub()) {
                         System.out.println("Vous êtes abonné.");
-                        System.out.println("Actions disponibles : \n Louer un dvd : l \n Rendre un dvd : r \n Voir la liste des dvds : v \n"
-                                + " Gérer la carte sub : g \n Se déconnecter : d\n Quitter : q");
+                        String menu = "Actions disponibles : \n Louer un dvd : l \n Rendre un dvd : r \n " +
+                                "Voir la liste des dvds : v \n Gérer la carte sub : g \n Se déconnecter : d\n " +
+                                "Quitter : q";
+                        if(ui.isSlave())
+                            menu = "Actions disponibles : \n Louer un dvd : l \n Rendre un dvd : r \n " +
+                                    "Voir la liste des dvds : v  \n Se déconnecter : d\n Quitter : q";
+                        System.out.println(menu);
                         System.out.println("-------------------------------------------------");
                         command = sc.nextLine();
                         switch (command) {
@@ -242,7 +253,7 @@ public class Main {
                                 break;
                             //Gestion de la carte sub
                             case "g":
-                                subCardManaging(ui,sc);
+                                if(!ui.isSlave()) subCardManaging(ui,sc);
                                 break;
                             //Déconnexion
                             case "d":
@@ -260,7 +271,7 @@ public class Main {
                                 break;
                         }
                     /********************************************************/
-                    //                 INTERFACE ABONNE - CARTE FILLE
+                    //                 INTERFACE NON SUB
                     /********************************************************/
                     } else {
                         System.out.println("Actions disponibles : \n S'abonner : a \n Louer un dvd : l \n Rendre un dvd : r \n "
@@ -302,8 +313,6 @@ public class Main {
                                 break;
                         }
                     }
-
-
                 }
             }
         }
