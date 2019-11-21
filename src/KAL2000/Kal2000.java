@@ -53,7 +53,7 @@ public class Kal2000 {
         throw new PasswordException("Incorrect Password");
     }
 
-    public Card getCard(Client client, int idCard) throws CardException {
+    public Card getCard(Client client, int idCard) throws NoSuchElementException {
 
         for (CreditCard credicard : client.getCreditCards()) {
             if(idCard == credicard.getNumCard())
