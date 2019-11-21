@@ -26,7 +26,8 @@ public class Kal2000 {
         this.dvds = new HashMap<>();
     }
 
-    public void addCLient(Client client){
+    public void addCLient(Client client) throws SystemException {
+        if(this.cointainClient(client)) throw new SystemException("client already exist");;
         this.clients.add(client);
     }
 

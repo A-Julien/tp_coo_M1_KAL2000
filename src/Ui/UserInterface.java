@@ -4,6 +4,7 @@ import Cards.Card;
 import Cards.CreditCard;
 import Exception.CardException;
 import Exception.PasswordException;
+import Exception.SystemException;
 import KAL2000.Client;
 import KAL2000.Kal2000;
 
@@ -31,11 +32,11 @@ public class UserInterface implements Loggable {
                              String lastName,
                              String password,
                              int idCreditCard,
-                             Kal2000 kal2000){
+                             Kal2000 kal2000) throws SystemException {
 
         CreditCard creditCard = new CreditCard(idCreditCard);
         Client client = new Client(firstName, lastName, password,creditCard);
-        if (!kal2000.cointainClient(client)) kal2000.addCLient(client);
+        kal2000.addCLient(client);
 
     }
 
