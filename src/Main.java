@@ -2,13 +2,7 @@ import Cards.Card;
 import Cards.CreditCard;
 import Cards.MainCard;
 import Cards.SubCard;
-import Exception.CardException;
-import Exception.FilmException;
-import Exception.PasswordException;
-import Exception.RentException;
-import Exception.StatusDvdException;
-import Exception.SubCardException;
-import Exception.SystemException;
+import Exception.*;
 import KAL2000.DvD;
 import KAL2000.Film;
 import KAL2000.Kal2000;
@@ -76,10 +70,10 @@ public class Main {
                     pw = sc.nextLine();
                     System.out.println("Entrez le numéro de votre carte :");
                     id = Integer.parseInt(sc.nextLine());
-                    ui.createClient(firstName, name, pw, id, systeme);
                     try {
+                        ui.createClient(firstName, name, pw, id, systeme);
                         ui.connect(id, pw, systeme);
-                    } catch (PasswordException | CardException e) {
+                    } catch (PasswordException | CardException | SystemException e) {
                         System.out.println(e.getMessage());
                         continue;
                     }
