@@ -1,7 +1,9 @@
 package KAL2000;
+import Util.Category;
 import Util.State;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class DvD implements Serializable {
 	private static int autoId;
@@ -36,5 +38,10 @@ public class DvD implements Serializable {
     public int getId() {
         return id;
     }
+
+    public ArrayList<Category> getCategory(){
+		return this.film.getCategory();
+	}
+
 }
 

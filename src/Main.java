@@ -139,7 +139,7 @@ public class Main {
                             String[] nom = real.split(" ");
                             Human realisateur = new Human(nom[0], nom[1]);
 
-
+                            //TODO LES CATEGORIES
                             System.out.println("Entrez la catégorie principale du film : Action,XxX,SF,Fantasy,Comedy,Tragedy,Romance");
                             String category = sc.nextLine();
 

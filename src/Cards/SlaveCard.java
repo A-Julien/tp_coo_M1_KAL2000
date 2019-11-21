@@ -22,23 +22,23 @@ public class SlaveCard extends SubCard implements Serializable {
      */
     protected ArrayList<Category> categories;
 
+    private MainCard mainCard;
+
     /**
      * Maximum rent that a SlaveCard can do.
      * By default set at nbMaxRent
      */
     private int maxRent;
 
-    private int idMainCard;
 
-    public SlaveCard(int id, CreditCard creditCard, int idMainCard) {
-        super(creditCard);
+    public SlaveCard(MainCard mainCard) {
+        super(mainCard.getCreditCard());
         this.categories = new ArrayList<>();
         this.maxRent = nbMaxRent;
-        this.idMainCard = idMainCard;
     }
 
-    public int getIdMainCard() {
-        return idMainCard;
+    public MainCard getMainCard() {
+        return this.mainCard;
     }
 
     /**
@@ -47,7 +47,7 @@ public class SlaveCard extends SubCard implements Serializable {
      * @return True if can rent else False
      */
     protected boolean canIwatch(DvD dvd){
-       // for (Category category: dvd.getCategory()) if(this.categories.contains(category)) return false;
+        for (Category category: dvd.getCategory()) if(this.categories.contains(category)) return false;
         return true;
     }
 
@@ -81,9 +81,9 @@ public class SlaveCard extends SubCard implements Serializable {
      */
     @Override
     public void returnDvd(Rent rent) throws CardException, SubCardException, RentException {
-        /*if(rent.isRentFinish()) throw new RentException(
+        if(rent.isRentFinish()) throw new RentException(
                 "Error when return the " + rent.getDvd().getFilm().getTitle() +
-                            "ask to the boss");*/
+                            "ask to the boss");
         rent.setDateReturn();
         this.onGoingRent.remove(rent);
         rent.setPrice(this.calcPrice(rent, priceRent));
