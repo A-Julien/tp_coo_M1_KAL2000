@@ -3,13 +3,12 @@ import Cards.MainCard;
 import Cards.SubCard;
 import Exception.*;
 import KAL2000.DvD;
-import KAL2000.Film;
 import KAL2000.Kal2000;
 import KAL2000.Rent;
 import Ui.UserInterface;
-import Util.Human;
 import Util.State;
-import View.Admin;
+import View.AdminView;
+import View.ConnectionView;
 
 import java.io.IOException;
 import java.util.*;
@@ -43,41 +42,15 @@ public class Main {
             //Traitement de la commande
             switch (command) {
                 case "l":
-                    System.out.println("Entrez votre identifiant :");
-                    id = Integer.parseInt(sc.nextLine());
-                    System.out.println("Entrez votre mot de passe :");
-                    pw = sc.nextLine();
-                    try {
-                        ui.connect(id, pw, system);
-                    } catch (PasswordException | CardException e) {
-                        e.printStackTrace();
-                        continue;
-                    }
-
+                    if (!ConnectionView.logging(system,ui,sc)) continue;
                     if (ui.isAdmin()) admin = true;
-
                     session = true;
                     break;
 
                 case "c":
-                    System.out.println("Entrez votre prénom :");
-                    firstName = sc.nextLine();
-                    System.out.println("Entrez votre nom :");
-                    name = sc.nextLine();
-                    System.out.println("Entrez votre mot de passe :");
-                    pw = sc.nextLine();
-                    System.out.println("Entrez le numéro de votre carte :");
-                    id = Integer.parseInt(sc.nextLine());
-                    try {
-                        ui.createClient(firstName, name, pw, id, system);
-                        ui.connect(id, pw, system);
-                    } catch (PasswordException | CardException | SystemException | NoSuchElementException e) {
-                        System.out.println(e.getMessage());
-                        continue;
-                    }
+                    if(!ConnectionView.creatClient(system,ui,sc)) continue;
                     session = true;
                     break;
-
                 case "q":
                     system.powerOff();
                     System.exit(0);
@@ -104,19 +77,19 @@ public class Main {
                             break;
                         //Ajout d'un film
                         case "af":
-                            Admin.addFilm(system,sc);
+                            AdminView.addFilm(system,sc);
                             break;
                         //Supprimer un film
                         case "rf":
-                            Admin.removeFilm(system,sc);
+                            AdminView.removeFilm(system,sc);
                             break;
                         //Ajout d'un DVD
                         case "ad":
-                            Admin.addDvd(system,sc);
+                            AdminView.addDvd(system,sc);
                             break;
                         //Suppression d'un DVD
                         case "rd":
-                            Admin.removeDvd(system,sc);
+                            AdminView.removeDvd(system,sc);
                             break;
                         case "q":
                             session = false;

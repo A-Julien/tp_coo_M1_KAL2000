@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public abstract class Admin {
+public abstract class AdminView {
 
     public static void addFilm(Kal2000 system, Scanner sc){
         //Choix des attributs du film
