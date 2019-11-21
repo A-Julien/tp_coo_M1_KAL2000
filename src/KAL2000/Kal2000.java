@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.*;
 
 public class Kal2000 {
+    private final String path = "/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/";
     private final int maxDvd = 100;
 
     private ArrayList<Film> films6beerVideo;
@@ -78,15 +79,15 @@ public class Kal2000 {
 
 		ObjectInputStream inputStream;
 		try {
-			inputStream = new ObjectInputStream(new FileInputStream("../saveVideos"));
+			inputStream = new ObjectInputStream(new FileInputStream(path+"/saveVideos"));
 			this.films6beerVideo = (ArrayList<Film>) inputStream.readObject();
 			inputStream.close();
 
-			inputStream = new ObjectInputStream(new FileInputStream("../saveClients"));
+			inputStream = new ObjectInputStream(new FileInputStream(path+"/saveClients"));
 			this.clients = (ArrayList<Client>) inputStream.readObject();
 			inputStream.close();
 
-			inputStream = new ObjectInputStream(new FileInputStream("../saveDvDs"));
+			inputStream = new ObjectInputStream(new FileInputStream(path+"/saveDvDs"));
 			this.dvds = (HashMap<DvD, Integer>) inputStream.readObject();
 			inputStream.close();
 		} catch (IOException e) {
@@ -105,15 +106,15 @@ public class Kal2000 {
     public void powerOff() throws InterruptedException, IOException {
 		System.out.print("PowerOff ");
 
-		ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("../saveVideos"));
+		ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path+"/saveVideos"));
 		outputStream.writeObject(this.films6beerVideo);
 		outputStream.close();
 
-		outputStream = new ObjectOutputStream(new FileOutputStream("../saveClients"));
+		outputStream = new ObjectOutputStream(new FileOutputStream(path+"/saveClients"));
 		outputStream.writeObject(this.clients);
 		outputStream.close();
 
-		outputStream = new ObjectOutputStream(new FileOutputStream("../saveDvDs"));
+		outputStream = new ObjectOutputStream(new FileOutputStream(path+"/saveDvDs"));
 		outputStream.writeObject(this.dvds);
 		outputStream.close();
 
@@ -218,5 +219,12 @@ public class Kal2000 {
             metaDatumFormatters.add(new MetaDataFormatter(client));
         }
         return metaDatumFormatters;
+    }
+
+    public boolean cointainClient(Client client){
+        for (Client client1 : clients){
+            if(client1.equals(client)) return true;
+        }
+        return false;
     }
 }

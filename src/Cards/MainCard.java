@@ -169,4 +169,5 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
     public ArrayList<SlaveCard> getSlaveCards() {
         return this.slaveCards;
     }
+
 }

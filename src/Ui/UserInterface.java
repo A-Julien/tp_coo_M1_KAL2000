@@ -35,7 +35,8 @@ public class UserInterface implements Loggable {
 
         CreditCard creditCard = new CreditCard(idCreditCard);
         Client client = new Client(firstName, lastName, password,creditCard);
-        kal2000.addCLient(client);
+        if (!kal2000.cointainClient(client)) kal2000.addCLient(client);
+
     }
 
     public boolean isClientConnected(){

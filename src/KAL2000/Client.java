@@ -7,6 +7,7 @@ import Util.Human;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Client implements Serializable {
 	private Human person;
@@ -49,6 +50,15 @@ public class Client implements Serializable {
 		return this.mainCards;
 	}
 
+	private boolean containMainCard(ArrayList<CreditCard> card){
+		for (CreditCard creditCard : creditCards){
+			for (CreditCard creditCard1 : card){
+				if(creditCard.equals(creditCard1))return true;
+			}
+		}
+		return false;
+	}
+
 	public MainCard createMainCard(CreditCard creditCard){
 		this.mainCards.add(new MainCard(creditCard));
 		return this.mainCards.get(this.mainCards.size() - 1);
@@ -57,5 +67,14 @@ public class Client implements Serializable {
 	@Override
 	public String toString() {
 		return this.person.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Client)) return false;
+		Client client = (Client) o;
+		return Objects.equals(getPassword(), client.getPassword()) &&
+				this.containMainCard(client.getCreditCards());
 	}
 }

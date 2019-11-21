@@ -8,6 +8,7 @@ import Util.State;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -85,4 +86,13 @@ public class CreditCard extends Card implements Serializable {
      * @param money money to pay
      */
     public void pay(float money){}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CreditCard)) return false;
+        CreditCard that = (CreditCard) o;
+        return getNumCard() == that.getNumCard();
+    }
+
 }
