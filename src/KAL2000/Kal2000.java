@@ -227,4 +227,14 @@ public class Kal2000 {
         }
         return false;
     }
+
+    public String printDvds() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<DvD, Integer> dvdList : this.dvds.entrySet()) {
+            Map.Entry<DvD, Integer> elem = dvdList;
+            stringBuilder.append(elem.getKey().getFilm().getTitle()).append(" nb dvd : ").append(elem.getValue());
+        }
+        return stringBuilder.toString();
+    }
+
 }
