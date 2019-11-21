@@ -1,4 +1,4 @@
-package Ui;
+package Model;
 
 import Cards.Card;
 import KAL2000.Client;

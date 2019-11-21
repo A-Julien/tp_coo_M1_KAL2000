@@ -1,4 +1,4 @@
-package Ui;
+package Model;
 
 import Cards.Card;
 import Cards.CreditCard;
@@ -9,13 +9,13 @@ import Exception.SystemException;
 import KAL2000.Client;
 import KAL2000.Kal2000;
 
-public class UserInterface implements Loggable {
+public class UserModel implements Loggable {
     private static int adminId = 12345;
     private Card connectedCard;
     private Client connectedClient;
     private boolean isAdmin;
 
-    public UserInterface() {
+    public UserModel() {
         this.connectedCard = null;
         this.connectedClient = null;
         this.isAdmin = false;

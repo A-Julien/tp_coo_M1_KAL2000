@@ -1,21 +1,10 @@
-import Cards.CreditCard;
-import Cards.MainCard;
 import Exception.*;
 import KAL2000.DvD;
-import KAL2000.Film;
 import KAL2000.Kal2000;
-import KAL2000.Rent;
-import Ui.UserInterface;
-import Util.Category;
-import Util.Human;
 import Util.Populator;
-import Util.State;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
 
 
 public class Populate {
