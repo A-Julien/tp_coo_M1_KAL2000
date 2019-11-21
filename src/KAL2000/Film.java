@@ -59,5 +59,11 @@ public class Film implements Serializable {
 	public int getNbRented() {
 		return nbRented;
 	}
+
+	@Override
+	public String toString() {
+		return "id=" + id +
+				", title='" + title;
+	}
 }
 

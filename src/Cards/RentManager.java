@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public interface RentManager {
 
-    Rent getRent(DvD dvd) throws RentException;
+    Rent getRent(int iDdvd) throws RentException;
     Rent rentDvd(DvD dvd) throws RentException, StatusDvdException;
     void checkRentDate() throws RentException;
     void returnDvd(Rent rent) throws RentException, CardException, SubCardException;

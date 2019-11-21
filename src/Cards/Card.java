@@ -55,9 +55,11 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
 
 
     @Override
-    public Rent getRent(DvD dvd) throws RentException {
-        for(Rent rent : this.onGoingRent) if(rent.getDvd() == dvd) return rent;
-        throw new RentException("No rent found for the dvd : " + dvd.getFilm().getTitle());
+    public Rent getRent(int iDdvd) throws RentException {
+        for(Rent rent : this.onGoingRent) {
+            if(rent.getDvd().getId() == iDdvd) return rent;
+        }
+        throw new RentException("No rent found for the dvd with id : " + iDdvd);
     }
 
     /**
@@ -90,6 +92,16 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
         return onGoingRent;
     }
 
+    public String printOnGoingRent(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Rent rent : this.onGoingRent){
+            stringBuilder
+                    .append(rent.getDvd().getFilm().getId())
+                    .append(" id= ").append(rent.getDvd().getId())
+                    .append("\n");
+        }
+        return stringBuilder.toString();
+    }
 
     /**
      * calculate a rent price
