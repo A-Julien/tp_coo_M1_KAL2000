@@ -13,10 +13,7 @@ import Util.Human;
 import Util.State;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 
 public class Main {
@@ -73,7 +70,7 @@ public class Main {
                     try {
                         ui.createClient(firstName, name, pw, id, systeme);
                         ui.connect(id, pw, systeme);
-                    } catch (PasswordException | CardException | SystemException e) {
+                    } catch (PasswordException | CardException | SystemException | NoSuchElementException e) {
                         System.out.println(e.getMessage());
                         continue;
                     }
