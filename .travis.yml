@@ -4,4 +4,5 @@ script:
   - javac -Xlint:unchecked *.java
   - java Main < ../Scenari/new_account_scenario.txt
   - java Main < ../Scenari/log_scenario.txt
+  - java Main < ../Scenari/admin_scenario.txt
 
