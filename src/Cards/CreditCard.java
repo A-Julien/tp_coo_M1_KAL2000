@@ -69,6 +69,7 @@ public class CreditCard extends Card implements Serializable {
                 "Error when return the " + rent.getDvd().getFilm().getTitle() +
                             "ask to the boss");
         this.onGoingRent.remove(rent);
+        rent.setDateReturn();
         rent.setPrice(this.calcPrice(rent, priceRent));
         this.addHistory(rent);
         this.pay(

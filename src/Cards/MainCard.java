@@ -103,15 +103,15 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      */
     @Override
     public void returnDvd(Rent rent) throws RentException, CardException, SubCardException {
-       /*if(rent.isRentFinish()) throw new RentException(
-                "Error when return the " + rent.getDvd().getFilm().getTitle() +
-                            "ask to the boss");*/
-       rent.setDateReturn();
-       this.onGoingRent.remove(rent);
-       rent.setPrice(this.calcPrice(rent, priceRent));
-       this.addHistory(rent);
-       this.updateDiscount();
-       this.payRent(rent);
+            if(rent.isRentFinish()) throw new RentException(
+                    "Error when return the " + rent.getDvd().getFilm().getTitle() +
+                            "ask to the boss");
+            rent.setDateReturn();
+            this.onGoingRent.remove(rent);
+            rent.setPrice(this.calcPrice(rent, priceRent));
+            this.addHistory(rent);
+            this.updateDiscount();
+            this.payRent(rent);
        if(this.getCredit() < 0){
            this.periodRegularization = periodMaxDays;
        }
