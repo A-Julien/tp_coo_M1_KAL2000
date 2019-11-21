@@ -1,6 +1,7 @@
 import Cards.Card;
 import Cards.CreditCard;
 import Cards.MainCard;
+import Cards.SlaveCard;
 import Cards.SubCard;
 import Exception.CardException;
 import Exception.FilmException;
@@ -306,14 +307,33 @@ public class Main {
                                 break;
                             //Gestion de la carte sub
                             case "g":
+                            	if(!(ui.getConnectedCard() instanceof SubCard)) {
+                            		System.out.println("Veuillez insérer une carte d'abonné.");
+                            		break;
+                            	}
                                 boolean gestionEnCours = true;
                                 while (gestionEnCours) {
                                     System.out.println("Actions disponibles : \n Voir le solde : v \n Recharger la carte : r \n Créer une carte fille : c "
                                             + "\n Gérer cartes filles : g \n Retour : b");
                                     command = sc.nextLine();
                                     switch (command) {
-
-
+                                    	//Création 
+                                    	case "c":
+                                        	if(!(ui.getConnectedCard() instanceof MainCard)) {
+                                        		System.out.println("Veuillez insérer une carte mère");
+                                        		break;
+                                        	}
+                                        	((MainCard)ui.getConnectedCard()).createSlaveCard();
+                                        	System.out.println("Carte fille crée");
+                                    	break;
+                                    	//Gestion des cartes filles
+                                    	case "g":
+                                        	if(!(ui.getConnectedCard() instanceof MainCard)) {
+                                        		System.out.println("Veuillez insérer une carte mère");
+                                        		break;
+                                        	}
+                                        	
+                                    	break;
                                         //Afficher le solde de la carte
                                         case "v":
                                             try {
