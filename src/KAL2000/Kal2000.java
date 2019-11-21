@@ -232,7 +232,15 @@ public class Kal2000 {
         StringBuilder stringBuilder = new StringBuilder();
         for (Map.Entry<DvD, Integer> dvdList : this.dvds.entrySet()) {
             Map.Entry<DvD, Integer> elem = dvdList;
-            stringBuilder.append(elem.getKey().getFilm().getTitle()).append(" nb dvd : ").append(elem.getValue());
+            stringBuilder.append(elem.getKey().getFilm().getTitle()).append(" nb dvd : ").append(elem.getValue()).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public String printClients(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Client client : this.clients){
+            stringBuilder.append(client.toString()).append("\n");
         }
         return stringBuilder.toString();
     }

@@ -28,8 +28,8 @@ public class Populate {
     	Kal2000 systeme = new Kal2000();
     	systeme.boot();
 
-		systeme.addCLients(Populator.populateClient(300));
-		HashMap<DvD, Integer> dvds = Populator.populateDvd(90);
+		systeme.addCLients(Populator.populateClient(10));
+		HashMap<DvD, Integer> dvds = Populator.populateDvd(10);
 		systeme.addDvds(dvds);
 		systeme.addFilms(Populator.extractFilms(dvds));
 		systeme.powerOff();

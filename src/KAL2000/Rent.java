@@ -2,12 +2,13 @@ package KAL2000;
 
 import Exception.RentException;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * modelise a Rent
  */
-public class Rent {
+public class Rent implements Serializable {
     /**
      * starting date
      */
