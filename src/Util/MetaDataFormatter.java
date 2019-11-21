@@ -47,8 +47,8 @@ public class MetaDataFormatter {
         int moy = 0;
 
         for (Map.Entry<Card, ArrayList<Rent>> cardArrayListEntry : this.history.entrySet()) {
-            Map.Entry elem = cardArrayListEntry;
-            ArrayList<Rent> rents = (ArrayList<Rent>) elem.getValue();
+            Map.Entry<Card, ArrayList<Rent>> elem = cardArrayListEntry;
+            ArrayList<Rent> rents = elem.getValue();
             for (Rent rent : rents) {
                 try {
                     moy += Card.getDateDiff(rent.getDateReturn(), rent.getDateRent(), TimeUnit.DAYS);
@@ -62,8 +62,8 @@ public class MetaDataFormatter {
         int moy = 0;
 
         for (Map.Entry<Card, ArrayList<Rent>> cardArrayListEntry : this.history.entrySet()) {
-            Map.Entry elem = cardArrayListEntry;
-            ArrayList<Rent> rents = (ArrayList<Rent>) elem.getValue();
+            Map.Entry<Card, ArrayList<Rent>> elem = cardArrayListEntry;
+            ArrayList<Rent> rents = elem.getValue();
             for (Rent rent : rents) {
                 try {
                     moy += rent.getPrice();
@@ -77,8 +77,8 @@ public class MetaDataFormatter {
         HashMap<Film, Integer> stats = new HashMap<>();
 
         for (Map.Entry<Card, ArrayList<Rent>> cardArrayListEntry : this.history.entrySet()) {
-            Map.Entry elem = cardArrayListEntry;
-            ArrayList<Rent> rents = (ArrayList<Rent>) elem.getValue();
+            Map.Entry<Card, ArrayList<Rent>> elem = cardArrayListEntry;
+            ArrayList<Rent> rents = elem.getValue();
             for (Rent rent : rents) {
                 stats.put(rent.getDvd().getFilm(), rent.getDvd().getFilm().getNbRented());
             }
@@ -91,9 +91,9 @@ public class MetaDataFormatter {
         StringBuilder cards = new StringBuilder();
 
         for (Map.Entry<Card, ArrayList<Rent>> cardArrayListEntry : this.history.entrySet()) {
-            Map.Entry elem = (Map.Entry) cardArrayListEntry;
-            ArrayList<Rent> h = (ArrayList<Rent>) elem.getValue();
-            Card card = (Card) elem.getKey();
+            Map.Entry<Card, ArrayList<Rent>> elem = (Map.Entry<Card, ArrayList<Rent>>) cardArrayListEntry;
+            ArrayList<Rent> h = elem.getValue();
+            Card card = elem.getKey();
             cards.append("\t").append(String.valueOf(card.getId())).append("\n");
             for (Rent rent : h) {
                 cards.append("\t\t").append(rent.toString()).append("\n");
