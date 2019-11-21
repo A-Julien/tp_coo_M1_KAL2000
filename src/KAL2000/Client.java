@@ -1,8 +1,6 @@
 package KAL2000;
-import Cards.Card;
 import Cards.CreditCard;
 import Cards.MainCard;
-import Cards.SubCard;
 import Util.Human;
 
 import java.io.Serializable;
@@ -50,7 +48,7 @@ public class Client implements Serializable {
 		return this.mainCards;
 	}
 
-	private boolean containMainCard(ArrayList<CreditCard> card){
+	private boolean containCreditCard(ArrayList<CreditCard> card){
 		for (CreditCard creditCard : creditCards){
 			for (CreditCard creditCard1 : card){
 				if(creditCard.equals(creditCard1))return true;
@@ -66,7 +64,7 @@ public class Client implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.person.toString();
+		return this.person.toString() + this.creditCards;
 	}
 
 	@Override
@@ -75,6 +73,6 @@ public class Client implements Serializable {
 		if (!(o instanceof Client)) return false;
 		Client client = (Client) o;
 		return Objects.equals(getPassword(), client.getPassword()) &&
-				this.containMainCard(client.getCreditCards());
+				this.containCreditCard(client.getCreditCards());
 	}
 }

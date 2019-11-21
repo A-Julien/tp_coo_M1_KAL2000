@@ -133,4 +133,5 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
     @Override
     public abstract void setMaximumRent(int maximumRent);
 
+
 }
