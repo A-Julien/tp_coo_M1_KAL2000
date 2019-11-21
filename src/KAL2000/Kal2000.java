@@ -45,11 +45,13 @@ public class Kal2000 {
     }
 
     //TODO add dvds && add Films
-    public Client getClient(String password) throws PasswordException {
+    public Client getClient(String password, int idCard) throws PasswordException {
 
         for(Client client : this.clients)
-            if(Objects.equals(client.getPassword(), password)) return client;
-
+            if(Objects.equals(client.getPassword(), password)){
+                if(this.getCard(client, idCard) == null) throw new PasswordException("Incorrect Password");
+                return client;
+            }
         throw new PasswordException("Incorrect Password");
     }
 
