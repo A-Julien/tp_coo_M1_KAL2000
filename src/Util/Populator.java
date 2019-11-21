@@ -43,6 +43,9 @@ public abstract class Populator {
         int dvdCount = 0;
         for (int i = 0; i < nbDvd; i += dvdCount) {
             dvdCount =  r.nextInt(5);
+            ArrayList<Category> categories = new ArrayList<Category>();
+            categories.add(Category.randomCategory());
+            categories.add(Category.randomCategory());
             dvds.put(
                     new DvD(
                         new Film(
@@ -50,7 +53,7 @@ public abstract class Populator {
                                 synopsis,
                                 generateActor(),
                                 new Human(generateRandomWord(8),generateRandomWord(8)),
-                                Category.randomCategory()
+                                categories
                         ),
                         State.Good,
                r.nextInt((30 - 10) + 1) + 10

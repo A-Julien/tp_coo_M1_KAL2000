@@ -43,7 +43,7 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      */
     @Override
     public SlaveCard createSlaveCard(){
-        SlaveCard slaveCard = new SlaveCard(this.slaveCards.size(), this.creditCard, this.getId());
+        SlaveCard slaveCard = new SlaveCard(this);
         this.slaveCards.add(slaveCard);
         return slaveCard;
     }
@@ -170,4 +170,7 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
         return this.slaveCards;
     }
 
+    protected CreditCard getCreditCard(){
+        return this.creditCard;
+    }
 }
