@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.*;
 
 public class Kal2000 {
-    private final String path = "/Users/julien/Documents/M1NFO/COO/tp_coo_M1_KAL2000/";
+    private final String path = ".";
     private final int maxDvd = 100;
 
     private ArrayList<Film> films6beerVideo;
@@ -91,7 +91,7 @@ public class Kal2000 {
 			this.dvds = (HashMap<DvD, Integer>) inputStream.readObject();
 			inputStream.close();
 		} catch (IOException e) {
-			System.out.println("/!\\ save files found");
+			System.out.println("/!\\ save files not found");
 		}
 
         for(int i = 0; i < 10; i++){

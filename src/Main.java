@@ -155,6 +155,7 @@ public class Main {
                             //Ajout a la base
                             try {
                                 systeme.addFilm(new Film(titre, synopsis, actorsFilms, realisateur, categories));
+
                                 System.out.println("Film ajouté");
                             } catch (FilmException e) {
                                 e.printStackTrace();
