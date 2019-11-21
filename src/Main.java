@@ -1,7 +1,6 @@
 import Cards.Card;
 import Cards.CreditCard;
 import Cards.MainCard;
-import Cards.SlaveCard;
 import Cards.SubCard;
 import Exception.CardException;
 import Exception.FilmException;
@@ -140,22 +139,13 @@ public class Main {
                             String[] nom = real.split(" ");
                             Human realisateur = new Human(nom[0], nom[1]);
 
-                            //TODO LES CATEGORIES
-                            System.out.println("Entrez les catégories principales du film : Action,XxX,SF,Fantasy,Comedy,Tragedy,Romance, (s = fin)");
-                            ArrayList<Category> categories = new ArrayList();
-                            entreeEnCours=true;
-                            while (entreeEnCours) {
-                            	String category = sc.nextLine();
-                                if (category.equals("s")) {
-                                    entreeEnCours = false;
-                                } else {
-                                	categories.add(Category.valueOf(category));
-                                }
-                            }
+
+                            System.out.println("Entrez la catégorie principale du film : Action,XxX,SF,Fantasy,Comedy,Tragedy,Romance");
+                            String category = sc.nextLine();
+
                             //Ajout a la base
                             try {
-                                systeme.addFilm(new Film(titre, synopsis, actorsFilms, realisateur, categories));
-
+                                systeme.addFilm(new Film(titre, synopsis, actorsFilms, realisateur, null /*Category.valueOf(category)*/));
                                 System.out.println("Film ajouté");
                             } catch (FilmException e) {
                                 e.printStackTrace();
@@ -316,48 +306,14 @@ public class Main {
                                 break;
                             //Gestion de la carte sub
                             case "g":
-                            	if(!(ui.getConnectedCard() instanceof SubCard)) {
-                            		System.out.println("Veuillez insérer une carte d'abonné.");
-                            		break;
-                            	}
                                 boolean gestionEnCours = true;
                                 while (gestionEnCours) {
-                                    System.out.println("Actions disponibles : \n Voir le solde : v \n Recharger la carte : r  "
+                                    System.out.println("Actions disponibles : \n Voir le solde : v \n Recharger la carte : r \n Créer une carte fille : c "
                                             + "\n Gérer cartes filles : g \n Retour : b");
                                     command = sc.nextLine();
                                     switch (command) {
 
 
-                                    	//Gestion des cartes filles
-                                    	case "g":
-                                        	if(!(ui.getConnectedCard() instanceof MainCard)) {
-                                        		System.out.println("Veuillez insérer une carte mère");
-                                        		break;
-                                        	}
-                                        	boolean gestionMain = true;
-                                        	while(gestionMain) {
-                                            	System.out.println("Actions disponibles : \n Limiter le nombre de locations : l \n Afficher l'historique d'une carte: a \n"
-                                            			+ " Créer une carte fille : c \n Supprimer une carte fille \n Retour : b");
-                                            	command = sc.nextLine();
-	                                        	switch(command) {
-	                                        		//Créer carte fille
-		                                        	case "c":
-		                                            	if(!(ui.getConnectedCard() instanceof MainCard)) {
-		                                            		System.out.println("Veuillez insérer une carte mère");
-		                                            		break;
-		                                            	}
-		                                            	((MainCard)ui.getConnectedCard()).createSlaveCard();
-		                                            	System.out.println("Carte fille crée");
-		                                            	break;
-		                                            //Retour
-		                                            case "b":
-		                                                gestionEnCours = false;
-		                                                break;
-	                                        	}
-
-                                        	}
-
-                                    	break;
                                         //Afficher le solde de la carte
                                         case "v":
                                             try {
@@ -422,10 +378,9 @@ public class Main {
                             //S'abonner
                             case "a":
                                 ui.getConnectedClient().setSub(true);
-                                System.out.println("Choisissez un identifiant de carte : ");
-                                int idCard = Integer.parseInt(sc.nextLine());
                                 ui.getConnectedClient().getMainCards().add(new MainCard((CreditCard) ui.getConnectedCard()));
-                                System.out.println("Vous êtes désormais abonné ! ");
+                                System.out.println("Vous êtes désormais abonné ! Votre carte a pour id : " 
+                                    + ui.getConnectedClient().getMainCards().get(ui.getConnectedClient().getMainCards().size() - 1).getId());
                                 break;
                             //Louer un dvd
                             case "l":
