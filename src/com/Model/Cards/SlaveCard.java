@@ -65,7 +65,6 @@ public class SlaveCard extends SubCard implements Serializable {
 
         this.maxRent = maxRent;
     }
-
     /**
      * Return the number of maximum rent that can do the SlaveCard
      * @return
@@ -99,4 +98,7 @@ public class SlaveCard extends SubCard implements Serializable {
         }
     }
 
+    public void limitCategories(ArrayList<Category> cats){
+        this.categories= cats;
+    }
 }

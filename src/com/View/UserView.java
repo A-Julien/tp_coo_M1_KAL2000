@@ -2,7 +2,9 @@ package com.View;
 
 import com.Model.Cards.CreditCard;
 import com.Model.Cards.MainCard;
+import com.Model.Cards.SlaveCard;
 import com.Model.Cards.SubCard;
+import com.Model.Movies.Category;
 import com.Model.Movies.DvD;
 import com.Controller.Kal2000;
 import com.Model.Rents.Rent;
@@ -10,6 +12,7 @@ import com.Controller.UserInterface;
 import com.Model.Movies.State;
 import com.Model.Exception.*;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -104,11 +107,151 @@ public abstract class UserView {
         String command;
         boolean gestionEnCours = true;
         while (gestionEnCours) {
-            System.out.println("Actions disponibles : \n Voir le solde : v \n Recharger la carte : r \n Créer une carte fille : c "
+            System.out.println("Actions disponibles : \n Voir le solde : v \n Recharger la carte : r  "
                     + "\n Gérer cartes filles : g \n Retour : b");
             command = sc.nextLine();
             switch (command) {
 
+
+                //Gestion des cartes filles
+                case "g":
+                    if(!(ui.getConnectedCard() instanceof MainCard)) {
+                        System.out.println("Veuillez insérer une carte mère");
+                        break;
+                    }
+
+                    boolean gestionMain = true;
+                    MainCard main = (MainCard) ui.getConnectedCard();
+                    ArrayList<SlaveCard> slaves =main.getSlaveCards();
+                    int i;
+                    while(gestionMain) {
+                        System.out.println("Actions disponibles : \n Limiter le nombre de locations : l \n Afficher l'historique d'une carte: a \n"
+                                + " Limiter les catégories d'une carte fille : lc \n Créer une carte fille : c \n Supprimer une carte fille : s\n Retour : b");
+                        command = sc.nextLine();
+
+                        switch(command) {
+                            case "a" :
+                                i=0;
+                                System.out.println("Entrez l'id de la carte fille dont vous voulez consulter l'historique :");
+                                while(i< slaves.size()){
+                                    System.out.println("Id : "+slaves.get(i).getId()+" | Nombre de locations en cours : "+slaves.get(i).getOnGoingRent().size()
+                                            +"|Nombre de locations autorisées : "+ slaves.get(i).getMaxRent());
+                                }
+                                int idHistory = Integer.parseInt(sc.nextLine());
+                                SlaveCard toDisplay = null;
+                                i=0;
+                                while(i< slaves.size()){
+                                    if(slaves.get(i).getId()==idHistory){
+                                        toDisplay=slaves.get(i);
+                                    }
+                                }
+                                System.out.println("Historique : \n"+ toDisplay.getHistory().toString());
+                                break;
+                            case "lc":
+                                if(slaves.isEmpty()){
+                                    System.out.println("Vous n'avez pas de carte fille associé à cette carte");
+                                    break;
+                                }
+                                System.out.println("Entrez l'id de la carte fille à limiter : ");
+                                i=0;
+                                while(i< slaves.size()){
+                                    System.out.println("Id : "+slaves.get(i).getId()+" | Nombre de locations en cours : "+slaves.get(i).getOnGoingRent().size()
+                                            +"|Nombre de locations autorisées : "+ slaves.get(i).getMaxRent());
+                                }
+                                int idCats = Integer.parseInt(sc.nextLine());
+                                i=0;
+                                SlaveCard slaveCat=null;
+                                while(i< slaves.size()){
+                                    if(slaves.get(i).getId()==idCats){
+                                        slaveCat=slaves.get(i);
+                                    }
+                                }
+                                System.out.println("Entrez les catégories autorisées parmis les suivantes : (Action|SF|Fantasy|Comedy|Tragedy|Romance) s pour arrêter");
+                                ArrayList<Category> categories = new ArrayList();
+                                boolean entryOngoing=true;
+                                while(entryOngoing){
+                                    String cat = sc.nextLine();
+                                    if (cat.equals("s")){
+                                        entryOngoing=false;
+                                    }
+                                    categories.add(Category.valueOf(cat));
+                                }
+                                slaveCat.limitCategories(categories);
+                                System.out.println("Catégories limitées");
+                                break;
+                            case "l" :
+                                if(slaves.isEmpty()){
+                                    System.out.println("Vous n'avez pas de carte fille associé à cette carte");
+                                    break;
+                                }
+
+                                System.out.println("Entrez l'id de la carte fille à limiter : ");
+                                i=0;
+                                while(i< slaves.size()){
+                                    System.out.println("Id : "+slaves.get(i).getId()+" | Nombre de locations en cours : "+slaves.get(i).getOnGoingRent().size()
+                                            +"|Nombre de locations autorisées : "+ slaves.get(i).getMaxRent());
+                                }
+                                int idSlave = Integer.parseInt(sc.nextLine());
+                                i=0;
+                                SlaveCard slave=null;
+                                while(i< slaves.size()){
+                                    if(slaves.get(i).getId()==idSlave){
+                                        slave=slaves.get(i);
+                                    }
+                                }
+                                System.out.println("Entrez le nouveau nombre de locations autorisées :");
+                                int nbMaxRent= Integer.parseInt(sc.nextLine());
+                                try{
+                                    slave.setMaxRent(nbMaxRent);
+                                }catch(SubCardException e){
+                                    e.printStackTrace();
+                                }
+                                System.out.println("Locations limitées !");
+                                break;
+                            //Créer carte fille
+                            case "c":
+                                ((MainCard)ui.getConnectedCard()).createSlaveCard();
+                                System.out.println("Carte fille créée");
+                                break;
+                            case "s":
+
+                                if(slaves.isEmpty()){
+                                    System.out.println("Vous n'avez pas de carte fille associé à cette carte");
+                                    break;
+                                }
+                                System.out.println("Entrez l'id de la carte fille à limiter : ");
+                                int j=0;
+                                while(j< slaves.size()){
+                                    System.out.println("Id : "+slaves.get(j).getId()+" | Nombre de locations en cours : "+slaves.get(j).getOnGoingRent().size()
+                                            +"|Nombre de locations autorisées : "+ slaves.get(j).getMaxRent());
+                                }
+                                j=0;
+                                int idToDelete = Integer.parseInt(sc.nextLine());
+
+                                SlaveCard toDelete=null;
+                                while(j< slaves.size()){
+                                    if(slaves.get(j).getId()==idToDelete){
+                                        slave=slaves.get(j);
+                                    }
+                                }
+                                try{
+                                    main.deleteSlaveCard(toDelete);
+                                }catch(SubCardException e){
+                                    e.printStackTrace();
+                                }
+                                System.out.println("Carte fille supprimée");
+
+
+                                break;
+                            //Retour
+                            case "b":
+                                gestionEnCours = false;
+                                break;
+                        }
+
+                    }
+
+                    break;
                 //Afficher le solde de la carte
                 case "v":
                     try {

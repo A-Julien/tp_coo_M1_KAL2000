@@ -59,7 +59,7 @@ public class Main {
                     System.out.println("-------------------------------------------------");
                     System.out.println("Vous êtes administrateur");
                     System.out.println("Actions disponibles : \n Ajouter un film : af \n Retirer un film : rf \n"
-                            + " Ajouter un dvd : ad \n Retirer un dvd : rd  \n Se déconnecter : d\n Quitter : q ");
+                            + " Ajouter un dvd : ad \n Retirer un dvd : rd \n Afficher les stats des films : as \n Se déconnecter : d\n Quitter : q ");
                     System.out.println("-------------------------------------------------");
                     command = sc.nextLine();
                     switch (command) {
@@ -82,6 +82,9 @@ public class Main {
                         //Suppression d'un DVD
                         case "rd":
                             AdminView.removeDvd(system,sc);
+                            break;
+                        case "as":
+                            AdminView.displayStats(system);
                             break;
                         case "q":
                             session = false;

@@ -8,9 +8,7 @@ import com.Model.Client.Human;
 import com.Model.Exception.*;
 import com.Model.Movies.State;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
 
 public abstract class AdminView {
 
@@ -136,6 +134,18 @@ public abstract class AdminView {
             System.out.println("Dvd supprimé !");
         } else {
             System.out.println("Dvd non trouvé !");
+        }
+
+
+    }
+
+    public static void displayStats(Kal2000 system){
+        HashMap<Film, Integer> stats = system.getFilmStat();
+        System.out.println("Stat des films :");
+        Iterator<Film> it = stats.keySet().iterator();
+        while(it.hasNext()){
+            Film current = it.next();
+            System.out.println(current.getTitle()+" : loué "+stats.get(current)+" fois");
         }
 
 
