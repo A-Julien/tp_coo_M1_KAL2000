@@ -1,7 +1,7 @@
 
 import com.Model.Exception.*;
 import com.Model.Movies.DvD;
-import com.Controleur.Kal2000;
+import com.Controller.Kal2000;
 import com.Utils.Populator;
 
 import java.io.IOException;

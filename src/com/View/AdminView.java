@@ -3,7 +3,7 @@ package com.View;
 import com.Model.Movies.Category;
 import com.Model.Movies.DvD;
 import com.Model.Movies.Film;
-import com.Controleur.Kal2000;
+import com.Controller.Kal2000;
 import com.Model.Client.Human;
 import com.Model.Exception.*;
 import com.Model.Movies.State;

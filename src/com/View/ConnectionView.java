@@ -1,7 +1,7 @@
 package com.View;
 import com.Model.Exception.*;
-import com.Controleur.Kal2000;
-import com.Controleur.UserInterface;
+import com.Controller.Kal2000;
+import com.Controller.UserInterface;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

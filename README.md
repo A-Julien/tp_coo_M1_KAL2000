@@ -120,7 +120,7 @@
 
 * interface standard
 
-  * Liste de tous les films avec affichage de la disponibilité dans com.Controleur
+  * Liste de tous les films avec affichage de la disponibilité dans com.Controller
 
   * pour chaque film il faut afficher :
 

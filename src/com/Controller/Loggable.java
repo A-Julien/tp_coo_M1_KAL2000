@@ -1,8 +1,7 @@
-package com.Controleur;
+package com.Controller;
 
 import com.Model.Cards.Card;
 import com.Model.Client.Client;
-import com.Controleur.Kal2000;
 import com.Model.Exception.CardException;
 import com.Model.Exception.PasswordException;
 

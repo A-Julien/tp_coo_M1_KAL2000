@@ -4,9 +4,9 @@ import com.Model.Cards.CreditCard;
 import com.Model.Cards.MainCard;
 import com.Model.Cards.SubCard;
 import com.Model.Movies.DvD;
-import com.Controleur.Kal2000;
+import com.Controller.Kal2000;
 import com.Model.Rents.Rent;
-import com.Controleur.UserInterface;
+import com.Controller.UserInterface;
 import com.Model.Movies.State;
 import com.Model.Exception.*;
 

@@ -1,4 +1,4 @@
-package com.Controleur;
+package com.Controller;
 
 import com.Model.Cards.*;
 import com.Model.Client.Client;

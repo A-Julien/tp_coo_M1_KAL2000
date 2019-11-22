@@ -1,8 +1,6 @@
-import com.Controleur.Kal2000;
-import com.Model.Cards.CreditCard;
-import com.Model.Cards.MainCard;
+import com.Controller.Kal2000;
 import com.Model.Exception.RentException;
-import com.Controleur.UserInterface;
+import com.Controller.UserInterface;
 import com.View.AdminView;
 import com.View.ConnectionView;
 import com.View.UserView;
