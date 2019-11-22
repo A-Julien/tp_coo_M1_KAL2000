@@ -76,11 +76,11 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      */
     @Override
     public void refuelMoney(float money) throws SubCardException {
-        if(money < refuelPriceLimit) throw new SubCardException(
+        if(money < refuelPriceLimit) throw new SubCardException( //check the limit
                 "Can't add less than "+ refuelPriceLimit  +
                             " euros, you add " + money + " euros");
 
-        this.credit += money;
+        this.credit += money; // add money
     }
 
     /**
@@ -107,26 +107,26 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     public Rent rentDvd(DvD dvd) throws RentException, StatusDvdException {
         if(dvd.getState() != State.Good) throw new StatusDvdException("Dvd are broken or missing");
 
-        if(this.onGoingRent.size() > nbMaxRent) throw new RentException(
+        if(this.onGoingRent.size() > nbMaxRent) throw new RentException( // check number of on going rent
                 "Can't rent more than "+ nbMaxRent +" dvd in same time");
 
-        if(this.credit < rentPriceLimit) throw new RentException(
+        if(this.credit < rentPriceLimit) throw new RentException( // check if enough money to rent a dvd
                 "Can't rent a dvd with less than "+ rentPriceLimit +
                         "credits, please refuel before " +
                         "credit : " + this.credit + " euros");
 
-        if( this instanceof SlaveCard &&
+        if( this instanceof SlaveCard && // if is a slave card, need to check if allow to rent dvd Category
             !((SlaveCard)this).categories.isEmpty() &&
             !((SlaveCard)this).canIwatch(dvd)) throw new RentException(
                     "Category not allowed for this sub Card");
 
-        if( this instanceof SlaveCard &&
+        if( this instanceof SlaveCard && // if is a slave card, check is own rent limit
                 this.onGoingRent.size() >= ((SlaveCard)this).getMaxRent() ) throw new RentException(
                 "Can not rent more than "  + ((SlaveCard)this).getMaxRent());
 
-        Rent rent = new RentDiscountable(dvd);
-        this.onGoingRent.add(rent);
-        dvd.getFilm().rented();
+        Rent rent = new RentDiscountable(dvd); // check if a discount are available
+        this.onGoingRent.add(rent); // adding the rent to the card
+        dvd.getFilm().rented(); //for history
         return rent;
     }
 
@@ -137,8 +137,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     protected void updateDiscount(){
         int counter = 0;
 
-        for (Rent rent:this.getHistory())
-            if(((RentDiscountable)rent).isDiscount()) counter++;
+        for (Rent rent:this.getHistory()) if(((RentDiscountable)rent).isDiscount()) counter++;
 
         if(counter == discountCount){
             this.credit += discountPrice;
@@ -154,9 +153,6 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      */
     public float getCredit() throws SubCardException {
         return this.credit;
-        //if( this instanceof SlaveCard)return this.credit;
-
-        //throw new SubCardException("Can not access to credit of MainCard");
     }
 
     @Override
