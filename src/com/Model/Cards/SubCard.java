@@ -109,6 +109,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      * @param dvd the dvd to rent
      * @return the rent
      * @throws RentException
+     * @throws StatusDvdException
      */
     @Override
     public Rent rentDvd(DvD dvd) throws RentException, StatusDvdException {

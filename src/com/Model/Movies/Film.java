@@ -6,14 +6,49 @@ import java.util.ArrayList;
 
 import com.Model.Client.Human;
 
+/**
+ * Film
+ */
 public class Film implements Serializable {
+	/**
+	 * autoId use for auto increment dvd id
+	 */
 	private static int autoId;
+
+	/**
+	 * dvd id that are increment by {@link DvD#autoId}
+	 */
     private int id;
+
+	/**
+	 * title of film
+	 */
 	private String title;
+
+	/**
+	 * synopsis of film
+	 */
 	private String synopsis;
+
+	/**
+	 * Actors of film
+	 */
 	private ArrayList<Human> actors;
+
+	/**
+	 * realisator of film
+	 */
 	private Human realisator;
+
+	/**
+	 * realisator of film
+	 */
 	private ArrayList<Category> category;
+
+	/**
+	 * For history
+	 * Number of film rentals
+	 */
 	private int nbRented;
 
 	public Film(String title, String synopsis, ArrayList<Human> actors, Human realisator, ArrayList<Category> category) {
@@ -26,6 +61,7 @@ public class Film implements Serializable {
 		this.id = autoId;
 		this.nbRented = 0;
 	}
+
 
 	public String getTitle() {
 		return this.title;
@@ -51,7 +87,10 @@ public class Film implements Serializable {
         return id;
     }
 
-    public void rented(){
+	/**
+	 * For history, add a number rent
+	 */
+	public void rented(){
 		this.nbRented++;
 	}
 
