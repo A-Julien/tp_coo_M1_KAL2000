@@ -16,12 +16,18 @@ public class Rent implements Serializable {
     private Date dateRent;
 
     /**
-     * return date
+     * the return date
      */
     private Date dateReturn;
 
+    /**
+     * price of the rent
+     */
     private float price;
 
+    /**
+     * dvd linked to the rent
+     */
     private DvD dvd;
 
     public Rent(DvD dvd) {

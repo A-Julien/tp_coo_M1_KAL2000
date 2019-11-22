@@ -27,6 +27,9 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      */
     private int periodRegularization;
 
+    /**
+     * max period to return a dvd
+     */
     private final static int periodMaxDays = 30;
 
 
@@ -116,10 +119,19 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
        }
     }
 
+    /**
+     * Check is a main card have to be regularized.
+     * @return <code>true</code> if it has to be, <code>false</code> otherwise
+     * @throws SubCardException
+     */
     private boolean haveToBeRegularized() throws SubCardException {
         return this.getCredit() < 0 && this.periodRegularization != -1;
     }
 
+    /**
+     * Check if client's maincard has to be regularized, if  <code>true, make him pay.
+     * @throws SubCardException
+     */
     public void regularize() throws SubCardException {
         if(this.haveToBeRegularized()){
             this.periodRegularization -= 1;
@@ -134,26 +146,41 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
         if(this.getCredit() > 0) this.periodRegularization = -1;
     }
 
+    /**
+     * Add one forbidden categorie to a slave card which allow it to see them.
+     */
     @Override
     public void addCategoriesToSlaveCard(SlaveCard slaveCard, Category category){
         this.slaveCards.get(slaveCard.getId()).categories.add(category);
     }
 
+    /**
+     * Add forbidden categories to a slave card which allow it to see them.
+     */
     @Override
     public void addCategoriesToSlaveCard(SlaveCard slaveCard, ArrayList<Category> categories){
         for(Category category:categories) this.slaveCards.get(slaveCard.getId()).categories.add(category);
     }
 
+    /**
+     * Set the max rent number a slave card has.
+     */
     @Override
     public void setMaxRentToSlaveCard(SlaveCard slaveCard, int maxRentToSlaveCard) throws SubCardException {
         slaveCard.setMaxRent(maxRentToSlaveCard);
     }
 
+    /**
+     * Get history of a slave card.
+     */
     @Override
     public ArrayList<Rent> getSlaveCardHistory(SlaveCard slaveCard) {
         return slaveCards.get(slaveCard.getMaxRent()).getHistory();
     }
 
+    /**
+     *  Get history of all slaves cards.
+     */
     @Override
     public HashMap<SlaveCard, ArrayList<Rent>> getSlaveCardHistory() {
         HashMap<SlaveCard, ArrayList<Rent>> history = new HashMap<>();

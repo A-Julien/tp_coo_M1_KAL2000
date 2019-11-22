@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Credit Card, allow to generate anonymous rent
+ * Class CreditCard which implement basic function of card in com.KAL2000
  */
 public class CreditCard extends Card implements Serializable {
     /**
@@ -32,9 +32,6 @@ public class CreditCard extends Card implements Serializable {
      */
     private final static int maxRentDay = 30;
 
-    /**
-     *
-     */
     private final static int timeRentOver = 30;
 
     public CreditCard(int numCard) {
@@ -47,7 +44,7 @@ public class CreditCard extends Card implements Serializable {
      * Rent a dvd
      * @param dvd the dvd to rent
      * @return the generate rent
-     * @throws RentException
+     * @throws RentException when max of rent number reached
      */
     @Override
     public Rent rentDvd(DvD dvd) throws RentException {
@@ -56,12 +53,12 @@ public class CreditCard extends Card implements Serializable {
 
         Rent rent = new Rent(dvd);
         this.onGoingRent.add(rent);
-        dvd.getFilm().rented();
+        dvd.getFilm().rented(); //increment the views number of rented film
         return rent;
     }
 
     /**
-     *
+     *  Check if the time rent is over and, if  <code>true, make client pay.
      * @throws RentException
      */
     @Override
@@ -73,6 +70,10 @@ public class CreditCard extends Card implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @return numCard
+     */
     public int getNumCard() {
         return numCard;
     }
@@ -98,6 +99,9 @@ public class CreditCard extends Card implements Serializable {
     }
 
 
+    /**
+     * Set the max rent number allowed by card.
+     */
     @Override
     public void setMaximumRent(int maximumRent) {
         this.nbMaxRent = maximumRent;

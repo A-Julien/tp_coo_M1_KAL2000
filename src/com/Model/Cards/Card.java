@@ -98,6 +98,10 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
         return onGoingRent;
     }
 
+    /**
+     * Build and print the string of the on going rent list.
+     * @return the string of the on going rent list
+     */
     public String printOnGoingRent(){
         StringBuilder stringBuilder = new StringBuilder();
         for (Rent rent : this.onGoingRent){
@@ -114,7 +118,7 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      * @param rent the rent
      * @param priceRent the price of the rent/by day
      * @return the price
-     * @throws RentException
+     * @throws RentException when the rent isn't returned yet
      */
     protected float calcPrice(Rent rent, int priceRent) throws RentException {
         return  Card.getDateDiff(rent.getDateRent(), rent.getDateReturn(), TimeUnit.DAYS) * priceRent;

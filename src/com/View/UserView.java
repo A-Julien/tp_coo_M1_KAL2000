@@ -14,6 +14,13 @@ import java.util.Map;
 import java.util.Scanner;
 
 public abstract class UserView {
+	
+	/**
+	 * Allow a client to return a dvd, withs according checks, and make him pay.
+	 * @param ui user interface
+	 * @param system kal2000 engine
+	 * @param sc scanner
+	 */
     public static void returnDvd(UserInterface ui, Kal2000 system, Scanner sc){
         System.out.println("Vos locations en cours : ");
         if (ui.getConnectedCard().getOnGoingRent().size() == 0) {
@@ -44,6 +51,12 @@ public abstract class UserView {
         System.out.println("Dvd rendu");
     }
 
+    /**
+     * Allow a client to rent a dvd.
+	 * @param ui user interface
+	 * @param system kal2000 engine
+	 * @param sc scanner
+     */
     public static void rentDvd(UserInterface ui, Kal2000 system, Scanner sc){
         System.out.println("Choisissez un id de dvd parmis les suivants : ");
         for (DvD dvd : system.getDvds().keySet()) {
@@ -62,6 +75,10 @@ public abstract class UserView {
         System.out.println("Dvd loué");
     }
 
+    /**
+     * Allow KAL2000 to print the film list.
+     * @param system kal2000 engine
+     */
     public static void printListFilmDvd(Kal2000 system){
         System.out.println("Liste des DvDs : ");
         for (Map.Entry<DvD, Integer> dvds: system.getDvds().entrySet()){
@@ -69,11 +86,20 @@ public abstract class UserView {
         }
     }
 
+    /**
+     * Allow KAL2000 to disconnect a client.
+     * @param ui user interface
+     */
     public static void disconnect(UserInterface ui){
         System.out.println("Déconnexion ...");
         ui.disconnect();
     }
 
+    /**
+     * Menu where a client can manage his subcards.
+     * @param ui user interface
+     * @param sc scanner
+     */
     public static void subCardManaging(UserInterface ui, Scanner sc){
         String command;
         boolean gestionEnCours = true;
@@ -111,6 +137,10 @@ public abstract class UserView {
         }
     }
 
+    /**
+     * Allow a client to be sub.
+     * @param ui user interface
+     */
     public static void subscription(UserInterface ui){
         ui.getConnectedClient().getMainCards().add(new MainCard((CreditCard) ui.getConnectedCard()));
         ui.getConnectedClient().setSub(true);

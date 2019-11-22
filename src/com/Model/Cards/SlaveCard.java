@@ -21,6 +21,9 @@ public class SlaveCard extends SubCard implements Serializable {
      */
     protected ArrayList<Category> categories;
 
+    /**
+     * Main card which create this slave card.
+     */
     private MainCard mainCard;
 
     /**

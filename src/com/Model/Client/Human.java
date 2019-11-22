@@ -2,6 +2,10 @@ package com.Model.Client;
 
 import java.io.Serializable;
 
+/**
+ * Class Human
+ *
+ */
 public class Human implements Serializable {
 	private String firstName;
 	private String lastName;

@@ -24,7 +24,7 @@ public interface Creditable {
     void payRent(Rent rent) throws RentException;
 
     /**
-     * This method are used for add negative credit
+     * This method is used for add negative credit
      * @param credit credit to add
      */
     void addCredit(float credit);
@@ -35,7 +35,7 @@ public interface Creditable {
     void initCredit();
 
     /**
-     *
+     * Simulate a payment of money euros.
      * @param money
      */
     void pay(float money);

@@ -7,6 +7,14 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public abstract class ConnectionView {
+	
+	/**
+	 * Allow client (or admin) to connect.
+	 * @param system kal2000 engine
+	 * @param ui user interface
+	 * @param sc scanner
+	 * @return
+	 */
     public static boolean logging(Kal2000 system, UserInterface ui, Scanner sc){
         String pw;
         int id;
@@ -23,6 +31,13 @@ public abstract class ConnectionView {
         return true;
     }
 
+    /**
+     * Allow a new client to create his account.
+	 * @param system kal2000 engine
+	 * @param ui user interface
+	 * @param sc scanner
+     * @return
+     */
     public static boolean creatClient(Kal2000 system, UserInterface ui, Scanner sc){
         String pw, firstName, name;
         int id;

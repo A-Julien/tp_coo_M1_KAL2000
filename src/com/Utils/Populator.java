@@ -10,6 +10,9 @@ import com.Model.Movies.State;
 
 import java.util.*;
 
+/**
+ * Class populator which methods allow to generate a database.
+ */
 public abstract class Populator {
 
     private final static String synopsis =

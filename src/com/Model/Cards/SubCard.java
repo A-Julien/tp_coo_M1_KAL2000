@@ -46,6 +46,9 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      */
     private final static int discountCount = 20;
 
+    /**
+     * Maximum day that subcard can rent a dvd
+     */
     private final static int maxRentDay = 30;
 
     private final static int timeRentOver = 30;
@@ -58,7 +61,11 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
         this.creditCard = creditCard;
         this.nbMaxRent = 3;
     }
-
+    
+    /**
+     *  Check if the time rent is over and, if  <code>true, make client pay.
+     * @throws RentException
+     */
     public void checkRentDate() throws RentException {
         for (Rent rent: this.onGoingRent) {
             if(getDateDiff(new Date(), rent.getDateRent(), TimeUnit.DAYS) > maxRentDay){
@@ -160,16 +167,25 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
         this.credit += credit;
     }
 
+    /**
+     * Initiathe credit to 0.
+     */
     @Override
     public void initCredit(){
         this.credit = 0;
     }
 
+    /**
+     * Simulate a payment.
+     */
     @Override
     public void pay(float money){
         this.credit -=money;
     }
 
+    /**
+     * Set the max rent number.
+     */
     @Override
     public void setMaximumRent(int maxRent){
         this.nbMaxRent = maxRent;

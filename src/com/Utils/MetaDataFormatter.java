@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * Class MetaDataFormatter which methods allow to get calculated informations to  client(s)
+ */
 public class MetaDataFormatter {
     private Client client;
     private HashMap<Card, ArrayList<Rent>> history;

@@ -14,6 +14,11 @@ import java.util.Scanner;
 
 public abstract class AdminView {
 
+	/**
+	 * Allow an admin to add a film to the database.
+	 * @param system kal2000 engine
+	 * @param sc scanner
+	 */
     public static void addFilm(Kal2000 system, Scanner sc){
         //Choix des attributs du film
         System.out.println("Entrez le titre du film :");
@@ -53,7 +58,12 @@ public abstract class AdminView {
             e.printStackTrace();
         }
     }
-
+    
+	/**
+	 * Allow an admin to delete a film from the database.
+	 * @param system kal2000 engine
+	 * @param sc scanner
+	 */
     public static void removeFilm(Kal2000 system, Scanner sc){
         //Affichage de la liste des films pour la sélection de l'id
         System.out.println("Liste des films :");
@@ -74,7 +84,12 @@ public abstract class AdminView {
         System.out.println("Film non trouvé !");
     }
 
-    //TODO A VERIFIER - Ne prend pas en compte le faite d'ajouter un dvd avec un new film
+	/**
+	 * Allow an admin to add a dvd to the database.
+	 * @param system kal2000 engine
+	 * @param sc scanner
+	 */
+    //TODO A VERIFIER 
     public static void addDvd(Kal2000 system, Scanner sc){
         System.out.println("Entrez l'id du film présent sur le DVD");
         int idFilmDvd = Integer.parseInt(sc.nextLine());
@@ -97,7 +112,12 @@ public abstract class AdminView {
         system.addDvd(new DvD(filmDvd, State.Good, idDvd));
         System.out.println("Dvd ajouté");
     }
-
+    
+	/**
+	 * Allow an admin to delete a dvd from the database.
+	 * @param system kal2000 engine
+	 * @param sc scanner
+	 */
     public static void removeDvd(Kal2000 system, Scanner sc){
         System.out.println("Entrez l'id du DVD à supprimer");
         int idDvdRemove = Integer.parseInt(sc.nextLine());
