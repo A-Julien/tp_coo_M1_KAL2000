@@ -4,7 +4,7 @@ import com.Model.Exception.CardException;
 import com.Model.Exception.RentException;
 import com.Model.Movies.DvD;
 import com.Model.Rents.Rent;
-import com.Model.Utils.State;
+import com.Model.Movies.State;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,10 +14,27 @@ import java.util.concurrent.TimeUnit;
  * Credit Card, allow to generate anonymous rent
  */
 public class CreditCard extends Card implements Serializable {
+    /**
+     * The the maximum rents that can do a CreditCard
+     */
     private int nbMaxRent;
+    /**
+     * The creditCard number
+     */
     private int numCard;
+    /**
+     * price of a rent by day
+     */
     private final static int priceRent = 5;
+
+    /**
+     * Maximum day that creditCard can rent a dvd
+     */
     private final static int maxRentDay = 30;
+
+    /**
+     *
+     */
     private final static int timeRentOver = 30;
 
     public CreditCard(int numCard) {
@@ -27,7 +44,7 @@ public class CreditCard extends Card implements Serializable {
     }
 
     /**
-     * Anonymous rent a dvd
+     * Rent a dvd
      * @param dvd the dvd to rent
      * @return the generate rent
      * @throws RentException
@@ -43,6 +60,10 @@ public class CreditCard extends Card implements Serializable {
         return rent;
     }
 
+    /**
+     *
+     * @throws RentException
+     */
     @Override
     public void checkRentDate() throws RentException {
         for (Rent rent: this.onGoingRent) {
@@ -66,15 +87,16 @@ public class CreditCard extends Card implements Serializable {
     public void returnDvd(Rent rent) throws RentException, CardException {
         if(rent.isRentFinish()) throw new RentException(
                 "Error when return the " + rent.getDvd().getFilm().getTitle() +
-                            "ask to the boss");
-        this.onGoingRent.remove(rent);
-        rent.setDateReturn();
-        rent.setPrice(this.calcPrice(rent, priceRent));
-        this.addHistory(rent);
-        this.pay(
+                            "ask to the boss"); //if dvd already returned
+        this.onGoingRent.remove(rent); // remove the rent from the card
+        rent.setDateReturn(); // set the return date
+        rent.setPrice(this.calcPrice(rent, priceRent)); // calcul the price and save it in rent for history
+        this.addHistory(rent); // add this rent to the history
+        this.pay( //pay the rent, if dvd borken/missing pay extra charge (the price of the dvd)
                 this.calcPrice(rent, priceRent) +
                         (rent.getDvd().getState() != State.Good ? rent.getDvd().getDvdPrice():0));
     }
+
 
     @Override
     public void setMaximumRent(int maximumRent) {
@@ -87,6 +109,12 @@ public class CreditCard extends Card implements Serializable {
      */
     public void pay(float money){}
 
+    /**
+     * check Equal between two CrediCard
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

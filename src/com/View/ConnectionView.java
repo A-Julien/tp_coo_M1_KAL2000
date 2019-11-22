@@ -1,13 +1,13 @@
 package com.View;
 import com.Model.Exception.*;
 import com.Controleur.Kal2000;
-import com.Ui.UserModel;
+import com.Controleur.UserInterface;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public abstract class ConnectionView {
-    public static boolean logging(Kal2000 system, UserModel ui, Scanner sc){
+    public static boolean logging(Kal2000 system, UserInterface ui, Scanner sc){
         String pw;
         int id;
         System.out.println("Entrez votre identifiant :");
@@ -23,7 +23,7 @@ public abstract class ConnectionView {
         return true;
     }
 
-    public static boolean creatClient(Kal2000 system, UserModel ui, Scanner sc){
+    public static boolean creatClient(Kal2000 system, UserInterface ui, Scanner sc){
         String pw, firstName, name;
         int id;
         System.out.println("Entrez votre prénom :");

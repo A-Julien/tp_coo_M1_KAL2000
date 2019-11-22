@@ -7,7 +7,7 @@ import com.Model.Exception.StatusDvdException;
 import com.Model.Movies.DvD;
 import com.Model.Rents.Rent;
 import com.Model.Rents.RentDiscountable;
-import com.Model.Utils.State;
+import com.Model.Movies.State;
 
 import java.io.Serializable;
 import java.util.Date;

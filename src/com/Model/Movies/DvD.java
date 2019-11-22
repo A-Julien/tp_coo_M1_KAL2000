@@ -1,6 +1,4 @@
 package com.Model.Movies;
-import com.Model.Utils.Category;
-import com.Model.Utils.State;
 
 import java.io.Serializable;
 import java.util.ArrayList;

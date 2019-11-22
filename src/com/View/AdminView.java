@@ -1,11 +1,12 @@
 package com.View;
 
+import com.Model.Movies.Category;
 import com.Model.Movies.DvD;
 import com.Model.Movies.Film;
 import com.Controleur.Kal2000;
-import com.Model.Utils.Human;
+import com.Model.Client.Human;
 import com.Model.Exception.*;
-import com.Model.Utils.State;
+import com.Model.Movies.State;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,7 +42,7 @@ public abstract class AdminView {
         Human realisateur = new Human(nom[0], nom[1]);
 
         //TODO gerer multi category
-        System.out.println("Entrez la catégorie principale du film : Action,XxX,SF,Fantasy,Comedy,Tragedy,Romance");
+        System.out.println("Entrez la catégorie principale du film : " + Category.toStringAll());
         String category = sc.nextLine();
 
         //Ajout a la base

@@ -1,4 +1,4 @@
-package com.Model.Utils;
+package com.Model.Movies;
 
 public enum State {
 	Broken,

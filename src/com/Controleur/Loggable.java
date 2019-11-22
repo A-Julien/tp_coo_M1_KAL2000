@@ -1,4 +1,4 @@
-package com.Ui;
+package com.Controleur;
 
 import com.Model.Cards.Card;
 import com.Model.Client.Client;
@@ -11,6 +11,5 @@ public interface Loggable {
 
     void connect(int id, String password, Kal2000 kal2000) throws PasswordException, CardException;
     void connect(Client client, Card card);
-
     void disconnect();
 }

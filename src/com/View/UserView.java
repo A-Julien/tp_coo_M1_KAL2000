@@ -1,18 +1,20 @@
 package com.View;
 
+import com.Model.Cards.CreditCard;
+import com.Model.Cards.MainCard;
 import com.Model.Cards.SubCard;
 import com.Model.Movies.DvD;
 import com.Controleur.Kal2000;
 import com.Model.Rents.Rent;
-import com.Ui.UserModel;
-import com.Model.Utils.State;
+import com.Controleur.UserInterface;
+import com.Model.Movies.State;
 import com.Model.Exception.*;
 
 import java.util.Map;
 import java.util.Scanner;
 
 public abstract class UserView {
-    public static void returnDvd(UserModel ui, Kal2000 system, Scanner sc){
+    public static void returnDvd(UserInterface ui, Kal2000 system, Scanner sc){
         System.out.println("Vos locations en cours : ");
         if (ui.getConnectedCard().getOnGoingRent().size() == 0) {
             System.out.println("Vous n'avez pas de dvd à rendre");
@@ -42,7 +44,7 @@ public abstract class UserView {
         System.out.println("Dvd rendu");
     }
 
-    public static void rentDvd(UserModel ui, Kal2000 system, Scanner sc){
+    public static void rentDvd(UserInterface ui, Kal2000 system, Scanner sc){
         System.out.println("Choisissez un id de dvd parmis les suivants : ");
         for (DvD dvd : system.getDvds().keySet()) {
             System.out.println(dvd.getFilm().toString());
@@ -67,12 +69,12 @@ public abstract class UserView {
         }
     }
 
-    public static void disconnect(UserModel ui){
+    public static void disconnect(UserInterface ui){
         System.out.println("Déconnexion ...");
         ui.disconnect();
     }
 
-    public static void subCardManaging(UserModel ui, Scanner sc){
+    public static void subCardManaging(UserInterface ui, Scanner sc){
         String command;
         boolean gestionEnCours = true;
         while (gestionEnCours) {
@@ -107,5 +109,14 @@ public abstract class UserView {
                     break;
             }
         }
+    }
+
+    public static void subscription(UserInterface ui){
+        ui.getConnectedClient().getMainCards().add(new MainCard((CreditCard) ui.getConnectedCard()));
+        ui.getConnectedClient().setSub(true);
+        System.out.println("Vous êtes désormais abonné ! Votre carte a pour id : "
+                + ui.getConnectedClient()
+                    .getMainCards()
+                    .get(ui.getConnectedClient().getMainCards().size() - 1).getId());
     }
 }

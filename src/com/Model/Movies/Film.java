@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 
-import com.Model.Utils.Category;
-import com.Model.Utils.Human;
+import com.Model.Client.Human;
 
 public class Film implements Serializable {
 	private static int autoId;

@@ -2,7 +2,7 @@ package com.Model.Cards;
 
 import com.Model.Exception.SubCardException;
 import com.Model.Rents.Rent;
-import com.Model.Utils.Category;
+import com.Model.Movies.Category;
 
 import java.util.ArrayList;
 import java.util.HashMap;

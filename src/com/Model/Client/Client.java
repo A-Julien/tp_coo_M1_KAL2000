@@ -5,7 +5,6 @@ import com.Model.Cards.MainCard;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import com.Model.Utils.*;
 
 public class Client implements Serializable {
 	private Human person;

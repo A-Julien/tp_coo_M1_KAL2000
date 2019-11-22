@@ -2,7 +2,7 @@ import com.Controleur.Kal2000;
 import com.Model.Cards.CreditCard;
 import com.Model.Cards.MainCard;
 import com.Model.Exception.RentException;
-import com.Ui.UserModel;
+import com.Controleur.UserInterface;
 import com.View.AdminView;
 import com.View.ConnectionView;
 import com.View.UserView;
@@ -20,7 +20,7 @@ public class Main {
         //Initialisation
         Kal2000 system = new Kal2000();
         system.boot();
-        UserModel ui = new UserModel();
+        UserInterface ui = new UserInterface();
         Scanner sc = new Scanner(System.in);
 
         /********************************************************/
@@ -159,13 +159,7 @@ public class Main {
                                 break;
                             //S'abonner
                             case "a":
-                                //TODO DANS USERVIEW
-                                ui.getConnectedClient().setSub(true);
-                                ui.getConnectedClient().getMainCards().add(new MainCard((CreditCard) ui.getConnectedCard()));
-                                System.out.println("Vous êtes désormais abonné ! Votre carte a pour id : " 
-                                    + ui.getConnectedClient()
-                                        .getMainCards()
-                                        .get(ui.getConnectedClient().getMainCards().size() - 1).getId());
+                                UserView.subscription(ui);
                                 break;
                             //Louer un dvd
                             case "l":

@@ -1,4 +1,4 @@
-package com.Model.Utils;
+package com.Utils;
 
 import com.Model.Cards.Card;
 import com.Model.Cards.MainCard;

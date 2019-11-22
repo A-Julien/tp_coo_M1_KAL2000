@@ -54,6 +54,12 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
     }
 
 
+    /**
+     * Return the rent associated to the id of dvd passing in param
+     * @param iDdvd the id dvd associated to the rent
+     * @return the rent associated to the id of dvd passing in param
+     * @throws RentException if No rent found for the dvd iDdvd
+     */
     @Override
     public Rent getRent(int iDdvd) throws RentException {
         for(Rent rent : this.onGoingRent) {
@@ -150,6 +156,10 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Set the maximum rents that can do a Card
+     * @param maximumRent the maximum of rents
+     */
     @Override
     public abstract void setMaximumRent(int maximumRent);
 

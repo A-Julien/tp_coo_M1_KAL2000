@@ -5,7 +5,7 @@ import com.Model.Exception.RentException;
 import com.Model.Exception.SubCardException;
 import com.Model.Movies.DvD;
 import com.Model.Rents.Rent;
-import com.Model.Utils.Category;
+import com.Model.Movies.Category;
 
 import java.io.Serializable;
 import java.util.ArrayList;

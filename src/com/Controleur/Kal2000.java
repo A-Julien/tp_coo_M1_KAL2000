@@ -5,7 +5,7 @@ import com.Model.Client.Client;
 import com.Model.Exception.*;
 import com.Model.Movies.*;
 
-import com.Model.Utils.MetaDataFormatter;
+import com.Utils.MetaDataFormatter;
 
 import java.io.*;
 import java.util.*;

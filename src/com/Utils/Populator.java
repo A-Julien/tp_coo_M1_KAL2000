@@ -1,9 +1,12 @@
-package com.Model.Utils;
+package com.Utils;
 
 import com.Model.Cards.CreditCard;
 import com.Model.Client.Client;
+import com.Model.Client.Human;
+import com.Model.Movies.Category;
 import com.Model.Movies.DvD;
 import com.Model.Movies.Film;
+import com.Model.Movies.State;
 
 import java.util.*;
 
