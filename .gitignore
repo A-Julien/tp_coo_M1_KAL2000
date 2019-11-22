@@ -426,7 +426,7 @@ local.properties
 .classpath
 .project
 
-# KAL2000
+# com.Controleur
 save*
 
 tp_coo_M1_KAL2000.iml

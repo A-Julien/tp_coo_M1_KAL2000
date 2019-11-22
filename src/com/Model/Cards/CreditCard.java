@@ -1,0 +1,98 @@
+package com.Model.Cards;
+
+import com.Model.Exception.CardException;
+import com.Model.Exception.RentException;
+import com.Model.Movies.DvD;
+import com.Model.Rents.Rent;
+import com.Model.Utils.State;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Credit Card, allow to generate anonymous rent
+ */
+public class CreditCard extends Card implements Serializable {
+    private int nbMaxRent;
+    private int numCard;
+    private final static int priceRent = 5;
+    private final static int maxRentDay = 30;
+    private final static int timeRentOver = 30;
+
+    public CreditCard(int numCard) {
+        super();
+        this.numCard = numCard;
+        this.nbMaxRent = 1;
+    }
+
+    /**
+     * Anonymous rent a dvd
+     * @param dvd the dvd to rent
+     * @return the generate rent
+     * @throws RentException
+     */
+    @Override
+    public Rent rentDvd(DvD dvd) throws RentException {
+        if(this.onGoingRent.size() > nbMaxRent) throw new RentException(
+                "Can't rent more than "+ nbMaxRent +" dvd in same time");
+
+        Rent rent = new Rent(dvd);
+        this.onGoingRent.add(rent);
+        dvd.getFilm().rented();
+        return rent;
+    }
+
+    @Override
+    public void checkRentDate() throws RentException {
+        for (Rent rent: this.onGoingRent) {
+            if(getDateDiff(new Date(), rent.getDateRent(), TimeUnit.DAYS) > maxRentDay){
+                this.pay(this.calcPrice(rent, priceRent) + timeRentOver);
+            }
+        }
+    }
+
+    public int getNumCard() {
+        return numCard;
+    }
+
+    /**
+     * Return the dvd, and pay
+     * @param rent the rent to return
+     * @throws RentException
+     * @throws CardException
+     */
+    @Override
+    public void returnDvd(Rent rent) throws RentException, CardException {
+        if(rent.isRentFinish()) throw new RentException(
+                "Error when return the " + rent.getDvd().getFilm().getTitle() +
+                            "ask to the boss");
+        this.onGoingRent.remove(rent);
+        rent.setDateReturn();
+        rent.setPrice(this.calcPrice(rent, priceRent));
+        this.addHistory(rent);
+        this.pay(
+                this.calcPrice(rent, priceRent) +
+                        (rent.getDvd().getState() != State.Good ? rent.getDvd().getDvdPrice():0));
+    }
+
+    @Override
+    public void setMaximumRent(int maximumRent) {
+        this.nbMaxRent = maximumRent;
+    }
+
+    /**
+     * Simulate CB payment
+     * @param money money to pay
+     */
+    public void pay(float money){}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CreditCard)) return false;
+        CreditCard that = (CreditCard) o;
+        return getNumCard() == that.getNumCard();
+    }
+
+}

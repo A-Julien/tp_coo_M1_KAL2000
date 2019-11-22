@@ -8,4 +8,3 @@ script:
   - java Main < ../Scenari/admin_scenario.txt
   - java Main < ../Scenari/new_sub_scenario.txt
   - java Main < ../Scenari/rent_return_scenario.txt
-

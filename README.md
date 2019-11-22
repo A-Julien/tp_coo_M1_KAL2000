@@ -120,7 +120,7 @@
 
 * interface standard
 
-  * Liste de tous les films avec affichage de la disponibilité dans KAL2000
+  * Liste de tous les films avec affichage de la disponibilité dans com.Controleur
 
   * pour chaque film il faut afficher :
 

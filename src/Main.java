@@ -1,18 +1,14 @@
-import Cards.CreditCard;
-import Cards.MainCard;
-import Cards.SubCard;
-import Exception.*;
-import KAL2000.DvD;
-import KAL2000.Kal2000;
-import KAL2000.Rent;
-import Model.UserModel;
-import Util.State;
-import View.AdminView;
-import View.ConnectionView;
-import View.UserView;
+import com.Controleur.Kal2000;
+import com.Model.Cards.CreditCard;
+import com.Model.Cards.MainCard;
+import com.Model.Exception.RentException;
+import com.Ui.UserModel;
+import com.View.AdminView;
+import com.View.ConnectionView;
+import com.View.UserView;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Scanner;
 
 
 public class Main {
@@ -99,7 +95,7 @@ public class Main {
 
             } else {
                 /********************************************************/
-                //            INTERFACE ABONNE - CARTE MAITRE
+                //            INTERFACE ABONNE
                 /********************************************************/
                 boolean sessionClient1 = true;
                 while (sessionClient1) {
@@ -163,6 +159,7 @@ public class Main {
                                 break;
                             //S'abonner
                             case "a":
+                                //TODO DANS USERVIEW
                                 ui.getConnectedClient().setSub(true);
                                 ui.getConnectedClient().getMainCards().add(new MainCard((CreditCard) ui.getConnectedCard()));
                                 System.out.println("Vous êtes désormais abonné ! Votre carte a pour id : " 

@@ -1,7 +1,8 @@
-import Exception.*;
-import KAL2000.DvD;
-import KAL2000.Kal2000;
-import Util.Populator;
+
+import com.Model.Exception.*;
+import com.Model.Movies.DvD;
+import com.Controleur.Kal2000;
+import com.Model.Utils.Populator;
 
 import java.io.IOException;
 import java.util.HashMap;
