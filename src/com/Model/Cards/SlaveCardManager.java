@@ -52,6 +52,13 @@ public interface SlaveCardManager {
     void deleteSlaveCard(SlaveCard slaveCard) throws SubCardException;
 
     /**
+     * Remove a SlaveCard bby an id, use {@link SlaveCardManager#deleteSlaveCard(SlaveCard)}
+     * @param id The id of the SlaveCard to remove
+     * @throws SubCardException
+     */
+    void deleteSlaveCardById(int id) throws SubCardException;
+
+    /**
      * Get the history of specific SlaveCard
      * @param slaveCard the slaveCard
      * @return ArrayList of Rent

@@ -101,4 +101,12 @@ public class SlaveCard extends SubCard implements Serializable {
     public void limitCategories(ArrayList<Category> cats){
         this.categories= cats;
     }
+
+    @Override
+    public String toString() {
+        return "Id : "+ this.id +
+                " | Nombre de locations en cours : " + this.onGoingRent.size() +
+                " | Nombre de locations autorisées : " + this.getMaxRent();
+
+    }
 }

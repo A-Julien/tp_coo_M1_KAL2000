@@ -122,7 +122,7 @@ public abstract class UserView {
 
                     boolean gestionMain = true;
                     MainCard main = (MainCard) ui.getConnectedCard();
-                    ArrayList<SlaveCard> slaves =main.getSlaveCards();
+                    ArrayList<SlaveCard> slaves = main.getSlaveCards();
                     int i;
                     while(gestionMain) {
                         System.out.println("Actions disponibles : \n Limiter le nombre de locations : l \n Afficher l'historique d'une carte: a \n"
@@ -210,8 +210,9 @@ public abstract class UserView {
                                 break;
                             //Créer carte fille
                             case "c":
-                                ((MainCard)ui.getConnectedCard()).createSlaveCard();
+                                SlaveCard slaveCard = ((MainCard)ui.getConnectedCard()).createSlaveCard();
                                 System.out.println("Carte fille créée");
+                                System.out.println("\tINFO CARD -> " + slaveCard.toString());
                                 break;
                             case "s":
 
@@ -220,24 +221,13 @@ public abstract class UserView {
                                     break;
                                 }
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
-                                int j=0;
-                                while(j< slaves.size()){
-                                    System.out.println("Id : "+slaves.get(j).getId()+" | Nombre de locations en cours : "+slaves.get(j).getOnGoingRent().size()
-                                            +"|Nombre de locations autorisées : "+ slaves.get(j).getMaxRent());
+                                for (SlaveCard slavecard : slaves){
+                                    System.out.println(slavecard.toString());
                                 }
-                                j=0;
-                                int idToDelete = Integer.parseInt(sc.nextLine());
-
-                                SlaveCard toDelete=null;
-                                while(j< slaves.size()){
-                                    if(slaves.get(j).getId()==idToDelete){
-                                        slave=slaves.get(j);
-                                    }
-                                }
-                                try{
-                                    main.deleteSlaveCard(toDelete);
-                                }catch(SubCardException e){
-                                    e.printStackTrace();
+                                try {
+                                    main.deleteSlaveCardById(Integer.parseInt(sc.nextLine()));
+                                } catch (SubCardException e) {
+                                    System.out.println(e.getMessage());
                                 }
                                 System.out.println("Carte fille supprimée");
 
@@ -245,7 +235,7 @@ public abstract class UserView {
                                 break;
                             //Retour
                             case "b":
-                                gestionEnCours = false;
+                                gestionMain = false;
                                 break;
                         }
 

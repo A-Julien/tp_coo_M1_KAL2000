@@ -77,6 +77,26 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
         this.slaveCards.remove(slaveCard);
     }
 
+    /**
+     * Remove a SlaveCard
+     * Ensure :
+     *  - Can not delete sub Card with on going rent
+     *  - Pay negative credit
+     * @param slaveCard The SlaveCard to remove
+     * @throws SubCardException Can not delete sub Card with on going rent
+     */
+    @Override
+    public void deleteSlaveCardById(int id) throws SubCardException {
+        for (SlaveCard slaveCard : this.slaveCards){
+            if(slaveCard.getId() == id){
+                this.deleteSlaveCard(slaveCard);
+                return;
+            }
+        }
+
+        throw new SubCardException("Can not find subCard with id : " + id);
+    }
+
 
     /**
      * Remove the MainCard
