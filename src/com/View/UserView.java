@@ -157,7 +157,7 @@ public abstract class UserView {
                                 }
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
                                 for (SlaveCard slavecard : slaves){
-                                    System.out.println(slavecard.toString());
+                                    System.out.print(slavecard.getId() + " ");
                                     if(slavecard.getCategories().isEmpty()) {
                                         System.out.println("Catégories autorisées -> " + Category.toStringAll());
                                     }else {

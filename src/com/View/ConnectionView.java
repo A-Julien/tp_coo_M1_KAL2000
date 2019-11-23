@@ -13,7 +13,7 @@ public abstract class ConnectionView {
 	 * @param system kal2000 engine
 	 * @param ui user interface
 	 * @param sc scanner
-	 * @return
+	 * @return <code>true</code> if logging ok, <code>false</code> otherwise
 	 */
     public static boolean logging(Kal2000 system, UserInterface ui, Scanner sc){
         String pw;
@@ -25,7 +25,7 @@ public abstract class ConnectionView {
         try {
             ui.connect(id, pw, system);
         } catch (PasswordException | CardException e) {
-            e.printStackTrace();
+            System.out.println("ERROR : " + e.getMessage());
             return false;
         }
         return true;
@@ -36,7 +36,7 @@ public abstract class ConnectionView {
 	 * @param system kal2000 engine
 	 * @param ui user interface
 	 * @param sc scanner
-     * @return
+     * @return <code>true</code> if create client is ok, <code>false</code> otherwise
      */
     public static boolean creatClient(Kal2000 system, UserInterface ui, Scanner sc){
         String pw, firstName, name;
