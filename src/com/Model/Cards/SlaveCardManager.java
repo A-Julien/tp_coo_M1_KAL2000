@@ -34,7 +34,7 @@ public interface SlaveCardManager {
      * Allow to manage number of maximal rent that can do a slave card
      * @param slaveCard  the slave card
      * @param maxRentToSlaveCard max rent that can do a slave card
-     * @throws SubCardException
+     * @throws SubCardException if can not find subCard
      */
     void setMaxRentToSlaveCard(SlaveCard slaveCard, int maxRentToSlaveCard) throws SubCardException;
 
@@ -47,16 +47,26 @@ public interface SlaveCardManager {
     /**
      * Remove a SlaveCard
      * @param slaveCard The SlaveCard to remove
-     * @throws SubCardException
+     * @throws SubCardException if Can not find subCard
      */
     void deleteSlaveCard(SlaveCard slaveCard) throws SubCardException;
 
     /**
      * Remove a SlaveCard bby an id, use {@link SlaveCardManager#deleteSlaveCard(SlaveCard)}
      * @param id The id of the SlaveCard to remove
-     * @throws SubCardException
+     * @throws SubCardException if can not find subCard with id
      */
     void deleteSlaveCardById(int id) throws SubCardException;
+
+    /**
+     * return a SlaveCard
+     * Ensure :
+     *  - Can not delete sub Card with on going rent
+     *  - Pay negative credit
+     * @param id The SlaveCard to remove
+     * @throws SubCardException Can not delete sub Card with on going rent
+     */
+    SlaveCard getSlaveCardById(int id) throws SubCardException;
 
     /**
      * Get the history of specific SlaveCard

@@ -91,5 +91,14 @@ public class DvD implements Serializable {
 		return this.film.getCategory();
 	}
 
+    /**
+     * Print basic info for a dvd
+     * @return String info
+     */
+	@Override
+	public String toString() {
+		return "id=" + id +
+				this.film.toString();
+	}
 }
 

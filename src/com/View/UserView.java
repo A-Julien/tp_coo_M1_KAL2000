@@ -34,7 +34,7 @@ public abstract class UserView {
 
         System.out.println("Entrez l'id du dvd que vous rendez : ");
         int idReturn = Integer.parseInt(sc.nextLine());
-        Rent rent = null;
+        Rent rent;
         try {
             rent = ui.getConnectedCard().getRent(idReturn);
         } catch (RentException e) {
@@ -72,7 +72,7 @@ public abstract class UserView {
             ui.getConnectedCard().rentDvd(toRent);
             system.giveDvd(toRent);
         } catch (RentException | StatusDvdException | SystemException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return;
         }
         System.out.println("Dvd loué");
@@ -150,7 +150,8 @@ public abstract class UserView {
                                     }
                                     i+=1;
                                 }
-                                System.out.println("Historique : \n"+ toDisplay.getHistory().toString());
+                                System.out.println("Historique : \n"+
+                                        (toDisplay != null ? toDisplay.getHistory().toString() : "Pas d'historique disponible"));
                                 break;
                             case "lc":
                                 if(slaves.isEmpty()){
@@ -158,29 +159,25 @@ public abstract class UserView {
                                     break;
                                 }
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
-                                i=0;
-                                while(i< slaves.size()){
-                                    System.out.println(slaves.get(i).toString());
-                                    if(slaves.get(i).getCategories().isEmpty()) {
+                                for (SlaveCard slaveCard : slaves){
+                                    System.out.println(slaveCard.toString());
+                                    if(slaveCard.getCategories().isEmpty()) {
                                         System.out.println("Catégories autorisées -> " + Category.toStringAll());
                                     }else {
-                                        System.out.println("Catégories autorisées -> " + slaves.get(i).getCategories().toString());
+                                        System.out.println("Catégories autorisées -> " + slaveCard.getCategories().toString());
 
                                     }
+                                }
+                                SlaveCard slaveCat;
+                                try {
+                                    slaveCat = main.getSlaveCardById(Integer.parseInt(sc.nextLine()));
+                                } catch (SubCardException e) {
+                                    System.out.println(e.getMessage());
+                                    break;
+                                }
 
-                                    i+=1;
-                                }
-                                int idCats = Integer.parseInt(sc.nextLine());
-                                i=0;
-                                SlaveCard slaveCat=null;
-                                while(i< slaves.size()){
-                                    if(slaves.get(i).getId()==idCats){
-                                        slaveCat=slaves.get(i);
-                                    }
-                                    i+=1;
-                                }
                                 System.out.println("Entrez les catégories autorisées parmis les suivantes : (Action|SF|Fantasy|Comedy|Tragedy|Romance) s pour arrêter");
-                                ArrayList<Category> categories = new ArrayList();
+                                ArrayList<Category> categories = new ArrayList<>();
                                 boolean entryOngoing=true;
                                 while(entryOngoing){
                                     String cat = sc.nextLine();
@@ -201,20 +198,14 @@ public abstract class UserView {
                                 }
 
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
-                                i=0;
-                                while(i< slaves.size()){
-                                    System.out.println(slaves.get(i).toString());
-                                    i+=1;
+                                SlaveCard slave;
+                                try {
+                                    slave = main.getSlaveCardById(Integer.parseInt(sc.nextLine()));
+                                } catch (SubCardException e) {
+                                    System.out.println(e.getMessage());
+                                    break;
                                 }
-                                int idSlave = Integer.parseInt(sc.nextLine());
-                                i=0;
-                                SlaveCard slave=null;
-                                while(i< slaves.size()){
-                                    if(slaves.get(i).getId()==idSlave){
-                                        slave=slaves.get(i);
-                                    }
-                                    i+=1;
-                                }
+
                                 System.out.println("Entrez le nouveau nombre de locations autorisées :");
                                 int nbMaxRent= Integer.parseInt(sc.nextLine());
                                 try{
@@ -260,11 +251,7 @@ public abstract class UserView {
                     break;
                 //Afficher le solde de la carte
                 case "v":
-                    try {
-                        System.out.println("Solde actuel : " + ((SubCard) ui.getConnectedCard()).getCredit() + " euros");
-                    } catch (SubCardException e) {
-                        e.printStackTrace();
-                    }
+                    System.out.println("Solde actuel : " + ((SubCard) ui.getConnectedCard()).getCredit() + " euros");
                     break;
 
                 //Rechargement du solde

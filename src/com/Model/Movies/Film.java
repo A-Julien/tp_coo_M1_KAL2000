@@ -16,7 +16,7 @@ public class Film implements Serializable {
 	private static int autoId;
 
 	/**
-	 * dvd id that are increment by {@link DvD#autoId}
+	 * dvd id that are increment by {@link Film#autoId}
 	 */
     private int id;
 
@@ -101,7 +101,8 @@ public class Film implements Serializable {
 	@Override
 	public String toString() {
 		return "id=" + id +
-				", title='" + title;
+				", title=" + title +
+				" Category=3" + this.category.toString();
 	}
 }
 

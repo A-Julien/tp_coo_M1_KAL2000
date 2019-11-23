@@ -65,11 +65,7 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
                 "Can not delete sub Card with on going rent");
 
         float slaveCredit;
-        try {
-            slaveCredit = slaveCard.getCredit();
-        } catch (SubCardException subCardException) {
-            return;
-        }
+        slaveCredit = slaveCard.getCredit();
 
         if(slaveCredit < 0) this.creditCard.pay(-slaveCredit);
         this.addCredit(slaveCredit);
@@ -82,7 +78,7 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      * Ensure :
      *  - Can not delete sub Card with on going rent
      *  - Pay negative credit
-     * @param slaveCard The SlaveCard to remove
+     * @param id id of The SlaveCard to remove
      * @throws SubCardException Can not delete sub Card with on going rent
      */
     @Override
@@ -91,6 +87,25 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
             if(slaveCard.getId() == id){
                 this.deleteSlaveCard(slaveCard);
                 return;
+            }
+        }
+
+        throw new SubCardException("Can not find subCard with id : " + id);
+    }
+
+    /**
+     * return a SlaveCard
+     * Ensure :
+     *  - Can not delete sub Card with on going rent
+     *  - Pay negative credit
+     * @param id The SlaveCard to remove
+     * @throws SubCardException Can not delete sub Card with on going rent
+     */
+    @Override
+    public SlaveCard getSlaveCardById(int id) throws SubCardException {
+        for (SlaveCard slaveCard : this.slaveCards){
+            if(slaveCard.getId() == id){
+                return slaveCard;
             }
         }
 
@@ -124,7 +139,7 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
      * @throws CardException Can't add on going rent in history
      */
     @Override
-    public void returnDvd(Rent rent) throws RentException, CardException, SubCardException {
+    public void returnDvd(Rent rent) throws RentException, CardException{
             if(rent.isRentFinish()) throw new RentException(
                     "Error when return the " + rent.getDvd().getFilm().getTitle() +
                             "ask to the boss");
@@ -142,17 +157,15 @@ public class MainCard extends SubCard implements SlaveCardManager, Serializable 
     /**
      * Check is a main card have to be regularized.
      * @return <code>true</code> if it has to be, <code>false</code> otherwise
-     * @throws SubCardException
      */
-    private boolean haveToBeRegularized() throws SubCardException {
+    private boolean haveToBeRegularized() {
         return this.getCredit() < 0 && this.periodRegularization != -1;
     }
 
     /**
      * Check if client's maincard has to be regularized, if  <code>true, make him pay.
-     * @throws SubCardException
      */
-    public void regularize() throws SubCardException {
+    public void regularize() {
         if(this.haveToBeRegularized()){
             this.periodRegularization -= 1;
             if(this.periodRegularization == 0){

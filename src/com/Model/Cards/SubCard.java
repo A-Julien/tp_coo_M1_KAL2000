@@ -63,8 +63,8 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     }
     
     /**
-     *  Check if the time rent is over and, if  <code>true, make client pay.
-     * @throws RentException
+     *  Check if the time rent is over and, if  <code>true</code>, make client pay.
+     * @throws RentException if rent is not over
      */
     public void checkRentDate() throws RentException {
         for (Rent rent: this.onGoingRent) {
@@ -93,7 +93,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     /**
      * pay amount fo a rent
      * @param rent the rent to pay
-     * @throws RentException
+     * @throws RentException if rent is not over
      */
     @Override
     public void payRent(Rent rent) throws RentException {
@@ -108,8 +108,8 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      *  - Can't rent a dvd with less than {@link SubCard#rentPriceLimit}
      * @param dvd the dvd to rent
      * @return the rent
-     * @throws RentException
-     * @throws StatusDvdException
+     * @throws RentException is rent is not over
+     * @throws StatusDvdException if dvd are broken or missing
      */
     @Override
     public Rent rentDvd(DvD dvd) throws RentException, StatusDvdException {
@@ -120,8 +120,8 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
 
         if(this.credit < rentPriceLimit) throw new RentException( // check if enough money to rent a dvd
                 "Can't rent a dvd with less than "+ rentPriceLimit +
-                        "credits, please refuel before " +
-                        "credit : " + this.credit + " euros");
+                        "credits, please refuel before. " +
+                        "Actual credit : " + this.credit + " euros");
 
         if( this instanceof SlaveCard && // if is a slave card, need to check if allow to rent dvd Category
             !((SlaveCard)this).categories.isEmpty() &&
@@ -157,9 +157,8 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
     /**
      * return the amount of credit
      * @return credit
-     * @throws SubCardException
      */
-    public float getCredit() throws SubCardException {
+    public float getCredit() {
         return this.credit;
     }
 
