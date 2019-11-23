@@ -135,23 +135,20 @@ public abstract class UserView {
                                     System.out.println("Vous n'avez pas de carte fille associé à cette carte");
                                     break;
                                 }
-                                i=0;
                                 System.out.println("Entrez l'id de la carte fille dont vous voulez consulter l'historique :");
-                                while(i< slaves.size()){
-                                    System.out.println(slaves.get(i).toString());
-                                    i+=1;
+                                for(SlaveCard slaveCard : slaves){
+                                    System.out.println(slaveCard.toString());
                                 }
-                                int idHistory = Integer.parseInt(sc.nextLine());
-                                SlaveCard toDisplay = null;
-                                i=0;
-                                while(i< slaves.size()){
-                                    if(slaves.get(i).getId()==idHistory){
-                                        toDisplay=slaves.get(i);
-                                    }
-                                    i+=1;
+
+                                SlaveCard slaveCard;
+                                try {
+                                    slaveCard = main.getSlaveCardById(Integer.parseInt(sc.nextLine()));
+                                } catch (SubCardException e) {
+                                    System.out.println(e.getMessage());
+                                    break;
                                 }
-                                System.out.println("Historique : \n"+
-                                        (toDisplay != null ? toDisplay.getHistory().toString() : "Pas d'historique disponible"));
+
+                                System.out.println("Historique : \n"+ slaveCard.getHistory().toString());
                                 break;
                             case "lc":
                                 if(slaves.isEmpty()){
@@ -159,12 +156,12 @@ public abstract class UserView {
                                     break;
                                 }
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
-                                for (SlaveCard slaveCard : slaves){
-                                    System.out.println(slaveCard.toString());
-                                    if(slaveCard.getCategories().isEmpty()) {
+                                for (SlaveCard slavecard : slaves){
+                                    System.out.println(slavecard.toString());
+                                    if(slavecard.getCategories().isEmpty()) {
                                         System.out.println("Catégories autorisées -> " + Category.toStringAll());
                                     }else {
-                                        System.out.println("Catégories autorisées -> " + slaveCard.getCategories().toString());
+                                        System.out.println("Catégories autorisées -> " + slavecard.getCategories().toString());
 
                                     }
                                 }
@@ -198,6 +195,9 @@ public abstract class UserView {
                                 }
 
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
+                                for (SlaveCard slavecard : slaves){
+                                    System.out.println(slavecard.toString());
+                                }
                                 SlaveCard slave;
                                 try {
                                     slave = main.getSlaveCardById(Integer.parseInt(sc.nextLine()));
@@ -217,9 +217,9 @@ public abstract class UserView {
                                 break;
                             //Créer carte fille
                             case "c":
-                                SlaveCard slaveCard = ((MainCard)ui.getConnectedCard()).createSlaveCard();
+                                SlaveCard slavecard = ((MainCard)ui.getConnectedCard()).createSlaveCard();
                                 System.out.println("Carte fille créée");
-                                System.out.println("\tINFO CARD -> " + slaveCard.toString());
+                                System.out.println("\tINFO CARD -> " + slavecard.toString());
                                 break;
                             case "s":
 
@@ -228,8 +228,8 @@ public abstract class UserView {
                                     break;
                                 }
                                 System.out.println("Entrez l'id de la carte fille à supprimer : ");
-                                for (SlaveCard slavecard : slaves){
-                                    System.out.println(slavecard.toString());
+                                for (SlaveCard s : slaves){
+                                    System.out.println(s.toString());
                                 }
                                 try {
                                     main.deleteSlaveCardById(Integer.parseInt(sc.nextLine()));
