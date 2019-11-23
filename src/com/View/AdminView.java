@@ -138,7 +138,10 @@ public abstract class AdminView {
 
 
     }
-
+    /**
+     * Allows an admin to display stats from all films
+     * @param system kal2000 engine
+     */
     public static void displayStats(Kal2000 system){
         HashMap<Film, Integer> stats = system.getFilmStat();
         System.out.println("Stat des films :");

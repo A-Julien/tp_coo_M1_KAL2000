@@ -74,6 +74,14 @@ public class SlaveCard extends SubCard implements Serializable {
     }
 
     /**
+     * Return the authorized categories of the SlaveCard
+     * @return
+     */
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    /**
      * Allow a SlaveCard to rent a dvd
      * A SlaveCard can not have a negative credit.
      * If credit are not enough, the creditCard are use to regularized.
@@ -98,6 +106,11 @@ public class SlaveCard extends SubCard implements Serializable {
         }
     }
 
+    /**
+     * Limit authorized categories on a slave card
+     * All categories are authorized if cats is null
+     * @param cats the categories allowed
+     */
     public void limitCategories(ArrayList<Category> cats){
         this.categories= cats;
     }

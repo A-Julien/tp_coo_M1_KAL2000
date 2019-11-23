@@ -131,11 +131,15 @@ public abstract class UserView {
 
                         switch(command) {
                             case "a" :
+                                if(slaves.isEmpty()){
+                                    System.out.println("Vous n'avez pas de carte fille associé à cette carte");
+                                    break;
+                                }
                                 i=0;
                                 System.out.println("Entrez l'id de la carte fille dont vous voulez consulter l'historique :");
                                 while(i< slaves.size()){
-                                    System.out.println("Id : "+slaves.get(i).getId()+" | Nombre de locations en cours : "+slaves.get(i).getOnGoingRent().size()
-                                            +"|Nombre de locations autorisées : "+ slaves.get(i).getMaxRent());
+                                    System.out.println(slaves.get(i).toString());
+                                    i+=1;
                                 }
                                 int idHistory = Integer.parseInt(sc.nextLine());
                                 SlaveCard toDisplay = null;
@@ -144,6 +148,7 @@ public abstract class UserView {
                                     if(slaves.get(i).getId()==idHistory){
                                         toDisplay=slaves.get(i);
                                     }
+                                    i+=1;
                                 }
                                 System.out.println("Historique : \n"+ toDisplay.getHistory().toString());
                                 break;
@@ -155,8 +160,15 @@ public abstract class UserView {
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
                                 i=0;
                                 while(i< slaves.size()){
-                                    System.out.println("Id : "+slaves.get(i).getId()+" | Nombre de locations en cours : "+slaves.get(i).getOnGoingRent().size()
-                                            +"|Nombre de locations autorisées : "+ slaves.get(i).getMaxRent());
+                                    System.out.println(slaves.get(i).toString());
+                                    if(slaves.get(i).getCategories().isEmpty()) {
+                                        System.out.println("Catégories autorisées -> " + Category.toStringAll());
+                                    }else {
+                                        System.out.println("Catégories autorisées -> " + slaves.get(i).getCategories().toString());
+
+                                    }
+
+                                    i+=1;
                                 }
                                 int idCats = Integer.parseInt(sc.nextLine());
                                 i=0;
@@ -165,6 +177,7 @@ public abstract class UserView {
                                     if(slaves.get(i).getId()==idCats){
                                         slaveCat=slaves.get(i);
                                     }
+                                    i+=1;
                                 }
                                 System.out.println("Entrez les catégories autorisées parmis les suivantes : (Action|SF|Fantasy|Comedy|Tragedy|Romance) s pour arrêter");
                                 ArrayList<Category> categories = new ArrayList();
@@ -173,8 +186,10 @@ public abstract class UserView {
                                     String cat = sc.nextLine();
                                     if (cat.equals("s")){
                                         entryOngoing=false;
+                                    }else{
+                                        categories.add(Category.valueOf(cat));
                                     }
-                                    categories.add(Category.valueOf(cat));
+
                                 }
                                 slaveCat.limitCategories(categories);
                                 System.out.println("Catégories limitées");
@@ -188,8 +203,8 @@ public abstract class UserView {
                                 System.out.println("Entrez l'id de la carte fille à limiter : ");
                                 i=0;
                                 while(i< slaves.size()){
-                                    System.out.println("Id : "+slaves.get(i).getId()+" | Nombre de locations en cours : "+slaves.get(i).getOnGoingRent().size()
-                                            +"|Nombre de locations autorisées : "+ slaves.get(i).getMaxRent());
+                                    System.out.println(slaves.get(i).toString());
+                                    i+=1;
                                 }
                                 int idSlave = Integer.parseInt(sc.nextLine());
                                 i=0;
@@ -198,6 +213,7 @@ public abstract class UserView {
                                     if(slaves.get(i).getId()==idSlave){
                                         slave=slaves.get(i);
                                     }
+                                    i+=1;
                                 }
                                 System.out.println("Entrez le nouveau nombre de locations autorisées :");
                                 int nbMaxRent= Integer.parseInt(sc.nextLine());
@@ -220,7 +236,7 @@ public abstract class UserView {
                                     System.out.println("Vous n'avez pas de carte fille associé à cette carte");
                                     break;
                                 }
-                                System.out.println("Entrez l'id de la carte fille à limiter : ");
+                                System.out.println("Entrez l'id de la carte fille à supprimer : ");
                                 for (SlaveCard slavecard : slaves){
                                     System.out.println(slavecard.toString());
                                 }
@@ -281,5 +297,7 @@ public abstract class UserView {
                 + ui.getConnectedClient()
                     .getMainCards()
                     .get(ui.getConnectedClient().getMainCards().size() - 1).getId());
+        ui.connect(ui.getConnectedClient(),ui.getConnectedClient().getMainCards().get(ui.getConnectedClient().getMainCards().size() - 1));
+
     }
 }
