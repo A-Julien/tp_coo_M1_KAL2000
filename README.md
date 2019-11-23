@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000.svg?branch=master)](https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000)
-# 				(K-)AL2000 and 6beerVideo
+
+# 				(K-)AL2000 and 6beerVideo [![Build Status](https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000.svg?branch=master)](https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000)
 
 
 
