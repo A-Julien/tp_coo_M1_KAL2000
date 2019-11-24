@@ -22,6 +22,7 @@ public class Populate {
 		HashMap<DvD, Integer> dvds = Populator.populateDvd(10);
 		systeme.addDvds(dvds);
 		systeme.addFilms(Populator.extractFilms(dvds));
+		
 		systeme.powerOff();
     }
 }

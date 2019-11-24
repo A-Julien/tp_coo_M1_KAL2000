@@ -1,4 +1,5 @@
 import com.Controller.Kal2000;
+import com.Model.Cards.SubCard;
 import com.Model.Exception.RentException;
 import com.Controller.UserInterface;
 import com.View.AdminView;
@@ -106,6 +107,7 @@ public class Main {
                     //Interface Sub
                     if (ui.getConnectedClient().isSub()) {
                         System.out.println("Vous êtes abonné.");
+                        System.out.println("Credit : " +  ((SubCard)ui.getConnectedCard()).getCredit() + " euros");
                         String menu = "Actions disponibles : \n Louer un dvd : l \n Rendre un dvd : r \n " +
                                 "Voir la liste des dvds : v \n Gérer la carte sub : g \n Se déconnecter : d\n " +
                                 "Quitter : q";
