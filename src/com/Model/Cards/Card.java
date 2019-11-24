@@ -1,9 +1,6 @@
 package com.Model.Cards;
 
-import com.Model.Exception.CardException;
-import com.Model.Exception.RentException;
-import com.Model.Exception.SubCardException;
-import com.Model.Exception.StatusDvdException;
+import com.Model.Exception.*;
 
 import com.Model.Movies.DvD;
 import com.Model.Rents.Rent;
@@ -132,7 +129,7 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      * @throws RentException
      */
     @Override
-    public abstract Rent rentDvd(DvD dvd) throws RentException, StatusDvdException;
+    public abstract Rent rentDvd(DvD dvd) throws RentException, StatusDvdException, SlaveCardException;
 
     /**
      * Check if the time rent is over.

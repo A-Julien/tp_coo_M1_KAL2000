@@ -46,10 +46,10 @@ public abstract class Populator {
     public static HashMap<DvD, Integer> populateDvd(int nbDvd) {
         HashMap<DvD, Integer> dvds = new HashMap<>();
         Random r = new Random();
-        int dvdCount = 0;
+        int dvdCount;
         for (int i = 0; i < nbDvd; i += dvdCount) {
-            dvdCount =  r.nextInt(5);
-            ArrayList<Category> categories = new ArrayList<Category>();
+            dvdCount =  r.nextInt((5 - 1) + 1) + 1;
+            ArrayList<Category> categories = new ArrayList<>();
             categories.add(Category.randomCategory());
             categories.add(Category.randomCategory());
             dvds.put(
@@ -73,8 +73,7 @@ public abstract class Populator {
     public static ArrayList<Film> extractFilms(HashMap<DvD, Integer>dvds){
         ArrayList<Film> films = new ArrayList<>();
         for (Map.Entry<DvD, Integer> dvd : dvds.entrySet()) {
-            Map.Entry elem = dvd;
-            films.add(((DvD)elem.getKey()).getFilm());
+            films.add((dvd.getKey()).getFilm());
         }
         return films;
     }

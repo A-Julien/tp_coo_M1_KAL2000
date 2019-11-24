@@ -1,8 +1,10 @@
 package com.Model.Cards;
 
 import com.Model.Exception.RentException;
+import com.Model.Exception.SlaveCardException;
 import com.Model.Exception.SubCardException;
 import com.Model.Exception.StatusDvdException;
+import com.Model.Exception.SlaveCardException;
 
 import com.Model.Movies.DvD;
 import com.Model.Rents.Rent;
@@ -112,7 +114,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
      * @throws StatusDvdException if dvd are broken or missing
      */
     @Override
-    public Rent rentDvd(DvD dvd) throws RentException, StatusDvdException {
+    public Rent rentDvd(DvD dvd) throws RentException, StatusDvdException, SlaveCardException {
         if(dvd.getState() != State.Good) throw new StatusDvdException("Dvd are broken or missing");
 
         if(this.onGoingRent.size() > nbMaxRent) throw new RentException( // check number of on going rent
@@ -125,7 +127,7 @@ public abstract class SubCard extends Card implements Creditable, Serializable {
 
         if( this instanceof SlaveCard && // if is a slave card, need to check if allow to rent dvd Category
             !((SlaveCard)this).categories.isEmpty() &&
-            !((SlaveCard)this).canIwatch(dvd)) throw new RentException(
+            !((SlaveCard)this).canIwatch(dvd)) throw new SlaveCardException(
                     "Category not allowed for this sub Card");
 
         if( this instanceof SlaveCard && // if is a slave card, check is own rent limit

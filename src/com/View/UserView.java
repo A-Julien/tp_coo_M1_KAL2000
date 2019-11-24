@@ -66,14 +66,18 @@ public abstract class UserView {
             System.out.println(dvd.getFilm().toString());
         }
         int idChosen = Integer.parseInt(sc.nextLine());
-
+        DvD toRent;
         try {
-            DvD toRent = system.getDvdById(idChosen);
+            toRent = system.getDvdById(idChosen);
             ui.getConnectedCard().rentDvd(toRent);
-            system.giveDvd(toRent);
-        } catch (RentException | StatusDvdException | SystemException e) {
+        } catch (RentException | StatusDvdException | SystemException | SlaveCardException e) {
             System.out.println(e.getMessage());
             return;
+        }
+        try {
+            system.giveDvd(toRent);
+        } catch (RentException e) {
+            e.printStackTrace();
         }
         System.out.println("Dvd loué");
     }
