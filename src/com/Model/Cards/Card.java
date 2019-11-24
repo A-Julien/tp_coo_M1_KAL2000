@@ -121,7 +121,8 @@ public abstract class Card implements Serializable, RentManager, RentHistorysabl
      * @throws RentException when the rent isn't returned yet
      */
     protected float calcPrice(Rent rent, int priceRent) throws RentException {
-        return  Card.getDateDiff(rent.getDateRent(), rent.getDateReturn(), TimeUnit.DAYS) * priceRent;
+        long days = Card.getDateDiff(rent.getDateRent(), rent.getDateReturn(), TimeUnit.DAYS);
+        return  days == 0 ? priceRent : days * priceRent;
     }
 
     /**
