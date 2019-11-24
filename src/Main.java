@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws RentException, InterruptedException, IOException, ClassNotFoundException {
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
         boolean session = false;
         boolean admin;
 
@@ -111,7 +111,8 @@ public class Main {
                                 "Quitter : q";
                         if(ui.isSlave())
                             menu = "Actions disponibles : \n Louer un dvd : l \n Rendre un dvd : r \n " +
-                                    "Voir la liste des dvds : v  \n Se déconnecter : d\n Quitter : q";
+                                    "Voir la liste des dvds : v\n Recharger sodle : s" +
+                                    " \n Se déconnecter : d\n Quitter : q";
                         System.out.println(menu);
                         System.out.println("-------------------------------------------------");
                         command = sc.nextLine();
@@ -127,6 +128,9 @@ public class Main {
                             //Gestion de la carte sub
                             case "g":
                                 if(!ui.isSlave()) UserView.subCardManaging(ui,sc);
+                                break;
+                            case "s":
+                                if(ui.isSlave()) UserView.refuelCredit(ui, sc);
                                 break;
                             //Déconnexion
                             case "d":

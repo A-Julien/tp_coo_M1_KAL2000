@@ -183,11 +183,11 @@ public abstract class UserView {
                                     }else{
                                         categories.add(Category.valueOf(cat));
                                     }
-
                                 }
                                 slaveCat.limitCategories(categories);
                                 System.out.println("Catégories limitées");
                                 break;
+
                             case "l" :
                                 if(slaves.isEmpty()){
                                     System.out.println("Vous n'avez pas de carte fille associé à cette carte");
@@ -215,14 +215,15 @@ public abstract class UserView {
                                 }
                                 System.out.println("Locations limitées !");
                                 break;
+
                             //Créer carte fille
                             case "c":
                                 SlaveCard slavecard = ((MainCard)ui.getConnectedCard()).createSlaveCard();
                                 System.out.println("Carte fille créée");
                                 System.out.println("\tINFO CARD -> " + slavecard.toString());
                                 break;
-                            case "s":
 
+                            case "s":
                                 if(slaves.isEmpty()){
                                     System.out.println("Vous n'avez pas de carte fille associé à cette carte");
                                     break;
@@ -237,9 +238,8 @@ public abstract class UserView {
                                     System.out.println(e.getMessage());
                                 }
                                 System.out.println("Carte fille supprimée");
-
-
                                 break;
+
                             //Retour
                             case "b":
                                 gestionMain = false;
@@ -256,20 +256,24 @@ public abstract class UserView {
 
                 //Rechargement du solde
                 case "r":
-                    System.out.println("Entrez le montant que vous voulez recharger (minimum 10 euros)");
-                    float montant = Float.parseFloat(sc.nextLine());
-                    if (montant >= 10.0) {
-                        ((SubCard) ui.getConnectedCard()).addCredit(montant);
-                        System.out.println("Rechargement réussi");
-                    } else {
-                        System.out.println("Montant insuffisant ! ");
-                    }
+                    refuelCredit(ui, sc);
                     break;
                 //Retour au menu principal
                 case "b":
                     gestionEnCours = false;
                     break;
             }
+        }
+    }
+
+    public static void refuelCredit(UserInterface ui, Scanner sc){
+        System.out.println("Entrez le montant que vous voulez recharger (minimum 10 euros)");
+        float montant = Float.parseFloat(sc.nextLine());
+        if (montant >= 10.0) {
+            ((SubCard) ui.getConnectedCard()).addCredit(montant);
+            System.out.println("Rechargement réussi");
+        } else {
+            System.out.println("Montant insuffisant ! ");
         }
     }
 
