@@ -36,7 +36,7 @@ public abstract class ConnectionView {
 	 * @param system kal2000 engine
 	 * @param ui user interface
 	 * @param sc scanner
-     * @return <code>true</code> if create client is ok, <code>false</code> otherwise
+     * @return <code>true</code> if create client is5 ok, <code>false</code> otherwise
      */
     public static boolean creatClient(Kal2000 system, UserInterface ui, Scanner sc){
         String pw, firstName, name;
