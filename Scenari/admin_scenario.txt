@@ -11,6 +11,5 @@ fname3 lname3
 Action
 rf
 1
-as
 d
 q
