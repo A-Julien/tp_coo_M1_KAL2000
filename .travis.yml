@@ -7,9 +7,11 @@ script:
   - java Main < ../Scenari/new_account_scenario.txt
   - java Main < ../Scenari/log_scenario.txt
   - java Main < ../Scenari/rent_return_classic_scenario.txt
+  - java Populate
   - java Main < ../Scenari/new_sub_scenario.txt
   - java Main < ../Scenari/rent_return_sub_scenario.txt
   - java Main < ../Scenari/create_slavecard_scenario.txt
   - java Main < ../Scenari/managed_slave_card.txt
+  - java Populate
   - java Main < ../Scenari/slave_scenario.txt
 
