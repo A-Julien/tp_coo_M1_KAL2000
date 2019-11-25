@@ -1,0 +1,9 @@
+
+com.Controller
+com.Model.Cards
+com.Model.Client
+com.Model.Exception
+com.Model.Movies
+com.Model.Rents
+com.Utils
+com.View
