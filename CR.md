@@ -1,7 +1,7 @@
 ALAIMO Julien,
 FEYDEL Hugo,
 HUMBERT Thibaud,
-KEKA Enver,
+KEKA Enver
 
 # Compte rendu TP Vidéoclub
 
