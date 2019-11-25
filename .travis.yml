@@ -1,13 +1,13 @@
 jdk: oraclejdk11
 script:
-  - cd src/org
+  - cd src
   - javac -Xlint:unchecked *.java
-  - java org.Populate
-  - java org.Main < ../Scenari/new_account_scenario.txt
-  - java org.Main < ../Scenari/log_scenario.txt
-  - java org.Main < ../Scenari/admin_scenario.txt
-  - java org.Main < ../Scenari/new_sub_scenario.txt
-  - java org.Main < ../Scenari/rent_return_scenario.txt
-  - java org.Main < ../Scenari/managed_slave_card.txt
-  - java org.Main < ../Scenari/rent_return_classic_scenario.txt
-  - java org.Main < ../Scenari/rent_return_sub_scenario.txt
+  - java Populate
+  - java Main < ../Scenari/new_account_scenario.txt
+  - java Main < ../Scenari/log_scenario.txt
+  - java Main < ../Scenari/admin_scenario.txt
+  - java Main < ../Scenari/new_sub_scenario.txt
+  - java Main < ../Scenari/rent_return_scenario.txt
+  - java Main < ../Scenari/managed_slave_card.txt
+  - java Main < ../Scenari/rent_return_classic_scenario.txt
+  - java Main < ../Scenari/rent_return_sub_scenario.txt
