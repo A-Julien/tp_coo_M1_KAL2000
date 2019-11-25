@@ -2,11 +2,10 @@ l
 2
 toto
 g
-v
-r
-9
-r
-20
+g
+c
+c
+b
 b
 d
 q
