@@ -8,3 +8,6 @@ script:
   - java org.Main < ../Scenari/admin_scenario.txt
   - java org.Main < ../Scenari/new_sub_scenario.txt
   - java org.Main < ../Scenari/rent_return_scenario.txt
+  - java org.Main < ../Scenari/managed_slave_card.txt
+  - java org.Main < ../Scenari/rent_return_classic_scenario.txt
+  - java org.Main < ../Scenari/rent_return_sub_scenario.txt
