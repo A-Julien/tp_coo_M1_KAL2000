@@ -4,7 +4,7 @@ toto
 g
 g
 s
-1
+2
 lc
 2
 Action
