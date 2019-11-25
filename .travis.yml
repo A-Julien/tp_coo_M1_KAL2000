@@ -2,8 +2,8 @@ jdk: oraclejdk11
 script:
   - cd src
   - javac -Xlint:unchecked *.java
-  - java Populate
   - java Main < ../Scenari/admin_scenario.txt
+  - java Populate
   - java Main < ../Scenari/new_account_scenario.txt
   - java Main < ../Scenari/log_scenario.txt
   - java Main < ../Scenari/rent_return_classic_scenario.txt
