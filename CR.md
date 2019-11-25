@@ -5,7 +5,7 @@ KEKA Enver,
 
 # Compte rendu TP Vidéoclub
 
-## Archithecture du projet:
+## Architecture du projet:
 
 *	Github : https://github.com/A-Julien/tp_coo_M1_KAL2000
 *	CI (Travis) : https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000
@@ -19,7 +19,7 @@ KEKA Enver,
 
 ## Gestion de projet
 
-Nous nous sommes organisé avec un git et une CI sur Travis. Nous n'avons pas eu le temps de réaliser beaucoup de tests. Les seules tests existant sont les scnénari. 
+Nous nous sommes organisé avec un git et une CI sur Travis. Nous n'avons pas eu le temps de réaliser beaucoup de tests. Les seules tests existant sont les scénari. 
 Pour avoir accés aux logs des tests il suffit de cliquer sur le bouton ```build``` sur la page du Github.
 
 ## Organisation du code :
