@@ -13,7 +13,7 @@ KEKA Enver,
 *	Compte-Rendu  : ```CR.pdf```
 *	JavaDoc : ```doc```
 *	Diagramme de classe : ```VideoClubUMLFinal.png```
-*	SRS : ```README.md```
+*	SRS : ```srs.pdf```
 \medbreak
 * Scenari de tests : ```Scenari```
 

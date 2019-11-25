@@ -1,7 +1,15 @@
 
 # 				(K-)AL2000 and 6beerVideo [![Build Status](https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000.svg?branch=master)](https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000)
 
+## Architecture du projet:
 
+*	Github : https://github.com/A-Julien/tp_coo_M1_KAL2000
+*	CI (Travis) : https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000
+*	Compte-Rendu  : ```CR.pdf```
+*	JavaDoc : ```doc```
+*	Diagramme de classe : ```VideoClubUMLFinal.png```
+*	SRS : ```srs.pdf```
+* Scenari de tests : ```Scenari```
 
 # Software requirement specification
 
