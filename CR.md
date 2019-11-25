@@ -1,7 +1,7 @@
-ALAIMO Julien
-FEYDEL Hugo
-HUMBERT Thibaud
-KEKA Enver
+ALAIMO Julien,
+FEYDEL Hugo,
+HUMBERT Thibaud,
+KEKA Enver,
 
 # Compte rendu TP Vidéoclub
 
@@ -10,10 +10,14 @@ KEKA Enver
 ## Organisation du code :
 
 Nous avons choisi d'organiser notre code selon un modèle MVC.
-Pour simuler la base de données, nous utilisons des fichiers dans lesquels nous enregistrons les modifications aux films, clients et dvds.
+Pour simuler la base de données, nous utilisons des fichiers dans lesquels nous enregistrons les modifications aux films, clients et dvds. Ces fichiers sont produit grâce à la serialisation et des trois tableau formant la base de donnée (grâce aux classes ```ObjectInputStream(), ObjectOutputStream()```)
+
+\bigbreak
 
 -	Le Contrôleur:
-	-	Il simule le fonctionnement de la machine permettant de louer les dvds dans la classe Kal2000 et son système de comptes pour les clients grâce aux classes UserInterface et Loggable.
+	-	Il simule le fonctionnement de la machine permettant de louer les dvds dans la classe ```Kal2000``` et son système de comptes pour les clients grâce aux classes ```UserInterface```. 
+	- ```Kal2000``` contient la base de données et gére la lecture et l'enregistrement de celle-ci grâce aux methodes ```powerOff(), boot()```.
+	-	```UserInterface``` gére la connection et l'identification du client. Elle gére aussi la detection de la connection d'un adminisatrateur. Pour simplifier la gestion des droits, si on se connect avec l'identifiant ```12345``` et le mot de passe ```12345``` on passe en mode administateur.
 
 -	Le Modèle :
 	-	Les paquetages constituant le modèle sont les suivants :
