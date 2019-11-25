@@ -11,7 +11,7 @@ KEKA Enver
 *	CI (Travis) : https://travis-ci.com/A-Julien/tp_coo_M1_KAL2000
 \medbreak
 *	Compte-Rendu  : ```CR.pdf```
-*	JavaDoc : ```doc```
+*	JavaDoc : https://a-julien.github.io/tp_coo_M1_KAL2000/
 *	Diagramme de classe : ```VideoClubUMLFinal.png```
 *	SRS : ```srs.pdf```
 \medbreak
