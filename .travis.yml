@@ -1,6 +1,6 @@
 jdk: oraclejdk11
 script:
-  - cd src
+  - cd src/org
   - javac -Xlint:unchecked *.java
   - java org.Populate
   - java org.Main < ../Scenari/new_account_scenario.txt
