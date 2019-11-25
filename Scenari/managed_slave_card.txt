@@ -6,7 +6,7 @@ g
 s
 2
 lc
-2
+1
 Action
 SF
 Fantasy
