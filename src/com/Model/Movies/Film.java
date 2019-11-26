@@ -102,7 +102,7 @@ public class Film implements Serializable {
 	public String toString() {
 		return "id=" + id +
 				", title=" + title +
-				" Category=3" + this.category.toString();
+				" Category= " + this.category.toString();
 	}
 }
 
