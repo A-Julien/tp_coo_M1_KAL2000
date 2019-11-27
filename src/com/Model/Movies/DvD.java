@@ -2,6 +2,7 @@ package com.Model.Movies;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Formalism of a DVD
@@ -100,5 +101,14 @@ public class DvD implements Serializable {
 		return "id=" + id +
 				this.film.toString();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof DvD)) return false;
+		DvD dvD = (DvD) o;
+		return getId() == dvD.getId();
+	}
+
 }
 

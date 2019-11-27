@@ -97,7 +97,7 @@ public abstract class AdminView {
                 indexFilmDvd = i;
             }
         }
-        Film filmDvd = null;
+        Film filmDvd;
         if (indexFilmDvd != -1) {
             filmDvd = system.getFilms6beerVideo().get(indexFilmDvd);
         } else {
@@ -117,6 +117,7 @@ public abstract class AdminView {
 	 * @param sc scanner
 	 */
     public static void removeDvd(Kal2000 system, Scanner sc){
+        System.out.println(system.printDvds());
         System.out.println("Entrez l'id du DVD à supprimer");
         int idDvdRemove = Integer.parseInt(sc.nextLine());
 
@@ -145,10 +146,8 @@ public abstract class AdminView {
     public static void displayStats(Kal2000 system){
         HashMap<Film, Integer> stats = system.getFilmStat();
         System.out.println("Stat des films :");
-        Iterator<Film> it = stats.keySet().iterator();
-        while(it.hasNext()){
-            Film current = it.next();
-            System.out.println(current.getTitle()+" : loué "+stats.get(current)+" fois");
+        for (Film current : stats.keySet()) {
+            System.out.println(current.getTitle() + " : loué " + stats.get(current) + " fois");
         }
 
 

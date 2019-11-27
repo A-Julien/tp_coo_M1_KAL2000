@@ -65,7 +65,7 @@ public class Kal2000 {
      * @throws SystemException throws if client already exist
      */
     public void addCLient(Client client) throws SystemException {
-        if(this.containClient(client)) throw new SystemException("client already exist");;
+        if(this.containClient(client)) throw new SystemException("client already exist");
         this.clients.add(client);
     }
 
@@ -91,7 +91,9 @@ public class Kal2000 {
      */
     public void addDvds(HashMap<DvD, Integer> dvds){
         this.ensureDvdCapacity(dvds.size());
-        this.dvds.putAll(dvds);
+        for(DvD d : dvds.keySet()){
+            if(this.ensureUniqueDvdId(d)) this.dvds.put(d,dvds.get(d));
+        }
     }
 
     /**
@@ -255,7 +257,15 @@ public class Kal2000 {
      */
     public void addDvd(DvD dvd, int nbDvd) {
         this.ensureDvdCapacity();
+        if(!this.ensureUniqueDvdId(dvd)) return;
         this.dvds.put(dvd,nbDvd);
+    }
+
+    private boolean ensureUniqueDvdId(DvD dvd){
+        for (DvD d : this.dvds.keySet()){
+            if(d.equals(dvd)) return false;
+        }
+        return true;
     }
 
     /**
@@ -267,6 +277,7 @@ public class Kal2000 {
      */
     public void addDvd(DvD dvd){
         this.ensureDvdCapacity();
+        if(!this.ensureUniqueDvdId(dvd)) return;
         for (DvD d : this.dvds.keySet()){
             if(d.getId() == dvd.getId()){
                 this.dvds.put(dvd, this.dvds.get(dvd)+1);
